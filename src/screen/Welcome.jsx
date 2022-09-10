@@ -1,22 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet, ImageBackground} from "react-native";
 import Button from "../components/Button";
-import { useFonts } from "expo-font";
+import {Typography} from "../styles"
 
 const image = require("../assets/images/bg.jpg");
 
 const Welcome = ({ navigation, route }) => {
-  const [fontsLoaded, error] = useFonts({
-    "BlankRiver-Bold": require("../assets/fonts/BlankRiver-Bold.ttf"),
-    "BebasNeue-Regular": require("../assets/fonts/BebasNeue-Regular.ttf"),
-  });
-  if (!fontsLoaded) {
-    return (
-      <View style={styles.container}>
-        <Text style={{ fontSize: 30 }}>Fonts not loaded {error}.</Text>
-      </View>
-    );
-  }
+
   const handleClick = (x, y) => {
     navigation.navigate(x, { name: y });
   };
@@ -63,16 +53,16 @@ const styles = StyleSheet.create({
   heading: {
     color: "white",
     lineHeight: 84,
-    fontFamily: "BlankRiver-Bold",
-    fontSize: 80,
+    fontFamily: Typography.FONT_FAMILY_DISPLAY,//"BlankRiver-Bold",
+    fontSize: Typography.FONT_SIZE_80,
     textAlign: "center",
   },
   body: {
     color: "white",
     maxWidth: "80%",
     alignSelf: "center",
-    fontSize: 14,
-    fontFamily: "BebasNeue-Regular",
+    fontSize: Typography.FONT_SIZE_14,
+    fontFamily: Typography.FONT_FAMILY_BODY,//"BebasNeue-Regular",
     textAlign: "center",
     letterSpacing: 0.5,
   },
