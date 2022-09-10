@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet, ImageBackground, Button } from "react-native";
-// import Button from "../components/Button";
+import { Text, View, StyleSheet, ImageBackground} from "react-native";
+import Button from "../components/Button";
 import { useFonts } from "expo-font";
 
 const image = require("../assets/images/bg.jpg");
