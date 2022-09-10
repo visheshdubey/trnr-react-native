@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "trnr-application",
+    "slug": "trnr-application",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
