@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Button } from "react-native";
 // import Button from "../components/Button";
 import { useFonts } from "expo-font";
 
@@ -18,7 +18,6 @@ const Welcome = ({ navigation, route }) => {
     );
   }
   const handleClick = (x, y) => {
-    console.log("Triggered");
     navigation.navigate(x, { name: y });
   };
   return (
@@ -32,12 +31,12 @@ const Welcome = ({ navigation, route }) => {
           POSITIONED AT VARIOUS HEIGHTS TO LEVERAGE A DIVERSE RANGE OF
           EXERCISES.
         </Text>
-        {/* <Button
-          onPress={() => handleClick("signup", "Sign Up")}
+        <Button
+          onPress={() => handleClick("SignUp", "Sign Up")}
           title="BEGIN"
           fill="#fff"
           color="#000"
-        ></Button> */}
+        ></Button>
         <Text style={styles.body}>ALREADY MEMEBER</Text>
         <View>
           <Text
