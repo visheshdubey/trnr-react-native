@@ -11,10 +11,10 @@ import { Mixins, Typography } from "../styles";
 
 const image = require("../assets/images/card1.png");
 const backdrop = require("../assets/images/cardGradient.png");
-const CategoryCard = ({categoryName, style}) => {
+const CategoryCard = ({categoryName, style, onPress}) => {
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <Image style={styles.imageStyles}source={image} resizeMode="cover"></Image>
         <Image
           style={styles.backdrop}

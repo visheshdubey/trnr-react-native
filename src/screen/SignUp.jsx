@@ -85,7 +85,7 @@ const SignUp = ({ navigation, route }) => {
 
       <Button
         onPress={() => handleClick("HomeNavigation", "HomeScreen")}
-        title="BEGIN"
+        title="CREATE ACCOUNT"
         fill="#000"
         color="#fff"
         style={{ marginTop: 50 }}

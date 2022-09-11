@@ -25,7 +25,12 @@ const items = [
     image: "../assets/images/card3.png",
   },
 ];
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
+
+  const handleClick = (x, y) => {
+    navigation.navigate(x, { name: y });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -58,7 +63,7 @@ const HomeScreen = () => {
           keyExtractor={(item) => item.id}
         /> */}
           {items.map((item) => (
-            <CategoryCard style={styles.item} categoryName={item.name} />
+            <CategoryCard style={styles.item} categoryName={item.name} key={item.id} onPress={()=>handleClick("Product", "Product")}/>
           ))}
         </View>
       </ScrollView>
