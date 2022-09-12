@@ -1,5 +1,4 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView, StyleSheet, TextInput, Text, View } from "react-native";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
@@ -36,41 +35,37 @@ const SignUp = ({ navigation, route }) => {
       </Text>
       <TextInput
         style={[styles.input, { width: "90%", marginTop: 50 }]}
-        onChangeText={onChangeText}
-        value={text}
+        // onChangeText={onChangeText}
+        // value={text}
+        placeholder="EMAIL ADDRESS"
       />
       <View
         style={{
           width: "90%",
           flexDirection: "row",
-          // flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
         }}
       >
         <TextInput
           style={[styles.input, { width: "48%" }]}
-          onChangeText={onChangeNumber}
+          // onChangeText={onChangeNumber}
           value={number}
           placeholder="FIRST NAME"
-          // keyboardType="password"
-          secureTextEntry={true}
+          
         />
         <TextInput
           style={[styles.input, { width: "48%" }]}
-          onChangeText={onChangeNumber}
+          // onChangeText={onChangeNumber}
           value={number}
           placeholder="LAST NAME"
-          // keyboardType="password"
-          secureTextEntry={true}
         />
       </View>
       <TextInput
         style={[styles.input, { width: "90%" }]}
-        onChangeText={onChangeNumber}
+        // onChangeText={onChangeNumber}
         value={number}
         placeholder="PASSWORD"
-        // keyboardType="password"
         secureTextEntry={true}
       />
       <TextInput
@@ -78,13 +73,11 @@ const SignUp = ({ navigation, route }) => {
         onChangeText={onChangeNumber}
         value={number}
         placeholder="DATE"
-        // keyboardType="password"
-        // secureTextEntry={true}
       />
       <DatePicker style={{ width: "90%" }}></DatePicker>
 
       <Button
-        onPress={() => handleClick("HomeNavigation", "HomeScreen")}
+        onPress={() => handleClick("BaseTabNav", "HomeScreen")}
         title="CREATE ACCOUNT"
         fill="#000"
         color="#fff"

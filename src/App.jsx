@@ -1,8 +1,8 @@
 import React from 'react';
 import { LogBox, View, Text } from 'react-native';
-import BaseStack from './Base';
 
 import { useFonts } from "expo-font";
+import BaseStackNav from './BaseStackNav';
 
 const App = () => {
   //   LogBox.ignoreAllLogs();
@@ -17,7 +17,7 @@ const App = () => {
     );
   }
   return (
-    <BaseStack />
+    <BaseStackNav />
   );
 };
 
