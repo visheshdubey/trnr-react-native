@@ -1,6 +1,6 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import HS_ExerciseScreen from "./HS_ExerciseScreen";
-import { Typography } from "../../styles";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import HS_ExerciseScreen from './HS_ExerciseScreen';
+import { Typography } from '../../styles';
 const Tab = createMaterialTopTabNavigator();
 
 const HS_ExerciseView = () => {
@@ -9,19 +9,18 @@ const HS_ExerciseView = () => {
       screenOptions={{
         tabBarScrollEnabled: true,
         headerTitleStyle: {
-            fontFamily:Typography.FONT_FAMILY_HEADING,
-            fontSize: Typography.FONT_SIZE_24,
-          
-          },
+          fontFamily: Typography.FONT_FAMILY_HEADING,
+          fontSize: Typography.FONT_SIZE_24,
+        },
         tabBarIndicatorStyle: {
-          backgroundColor: "black",
+          backgroundColor: 'black',
           height: 2,
         },
         tabBarLabelStyle: {
-            fontFamily: Typography.FONT_FAMILY_HEADING,
-            fontSize: Typography.FONT_SIZE_16,
-          },
-          tabBarStyle: { position: "absolute" },
+          fontFamily: Typography.FONT_FAMILY_HEADING,
+          fontSize: Typography.FONT_SIZE_16,
+        },
+        tabBarStyle: { position: 'absolute' },
       }}
     >
       <Tab.Screen name="UPPER BODY" component={HS_ExerciseScreen} />

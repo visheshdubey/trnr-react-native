@@ -1,12 +1,12 @@
-import React from "react";
-import { SafeAreaView, StyleSheet, TextInput, Text, View } from "react-native";
-import Logo from "../components/Logo";
-import Button from "../components/Button";
-import { Typography } from "../styles";
-import DatePicker from "../components/DatePicker";
+import React from 'react';
+import { SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
+import Logo from '../components/Logo';
+import Button from '../components/Button';
+import { Typography } from '../styles';
+import DatePicker from '../components/DatePicker';
 
 const SignUp = ({ navigation, route }) => {
-  const [text, onChangeText] = React.useState("Useless Text");
+  const [text, onChangeText] = React.useState('Useless Text');
   const [number, onChangeNumber] = React.useState(null);
 
   const handleClick = (x, y) => {
@@ -18,11 +18,11 @@ const SignUp = ({ navigation, route }) => {
       <Logo />
       <View
         style={{
-          width: "100%",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
+          width: '100%',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
           marginTop: 30,
         }}
       >
@@ -30,54 +30,51 @@ const SignUp = ({ navigation, route }) => {
         <Text style={[styles.heading_2, {}]}>MEMBER </Text>
       </View>
 
-      <Text style={[styles.body, { marginTop: 5 }]}>
-        AND RECIEVE THOUSANDS OF BENEFITS
-      </Text>
+      <Text style={[styles.body, { marginTop: 5 }]}>AND RECIEVE THOUSANDS OF BENEFITS</Text>
       <TextInput
-        style={[styles.input, { width: "90%", marginTop: 50 }]}
+        style={[styles.input, { width: '90%', marginTop: 50 }]}
         // onChangeText={onChangeText}
         // value={text}
         placeholder="EMAIL ADDRESS"
       />
       <View
         style={{
-          width: "90%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          width: '90%',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         <TextInput
-          style={[styles.input, { width: "48%" }]}
+          style={[styles.input, { width: '48%' }]}
           // onChangeText={onChangeNumber}
           value={number}
           placeholder="FIRST NAME"
-          
         />
         <TextInput
-          style={[styles.input, { width: "48%" }]}
+          style={[styles.input, { width: '48%' }]}
           // onChangeText={onChangeNumber}
           value={number}
           placeholder="LAST NAME"
         />
       </View>
       <TextInput
-        style={[styles.input, { width: "90%" }]}
+        style={[styles.input, { width: '90%' }]}
         // onChangeText={onChangeNumber}
         value={number}
         placeholder="PASSWORD"
         secureTextEntry={true}
       />
       <TextInput
-        style={[styles.input, { width: "90%" }]}
+        style={[styles.input, { width: '90%' }]}
         onChangeText={onChangeNumber}
         value={number}
         placeholder="DATE"
       />
-      <DatePicker style={{ width: "90%" }}></DatePicker>
+      <DatePicker style={{ width: '90%' }}></DatePicker>
 
       <Button
-        onPress={() => handleClick("BaseTabNav", "HomeScreen")}
+        onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
         title="CREATE ACCOUNT"
         fill="#000"
         color="#fff"
@@ -92,7 +89,7 @@ export default SignUp;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: 70,
   },
   heading: {

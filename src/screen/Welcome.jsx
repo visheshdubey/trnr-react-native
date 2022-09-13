@@ -1,12 +1,11 @@
-import React from "react";
-import { Text, View, StyleSheet, ImageBackground} from "react-native";
-import Button from "../components/Button";
-import {Typography} from "../styles"
+import React from 'react';
+import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import Button from '../components/Button';
+import { Typography } from '../styles';
 
-const image = require("../assets/images/bg.jpg");
+const image = require('../assets/images/bg.jpg');
 
 const Welcome = ({ navigation, route }) => {
-
   const handleClick = (x, y) => {
     navigation.navigate(x, { name: y });
   };
@@ -15,24 +14,20 @@ const Welcome = ({ navigation, route }) => {
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <Text style={styles.heading}>Welcome</Text>
         <Text style={styles.body}>
-          IDEAL FOR UPPER BODY CONDITIONING, TARGETING THE BACK, PECS,
-          SHOULDERS, BICEPS, TRICEPS AND ABS. HELPS DEVELOP MUSCLE MASS, PROTECT
-          JOINTS AND INCREASE BONE DENSITY. DOOR ANCHOR INCLUDED THAT CAN BE
-          POSITIONED AT VARIOUS HEIGHTS TO LEVERAGE A DIVERSE RANGE OF
+          IDEAL FOR UPPER BODY CONDITIONING, TARGETING THE BACK, PECS, SHOULDERS, BICEPS, TRICEPS
+          AND ABS. HELPS DEVELOP MUSCLE MASS, PROTECT JOINTS AND INCREASE BONE DENSITY. DOOR ANCHOR
+          INCLUDED THAT CAN BE POSITIONED AT VARIOUS HEIGHTS TO LEVERAGE A DIVERSE RANGE OF
           EXERCISES.
         </Text>
         <Button
-          onPress={() => handleClick("SignUp", "Sign Up")}
+          onPress={() => handleClick('SignUp', 'Sign Up')}
           title="BEGIN"
           fill="#fff"
           color="#000"
         ></Button>
         <Text style={styles.body}>ALREADY MEMEBER</Text>
         <View>
-          <Text
-            style={styles.body}
-            onPress={() => handleClick("SignIn", "Sign In")}
-          >
+          <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
             SIGN-IN
           </Text>
         </View>
@@ -47,28 +42,28 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     paddingBottom: 20,
   },
   heading: {
-    color: "white",
+    color: 'white',
     lineHeight: 84,
-    fontFamily: Typography.FONT_FAMILY_DISPLAY,//"BlankRiver-Bold",
+    fontFamily: Typography.FONT_FAMILY_DISPLAY,
     fontSize: Typography.FONT_SIZE_80,
-    textAlign: "center",
+    textAlign: 'center',
   },
   body: {
-    color: "white",
-    maxWidth: "80%",
-    alignSelf: "center",
+    color: 'white',
+    maxWidth: '80%',
+    alignSelf: 'center',
     fontSize: Typography.FONT_SIZE_14,
-    fontFamily: Typography.FONT_FAMILY_BODY,//"BebasNeue-Regular",
-    textAlign: "center",
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    textAlign: 'center',
     letterSpacing: 0.5,
   },
   button: {
-    backgroundColor: "white",
-    color: "#000",
+    backgroundColor: 'white',
+    color: '#000',
   },
 });
 

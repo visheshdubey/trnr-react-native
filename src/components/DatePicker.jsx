@@ -1,16 +1,10 @@
-import { React, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Platform,
-  Button,
-  Text,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Typography } from "../styles";
-import moment from "moment"
+import { React, useState } from 'react';
+import { View, StyleSheet, Platform, Button, Text } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Typography } from '../styles';
+import moment from 'moment';
 
-const DatePicker = ({style}) => {
+const DatePicker = ({ style }) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
@@ -21,7 +15,7 @@ const DatePicker = ({style}) => {
   };
 
   const showDatepicker = () => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       setShow(true);
       // for iOS, add a button that closes the picker
     }

@@ -1,15 +1,15 @@
-import { Typography } from "../../styles";
-import CategoryView from "./HS_CategoryScreen";
-import HS_ExerciseView from "./NAV_ExerciseScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HS_ExerciseDetailScreen from "./HS_ExerciseDetailScreen";
+import { Typography } from '../../styles';
+import CategoryView from './HS_CategoryScreen';
+import HS_ExerciseView from './NAV_ExerciseScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HS_ExerciseDetailScreen from './HS_ExerciseDetailScreen';
 const Stack = createNativeStackNavigator();
- const HomeScreen = () => {
+const HomeScreen = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         animationEnabled: false,
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerTitleStyle: {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,
@@ -26,11 +26,11 @@ const Stack = createNativeStackNavigator();
         name="ExerciseScreen"
         component={HS_ExerciseView}
         options={{
-          title: "BALANCE TRAINER",
+          title: 'BALANCE TRAINER',
           headerShown: true,
           animationEnabled: false,
           headerStyle: {
-            alignItems: "center",
+            alignItems: 'center',
           },
         }}
       />
@@ -38,11 +38,11 @@ const Stack = createNativeStackNavigator();
         name="SinglePushUp"
         component={HS_ExerciseDetailScreen}
         options={{
-          title: "SinglePushUp",
+          title: 'SinglePushUp',
           headerShown: true,
           animationEnabled: false,
           headerStyle: {
-            alignItems: "center",
+            alignItems: 'center',
           },
         }}
       />
