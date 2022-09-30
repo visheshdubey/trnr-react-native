@@ -24,13 +24,11 @@ const Welcome = ({ navigation, route }) => {
           title="BEGIN"
           fill="#fff"
           color="#000"
+          isLoading={false}
         ></Button>
-        <Text style={styles.body}>ALREADY MEMEBER</Text>
-        <View>
-          <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
-            SIGN-IN
-          </Text>
-        </View>
+        <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
+          ALREADY MEMEBER? SIGN-IN HERE
+        </Text>
       </ImageBackground>
     </View>
   );

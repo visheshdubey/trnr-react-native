@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { View, StyleSheet, Platform, Button, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Typography } from '../styles';
+import { Mixins, Typography } from '../styles';
 import moment from 'moment';
 
 const DatePicker = ({ style }) => {
@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_BODY,
 
-    height: 40,
-    marginVertical: 12,
+    height: Mixins.scaleSize(40),
+    marginVertical: Mixins.scaleSize(12),
     borderWidth: 1,
-    padding: 10,
+    padding: Mixins.scaleSize(10),
   },
 });
 

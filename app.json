@@ -9,7 +9,8 @@
     "android": {
       "package": "com.trnr.trnrapp"
     },
-    
-    "orientation": "portrait"
+    "ios": {
+      "bundleIdentifier": "com.trnr.trnrapp"
+    }
   }
 }

@@ -8,6 +8,8 @@ import SignIn from './screen/SignIn';
 import SignUp from './screen/SignUp';
 import BaseTabNav from './BaseTabNav';
 import { Typography } from './styles';
+import Test from './screen/Test';
+import SearchScreen from './screen/SearchScreen';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -24,10 +26,15 @@ const BaseStackNav = () => {
           },
         }}
       >
+        {/* <HomeStack.Screen
+          name="Test"
+          component={Test}
+          options={{ headerShown: false, gestureDirection: 'horizontal' }}
+        /> */}
         <HomeStack.Screen
           name="Welcome"
           component={Welcome}
-          options={{ headerShown: false, animationEnabled: false }}
+          options={{ headerShown: false, gestureDirection: 'horizontal' }}
         />
         <HomeStack.Screen
           name="SignIn"
@@ -44,6 +51,11 @@ const BaseStackNav = () => {
           name="BaseTabNav"
           component={BaseTabNav}
           options={{ headerShown: false, animationEnabled: false }}
+        />
+        <HomeStack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{ headerShown: false, gestureDirection: 'horizontal' }}
         />
       </HomeStack.Navigator>
     </NavigationContainer>

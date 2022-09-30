@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
-import ExerciseRow from '../../components/ExerciseRow';
+import ExerciseCard from '../../components/ExerciseCard';
+import { Mixins } from '../../styles';
+
 const items = [
   {
     id: '1',
@@ -22,10 +24,16 @@ const items = [
     name: 'HAND THERAPY',
     image: '../assets/images/card3.png',
   },
+
+  {
+    id: '5',
+    name: 'HAND THERAPY',
+    image: '../assets/images/card3.png',
+  },
 ];
 const HS_ExerciseScreen = ({ navigation }) => {
   const handleClick = (x, y) => {
-    navigation.navigate(x, { name: y });
+    navigation.navigate(x, { title: 'Detail Page' });
   };
 
   return (
@@ -33,24 +41,15 @@ const HS_ExerciseScreen = ({ navigation }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        style={{ width: '100%' }}
+        style={{ width: Mixins.scaleSize(365) }}
       >
-        <View
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 80,
-          }}
-        >
+        <View style={styles.grid}>
           {items.map((item) => (
-            <ExerciseRow
+            <ExerciseCard
               style={styles.item}
-              categoryName={item.name}
-              exerciseName1="SINGLE PUSH-UP"
-              exerciseName2="SINGLE PUSH-UP"
+              item={item}
               key={item.id}
-              onPress={() => handleClick('SinglePushUp', 'Product')}
+              onPress={() => handleClick('HS_ExerciseDetailScreen', 'Product')}
             />
           ))}
         </View>
@@ -62,13 +61,19 @@ const HS_ExerciseScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    paddingTop: Mixins.scaleSize(10),
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: Mixins.scaleSize(400),
+    alignItems: 'center',
+    marginBottom: Mixins.scaleSize(80),
+  },
   item: {
-    // backgroundColor:"tomato",
-    marginBottom: 15,
+    margin: Mixins.scaleSize(5),
   },
 });
 

@@ -37,3 +37,29 @@ export function boxShadow(color, offset = { height: 2, width: 2 },
         elevation: radius,
     };
 }
+
+export const generateBoxShadowStyle = (
+    xOffset,
+    yOffset,
+    shadowColorIos,
+    shadowOpacity,
+    shadowRadius,
+    elevation,
+    shadowColorAndroid,
+) => {
+    if (Platform.OS === 'ios') {
+        boxShadow = {
+            shadowColor: shadowColorIos,
+            shadowOffset: { width: xOffset, height: yOffset },
+            shadowOpacity,
+            shadowRadius,
+        };
+    } else if (Platform.OS === 'android') {
+        boxShadow = {
+            elevation,
+            shadowColor: shadowColorAndroid,
+        };
+    }
+
+    return boxShadow;
+};

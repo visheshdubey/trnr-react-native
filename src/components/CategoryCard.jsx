@@ -1,18 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
-const image = require('../assets/images/card1.png');
+const image = require('../assets/images/card2.png');
 const backdrop = require('../assets/images/cardGradient.png');
-const CategoryCard = ({ categoryName, style, onPress }) => {
+const CategoryCard = ({ item, style, onPress }) => {
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity onPress={onPress}>
-        <Image style={styles.imageStyles} source={image} resizeMode="cover"></Image>
+        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
         <Image style={styles.backdrop} source={backdrop} resizeMode="cover"></Image>
         <View style={[styles.backdrop]}>
           <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>CATEGORY</Text>
-          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{categoryName}</Text>
+          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -21,17 +21,18 @@ const CategoryCard = ({ categoryName, style, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
     overflow: 'hidden',
   },
   backdrop: {
     position: 'absolute',
     bottom: 0,
-    paddingHorizontal: 20,
-    paddingBottom: 15,
+    paddingHorizontal: Mixins.scaleSize(20),
+    paddingBottom: Mixins.scaleSize(15),
   },
   imageStyles: {
-    borderRadius: 10,
+    borderRadius: Mixins.scaleSize(10),
+    width: Mixins.WINDOW_WIDTH,
+    height: Mixins.scaleSize(150),
   },
   text: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

@@ -1,10 +1,12 @@
 import { Typography } from '../../styles';
-import CategoryView from './HS_CategoryScreen';
+import HS_CategoryScreen from './HS_CategoryScreen';
 import HS_ExerciseView from './NAV_ExerciseScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HS_ExerciseDetailScreen from './HS_ExerciseDetailScreen';
+import HS_ProductScreen from './HS_ProductScreen';
+import NAV_ExerciseScreen from './NAV_ExerciseScreen';
 const Stack = createNativeStackNavigator();
-const HomeScreen = () => {
+const NAV_HomeScreen = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -19,11 +21,11 @@ const HomeScreen = () => {
     >
       <Stack.Screen
         name="HomeScreen"
-        component={CategoryView}
+        component={HS_CategoryScreen}
         options={{ headerShown: false, animationEnabled: false }}
       />
       <Stack.Screen
-        name="ExerciseScreen"
+        name="HS_ExerciseScreen"
         component={HS_ExerciseView}
         options={{
           title: 'BALANCE TRAINER',
@@ -35,10 +37,34 @@ const HomeScreen = () => {
         }}
       />
       <Stack.Screen
-        name="SinglePushUp"
+        name="HS_ExerciseDetailScreen"
         component={HS_ExerciseDetailScreen}
         options={{
-          title: 'SinglePushUp',
+          title: 'HS_ExerciseDetailScreen',
+          headerShown: true,
+          animationEnabled: false,
+          headerStyle: {
+            alignItems: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="NAV_ExerciseScreen"
+        component={NAV_ExerciseScreen}
+        options={{
+          title: 'NAV_ExerciseScreen',
+          headerShown: true,
+          animationEnabled: false,
+          headerStyle: {
+            alignItems: 'center',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="HS_ProductScreen"
+        component={HS_ProductScreen}
+        options={{
+          title: 'HS_ProductScreen',
           headerShown: true,
           animationEnabled: false,
           headerStyle: {
@@ -50,4 +76,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default NAV_HomeScreen;

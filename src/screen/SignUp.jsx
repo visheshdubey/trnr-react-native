@@ -1,8 +1,16 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TextInput,
+  Text,
+  Platform,
+  View,
+} from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
-import { Typography } from '../styles';
+import { Mixins, Typography } from '../styles';
 import DatePicker from '../components/DatePicker';
 
 const SignUp = ({ navigation, route }) => {
@@ -14,74 +22,82 @@ const SignUp = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <Logo />
       <View
         style={{
-          width: '100%',
+          width: Mixins.WINDOW_WIDTH,
           flexDirection: 'row',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 30,
+          marginTop: Mixins.scaleSize(30),
         }}
       >
         <Text style={styles.heading}>LET'S BECOME A </Text>
         <Text style={[styles.heading_2, {}]}>MEMBER </Text>
       </View>
 
-      <Text style={[styles.body, { marginTop: 5 }]}>AND RECIEVE THOUSANDS OF BENEFITS</Text>
+      <Text style={[styles.body, { marginTop: Mixins.scaleSize(5) }]}>
+        AND RECIEVE THOUSANDS OF BENEFITS
+      </Text>
       <TextInput
-        style={[styles.input, { width: '90%', marginTop: 50 }]}
+        style={[styles.input, { width: Mixins.scaleSize(340), marginTop: Mixins.scaleSize(50) }]}
         // onChangeText={onChangeText}
         // value={text}
         placeholder="EMAIL ADDRESS"
       />
       <View
         style={{
-          width: '90%',
+          width: Mixins.scaleSize(340),
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
         <TextInput
-          style={[styles.input, { width: '48%' }]}
+          style={[styles.input, { width: Mixins.scaleSize(165) }]}
           // onChangeText={onChangeNumber}
-          value={number}
+          // value={number}
           placeholder="FIRST NAME"
         />
         <TextInput
-          style={[styles.input, { width: '48%' }]}
+          style={[styles.input, { width: Mixins.scaleSize(165) }]}
           // onChangeText={onChangeNumber}
-          value={number}
+          // value={number}
           placeholder="LAST NAME"
         />
       </View>
       <TextInput
-        style={[styles.input, { width: '90%' }]}
+        style={[styles.input, { width: Mixins.scaleSize(340) }]}
         // onChangeText={onChangeNumber}
-        value={number}
+        // value={number}
         placeholder="PASSWORD"
         secureTextEntry={true}
       />
       <TextInput
-        style={[styles.input, { width: '90%' }]}
+        style={[styles.input, { width: Mixins.scaleSize(340) }]}
         onChangeText={onChangeNumber}
         value={number}
         placeholder="DATE"
       />
-      <DatePicker style={{ width: '90%' }}></DatePicker>
+
+      <DatePicker style={{ width: Mixins.scaleSize(340) }}></DatePicker>
 
       <Button
         onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
         title="CREATE ACCOUNT"
         fill="#000"
         color="#fff"
-        style={{ marginTop: 50 }}
+        style={{ marginTop: Mixins.scaleSize(50) }}
       ></Button>
-      <Text style={styles.body}>ALREADY MEMEBER SIGN-IN</Text>
-    </SafeAreaView>
+      <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
+        ALREADY MEMEBER? SIGN-IN HERE
+      </Text>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -90,25 +106,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 70,
+    backgroundColor: 'white',
+    paddingVertical: Mixins.scaleSize(70),
   },
   heading: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
-    fontSize: 28,
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_28,
   },
   heading_2: {
     fontFamily: Typography.FONT_FAMILY_DISPLAY,
-    fontSize: 32,
+    fontSize: Typography.FONT_SIZE_32,
   },
   body: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
   },
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
-
-    height: 40,
-    marginVertical: 12,
+    height: Mixins.scaleSize(40),
+    marginVertical: Mixins.scaleSize(12),
     borderWidth: 1,
-    padding: 10,
+    padding: Mixins.scaleSize(10),
   },
 });
