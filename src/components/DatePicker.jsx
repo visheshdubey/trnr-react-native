@@ -23,13 +23,8 @@ const DatePicker = ({ style }) => {
 
   return (
     <View style={style}>
-      <Text
-        style={[styles.input]}
-        value={date.toLocaleString()}
-        placeholder="DATE"
-        onPress={showDatepicker}
-      >
-        {date.toLocaleString()}
+      <Text style={[styles.input]} placeholder="DATE" onPress={showDatepicker}>
+        {moment(date).format('DD MMMM YYYY')}
       </Text>
       {show && (
         <DateTimePicker

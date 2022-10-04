@@ -1,0 +1,83 @@
+{
+    "accepts_marketing": false,
+    "accepts_marketing_updated_at": "2013-06-27T08:48:27-04:00",
+    "addresses": [
+        {
+            "id": 207119551,
+            "customer_id": 6940095564,
+            "first_name": "Bob",
+            "last_name": "Norman",
+            "company": null,
+            "address1": "Chestnut Street 92",
+            "address2": "Apartment 2",
+            "city": "Louisville",
+            "province": "Kentucky",
+            "country": "United States",
+            "zip": "40202",
+            "phone": "555-625-1199",
+            "province_code": "KY",
+            "country_code": "US",
+            "country_name": "United States",
+            "default": true
+        }
+    ],
+    "currency": "JPY",
+    "created_at": "2013-06-27T08:48:27-04:00",
+    "default_address": {
+        "address1": "Chestnut Street 92",
+        "address2": "Apartment 2",
+        "city": "Louisville",
+        "company": null,
+        "country": "united states",
+        "first_name": "Bob",
+        "id": 207119551,
+        "last_name": "Norman",
+        "phone": "555-625-1199",
+        "province": "Kentucky",
+        "zip": "40202",
+        "province_code": "KY",
+        "country_code": "US",
+        "country_name": "United States",
+        "default": true
+    },
+    "email": "bob.norman@mail.example.com",
+    "email_marketing_consent": {
+        "state": "subscribed",
+        "opt_in_level": "confirmed_opt_in",
+        "consent_updated_at": "2022-04-01T11:22:06-04:00"
+    },
+    "first_name": "John",
+    "id": 207119551,
+    "last_name": "Norman",
+    "last_order_id": 234132602919,
+    "last_order_name": "#1169",
+    "metafield": {
+        "key": "new",
+        "namespace": "global",
+        "value": "newvalue",
+        "type": "string"
+    },
+    "marketing_opt_in_level": "confirmed_opt_in",
+    "multipass_identifier": null,
+    "note": "Placed an order that had a fraud warning",
+    "orders_count": 3,
+    "password": "password",
+    "password_confirmation": "password_confirmation",
+    "phone": "+16135551111",
+    "sms_marketing_consent": {
+        "state": "subscribed",
+        "opt_in_level": "single_opt_in",
+        "consent_updated_at": "2021-08-03T15:31:06-04:00",
+        "consent_collected_from": "OTHER"
+    },
+    "state": "disabled",
+    "tags": "loyal",
+    "tax_exempt": true,
+    "tax_exemptions": [
+        "CA_STATUS_CARD_EXEMPTION",
+        "CA_BC_RESELLER_EXEMPTION"
+    ],
+    "total_spent": "375.30",
+    "updated_at": "2012-08-24T14:01:46-04:00",
+    "verified_email": true
+}

@@ -5,8 +5,6 @@ import Profile from './screen/Profile';
 import { Typography } from './styles';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-// import FontAwesome5Pro from 'react-native-vector-icons/FontAwesome5Pro';
 
 const Tab = createBottomTabNavigator();
 export const BaseTabNav = () => {
@@ -20,6 +18,12 @@ export const BaseTabNav = () => {
           fontSize: Typography.FONT_SIZE_14,
         },
         tabBarStyle: { position: 'absolute', backgroundColor: '#000' },
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontFamily: Typography.FONT_FAMILY_HEADING,
+          fontSize: Typography.FONT_SIZE_24,
+        },
+        headerShadowVisible: false,
       }}
     >
       <Tab.Screen
@@ -27,7 +31,6 @@ export const BaseTabNav = () => {
         component={NAV_HomeScreen}
         options={{
           headerShown: false,
-          animationEnabled: false,
           tabBarIcon: ({ size, color }) => <Icon name="home" color={color} size={18} />,
         }}
       />

@@ -4,7 +4,8 @@ import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 
 import { useGetCategoryQuery } from '../../services/Products';
-
+import NetworkRequest from '../../components/NetworkRequest';
+import Icon from 'react-native-vector-icons/AntDesign';
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
   const handleClick = (x, y) => {
@@ -13,45 +14,46 @@ const HS_CategoryScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {error ? (
-        <Text>Oh no, there was an error = </Text>
-      ) : isLoading ? (
-        <ActivityIndicator color="#000" />
-      ) : data ? (
-        <>
-          <View style={styles.searchBarContainer}>
-            <Text
-              style={[
-                styles.searchBar,
-                Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.2, 3, 2, '#121212'),
-              ]}
-              onPress={() => navigation.navigate('SearchScreen', '')}
-            >
-              SEARCH FOR A PRODUCT OR WORKOUT
-            </Text>
-          </View>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            style={{ width: Mixins.scaleSize(340) }}
+      <NetworkRequest error={error} data={data} isLoading={isLoading}>
+        <View style={styles.searchBarContainer}>
+          <Text
+            style={[
+              styles.searchBar,
+              Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.2, 3, 2, '#121212'),
+            ]}
+            onPress={() => navigation.navigate('SearchScreen', '')}
           >
-            <View style={styles.scrollview}>
-              <Text style={styles.heading}>BEGIN YOUR </Text>
-              <Text style={[styles.heading_2, {}]}>JOURNEY </Text>
-              <View style={styles.separator}></View>
+            <Icon name="search1" color="#aaa" size={16} />
+            {'   '}
+            SEARCH FOR A PRODUCT OR WORKOUT
+          </Text>
+        </View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          style={{ width: Mixins.scaleSize(340) }}
+        >
+          <View style={styles.scrollview}>
+            <Text style={styles.heading}>BEGIN YOUR </Text>
+            <Text style={[styles.heading_2, {}]}>JOURNEY </Text>
+            <View style={styles.separator}></View>
 
-              {data?.map((item) => (
-                <CategoryCard
-                  style={styles.item}
-                  item={item}
-                  key={item.id}
-                  onPress={() => navigation.navigate('HS_ProductScreen', { categoryId: item.id })}
-                />
-              ))}
-            </View>
-          </ScrollView>
-        </>
-      ) : null}
+            {data?.map((item) => (
+              <CategoryCard
+                style={styles.item}
+                item={item}
+                key={item.id}
+                onPress={() =>
+                  navigation.navigate('HS_ProductScreen', {
+                    categoryId: item.id,
+                    categoryName: item.name,
+                  })
+                }
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </NetworkRequest>
     </SafeAreaView>
   );
 };
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.scaleSize(10),
     backgroundColor: '#fff',
   },
+
   scrollview: {
     width: Mixins.scaleSize(340),
     justifyContent: 'center',
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.scaleSize(15),
     paddingVertical: Mixins.scaleSize(15),
     fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,
     color: '#777',
 

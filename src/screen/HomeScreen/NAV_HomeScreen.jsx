@@ -5,13 +5,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HS_ExerciseDetailScreen from './HS_ExerciseDetailScreen';
 import HS_ProductScreen from './HS_ProductScreen';
 import NAV_ExerciseScreen from './NAV_ExerciseScreen';
+
 const Stack = createNativeStackNavigator();
 const NAV_HomeScreen = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        animationEnabled: false,
         headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
         headerTitleStyle: {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,
@@ -22,18 +23,15 @@ const NAV_HomeScreen = () => {
       <Stack.Screen
         name="HomeScreen"
         component={HS_CategoryScreen}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="HS_ExerciseScreen"
         component={HS_ExerciseView}
         options={{
           title: 'BALANCE TRAINER',
-          headerShown: true,
-          animationEnabled: false,
-          headerStyle: {
-            alignItems: 'center',
-          },
         }}
       />
       <Stack.Screen
@@ -41,11 +39,6 @@ const NAV_HomeScreen = () => {
         component={HS_ExerciseDetailScreen}
         options={{
           title: 'HS_ExerciseDetailScreen',
-          headerShown: true,
-          animationEnabled: false,
-          headerStyle: {
-            alignItems: 'center',
-          },
         }}
       />
       <Stack.Screen
@@ -53,11 +46,6 @@ const NAV_HomeScreen = () => {
         component={NAV_ExerciseScreen}
         options={{
           title: 'NAV_ExerciseScreen',
-          headerShown: true,
-          animationEnabled: false,
-          headerStyle: {
-            alignItems: 'center',
-          },
         }}
       />
       <Stack.Screen
@@ -65,11 +53,6 @@ const NAV_HomeScreen = () => {
         component={HS_ProductScreen}
         options={{
           title: 'HS_ProductScreen',
-          headerShown: true,
-          animationEnabled: false,
-          headerStyle: {
-            alignItems: 'center',
-          },
         }}
       />
     </Stack.Navigator>

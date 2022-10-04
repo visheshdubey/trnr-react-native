@@ -1,13 +1,20 @@
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Image, ScrollView, Text, Alert } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Mixins, Spacing, Typography } from '../../styles';
 import Button from '../../components/Button';
 
-const HS_ExerciseDetailScreen = () => {
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
+const HS_ExerciseDetailScreen = ({ route, navigation }) => {
+  const video = useRef(null);
+  const [status, setStatus] = useState({});
+  const { categoryName, productId } = route.params;
+  useEffect(() => {
+    navigation.setOptions({
+      title: categoryName,
+    });
+  }, [categoryName]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -38,7 +45,7 @@ const HS_ExerciseDetailScreen = () => {
             ref={video}
             style={styles.video}
             source={{
-              uri: 'https://trnr-test-01.s3.ap-southeast-2.amazonaws.com/1bd664a3428444b3b72a5e56b7e22c82_293fee3655.mp4?updated_at=2022-09-25T10:25:04.411Z',
+              uri: 'https://trnr-test-01.s3.ap-southeast-2.amazonaws.com/8K+HDR+++Batpod+(The+Dark+Knight)+++Dolby+5.1.mp4',
             }}
             useNativeControls
             resizeMode="contain"
@@ -62,13 +69,13 @@ const HS_ExerciseDetailScreen = () => {
             color="#fff"
           />
           {/* <View style={styles.buttons}>
-          <Button
-          title={status.isPlaying ? 'Pause' : 'Play'}
-          onPress={() =>
-            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-          }
-        />
-        </View> */}
+            <Button
+              title={status.isPlaying ? 'Pause' : 'Play'}
+              onPress={() =>
+                status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+              }
+            />
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -81,6 +88,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     flexDirection: 'row',
+  },
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttons: {
     flexDirection: 'row',

@@ -1,59 +1,41 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
+import NetworkRequest from '../../components/NetworkRequest';
+import { useGetExerciseCategoryQuery } from '../../services/Products';
 import { Mixins } from '../../styles';
+const HS_ExerciseScreen = ({ navigation, route }) => {
+  const { productId, categoryId } = route.params;
 
-const items = [
-  {
-    id: '1',
-    name: 'BALANCE AND AGILITY',
-    image: '../assets/images/card1.png',
-  },
-  {
-    id: '2',
-    name: 'STRENGTH',
-    image: '../assets/images/card2.png',
-  },
-  {
-    id: '3',
-    name: 'MASSAGE RECOVERY',
-    image: '../assets/images/card3.png',
-  },
-  {
-    id: '4',
-    name: 'HAND THERAPY',
-    image: '../assets/images/card3.png',
-  },
-
-  {
-    id: '5',
-    name: 'HAND THERAPY',
-    image: '../assets/images/card3.png',
-  },
-];
-const HS_ExerciseScreen = ({ navigation }) => {
-  const handleClick = (x, y) => {
-    navigation.navigate(x, { title: 'Detail Page' });
-  };
+  const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
+  console.log(endpoint);
+  const { error, data, isLoading } = useGetExerciseCategoryQuery(endpoint);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        style={{ width: Mixins.scaleSize(365) }}
-      >
-        <View style={styles.grid}>
-          {items.map((item) => (
-            <ExerciseCard
-              style={styles.item}
-              item={item}
-              key={item.id}
-              onPress={() => handleClick('HS_ExerciseDetailScreen', 'Product')}
-            />
-          ))}
-        </View>
-      </ScrollView>
+      <NetworkRequest error={error} data={data} isLoading={isLoading}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          style={{ width: Mixins.scaleSize(365) }}
+        >
+          <View style={styles.grid}>
+            {data?.map((item) => (
+              <ExerciseCard
+                style={styles.item}
+                item={item}
+                key={item.id}
+                onPress={() =>
+                  navigation.navigate('HS_ExerciseDetailScreen', {
+                    exerciseId: item.id,
+                    categoryName: item.name,
+                  })
+                }
+              />
+            ))}
+          </View>
+        </ScrollView>
+      </NetworkRequest>
     </SafeAreaView>
   );
 };
@@ -64,6 +46,11 @@ const styles = StyleSheet.create({
     paddingTop: Mixins.scaleSize(10),
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  center: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   grid: {
     flexDirection: 'row',

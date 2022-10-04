@@ -12,7 +12,7 @@ import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
 import DatePicker from '../components/DatePicker';
-
+import moment from 'moment/moment';
 const SignUp = ({ navigation, route }) => {
   const [text, onChangeText] = React.useState('Useless Text');
   const [number, onChangeNumber] = React.useState(null);
@@ -81,7 +81,7 @@ const SignUp = ({ navigation, route }) => {
       <TextInput
         style={[styles.input, { width: Mixins.scaleSize(340) }]}
         onChangeText={onChangeNumber}
-        value={number}
+        value={moment(number).format('DD MMMM YYYY')}
         placeholder="DATE"
       />
 
