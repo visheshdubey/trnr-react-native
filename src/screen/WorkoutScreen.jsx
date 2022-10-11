@@ -1,29 +1,35 @@
-import React from 'react';
-import { View, StyleSheet, SafeAreaView, FlatList, Text, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import {
+  RefreshControl,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
+import NetworkRequest from '../components/NetworkRequest';
 import Workout_Item from '../components/Workout_Item';
-import { useGetProductQuery } from '../services/Products';
+import { useGetWorkoutsListQuery } from '../services/Products';
 import { Mixins } from '../styles';
 import { WHITE } from '../styles/colors';
+
+// NetworkRequest
 const MyWorkout = () => {
-  const { data, error, isLoading } = useGetProductQuery();
+  const [refreshing, setRefreshing] = useState(false);
+  const { data, error, isLoading, refetch } = useGetWorkoutsListQuery(1);
   // const { categoryId } = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      {error ? (
-        <Text>Oh no, there was an error = </Text>
-      ) : isLoading ? (
-        <ActivityIndicator color="#000" />
-      ) : data ? (
-        <>
-          <FlatList
-            style={styles.list}
-            data={data}
-            extraData="hello"
-            renderItem={(props) => <Workout_Item {...props} />} //We have to use this syntax if we want to use hooks inside the rendered component
-            keyExtractor={(item) => item.id}
-          />
-        </>
-      ) : null}
+      <NetworkRequest error={error} data={data} isLoading={isLoading}>
+        <FlatList
+          style={styles.list}
+          data={data?.exercises}
+          extraData="hello"
+          renderItem={(props) => <Workout_Item {...props} />} //We have to use this syntax if we want to use hooks inside the rendered component
+          keyExtractor={(item) => item.id}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
+        />
+      </NetworkRequest>
     </SafeAreaView>
   );
 };

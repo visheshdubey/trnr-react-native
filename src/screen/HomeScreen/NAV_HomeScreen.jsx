@@ -13,6 +13,7 @@ const NAV_HomeScreen = () => {
       screenOptions={{
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
+        headerTintColor: 'black',
         headerTitleStyle: {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,

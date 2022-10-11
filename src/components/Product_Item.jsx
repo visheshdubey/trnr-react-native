@@ -21,7 +21,7 @@ function Product_Item({ item }) {
           })
         }
       >
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="contain" />
+        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
     </View>
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(104),
     borderRadius: 5,
     marginRight: Mixins.scaleSize(10),
+    backgroundColor: '#ccc',
   },
   text: {
     fontFamily: Typography.FONT_FAMILY_BODY,

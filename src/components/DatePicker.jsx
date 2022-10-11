@@ -17,6 +17,7 @@ const DatePicker = ({ style }) => {
   const showDatepicker = () => {
     if (Platform.OS === 'android') {
       setShow(true);
+      setShow(true);
       // for iOS, add a button that closes the picker
     }
   };

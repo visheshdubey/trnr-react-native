@@ -21,6 +21,7 @@ const BaseStackNav = () => {
         screenOptions={{
           headerShown: false,
           headerBackTitleVisible: false,
+          headerTintColor: 'black',
           headerTitleStyle: {
             fontFamily: Typography.FONT_FAMILY_HEADING,
             fontSize: Typography.FONT_SIZE_24,

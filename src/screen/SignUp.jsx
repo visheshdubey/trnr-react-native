@@ -7,25 +7,50 @@ import {
   Text,
   Platform,
   View,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
 import DatePicker from '../components/DatePicker';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import moment from 'moment/moment';
+import RadioButtonRN from 'radio-buttons-react-native';
+import { Picker } from '@react-native-picker/picker';
+import { WHITE } from '../styles/colors';
 const SignUp = ({ navigation, route }) => {
   const [text, onChangeText] = React.useState('Useless Text');
   const [number, onChangeNumber] = React.useState(null);
+  const [orientationIsLandscape, setOrientation] = React.useState(true);
+  const [selectedLanguage, setSelectedLanguage] = React.useState('Javascript');
+
+  async function changeScreenOrientation() {
+    if (orientationIsLandscape == true) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+    } else if (orientationIsLandscape == false) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    }
+  }
+  const toggleOrientation = () => {
+    setOrientation(!orientationIsLandscape);
+    changeScreenOrientation();
+  };
 
   const handleClick = (x, y) => {
     navigation.navigate(x, { name: y });
   };
+  const pickerRef = React.useRef();
 
+  function open() {
+    pickerRef.current.focus();
+  }
+
+  function close() {
+    pickerRef.current.blur();
+  }
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
+    <SafeAreaView style={styles.container}>
       <Logo />
       <View
         style={{
@@ -40,7 +65,6 @@ const SignUp = ({ navigation, route }) => {
         <Text style={styles.heading}>LET'S BECOME A </Text>
         <Text style={[styles.heading_2, {}]}>MEMBER </Text>
       </View>
-
       <Text style={[styles.body, { marginTop: Mixins.scaleSize(5) }]}>
         AND RECIEVE THOUSANDS OF BENEFITS
       </Text>
@@ -78,26 +102,45 @@ const SignUp = ({ navigation, route }) => {
         placeholder="PASSWORD"
         secureTextEntry={true}
       />
-      <TextInput
-        style={[styles.input, { width: Mixins.scaleSize(340) }]}
-        onChangeText={onChangeNumber}
-        value={moment(number).format('DD MMMM YYYY')}
-        placeholder="DATE"
-      />
-
+      <View
+        style={{
+          width: Mixins.scaleSize(340),
+          borderWidth: 1,
+          backgroundColor: 'green',
+          overflow: 'hidden',
+          color: WHITE,
+        }}
+      >
+        <Picker
+          selectedValue={selectedLanguage}
+          onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+          style={{ backgroundColor: 'red', height: Mixins.scaleSize(40) }}
+          itemStyle={{ backgroundColor: 'yellow' }}
+        >
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+      </View>
+      {/* <TextInput
+            style={[styles.input, { width: Mixins.scaleSize(340) }]}
+            onChangeText={onChangeNumber}
+            value={moment(number).format('DD MMMM YYYY')}
+            placeholder="DATE"
+          /> */}
+      {/* <RadioButtonRN data={data} selectedBtn={(e) => console.log(e)} /> */}
       <DatePicker style={{ width: Mixins.scaleSize(340) }}></DatePicker>
-
       <Button
         onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
         title="CREATE ACCOUNT"
         fill="#000"
         color="#fff"
-        style={{ marginTop: Mixins.scaleSize(50) }}
+        style={{ marginTop: Mixins.scaleSize(10) }}
       ></Button>
-      <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
+      <Text style={styles.body} onPress={toggleOrientation}>
+        {/* onPress={() => handleClick('SignIn', 'Sign In')}>  */}
         ALREADY MEMEBER? SIGN-IN HERE
       </Text>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -123,7 +166,7 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(12),
+    marginVertical: Mixins.scaleSize(5),
     borderWidth: 1,
     padding: Mixins.scaleSize(10),
   },

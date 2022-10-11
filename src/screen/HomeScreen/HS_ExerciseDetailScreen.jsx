@@ -1,74 +1,86 @@
 import { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Text, Alert } from 'react-native';
+import { RefreshControl, View, StyleSheet, Image, ScrollView, Text, Alert } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Mixins, Spacing, Typography } from '../../styles';
 import Button from '../../components/Button';
+import { useAddWorkoutMutation, useGetExerciseQuery } from '../../services/Products';
+import NetworkRequest from '../../components/NetworkRequest';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
-  const { categoryName, productId } = route.params;
+  const [refreshing, setRefreshing] = useState(false);
+  const { name, exerciseId } = route.params;
+  const { error, data, isLoading, isSuccess, refetch } = useGetExerciseQuery(exerciseId);
+  const [addWorkout, result] = useAddWorkoutMutation();
+
+  const saveWorkout = {
+    userId: 1,
+    data: {
+      exercises: exerciseId,
+    },
+  };
   useEffect(() => {
     navigation.setOptions({
-      title: categoryName,
+      title: name,
     });
-  }, [categoryName]);
-
+  }, [name]);
+  // if (isSuccess) console.log(JSON.stringify(data));
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={{ alignItems: 'center', marginBottom: 100 }}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/1.png')}
-            resizeMode="contain"
-          />
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/2.png')}
-            resizeMode="contain"
-          />
-          <View style={styles.row}>
-            <Image
-              style={styles.image2}
-              source={require('../../assets/images/3.png')}
-              resizeMode="contain"
+      <ScrollView
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
+        alwaysBounceVertical={false}
+        bouncesZoom={false}
+      >
+        <NetworkRequest error={error} data={data} isLoading={isLoading}>
+          <View style={{ alignItems: 'center', marginBottom: 100 }}>
+            {data?.image_large?.map((item) => (
+              <Image
+                style={styles.image}
+                key={item.id}
+                source={{ uri: item.url }}
+                resizeMode="contain"
+              />
+            ))}
+
+            <View style={styles.row}>
+              {data?.image_small?.map((item) => (
+                <Image
+                  style={styles.image2}
+                  key={item.id}
+                  source={{ uri: item.url }}
+                  resizeMode="contain"
+                />
+              ))}
+            </View>
+            {data?.video != null ? (
+              <Video
+                ref={video}
+                style={styles.video}
+                source={{
+                  uri: data?.video.url,
+                }}
+                useNativeControls
+                resizeMode="contain"
+                isLooping
+                onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+              />
+            ) : null}
+            <View style={styles.textContainer}>
+              <Text style={styles.category}>{data?.exercise_category?.name}</Text>
+              <Text style={styles.heading}>{data?.name}</Text>
+              <Text style={styles.body}>{data?.description}</Text>
+            </View>
+            <Button
+              onPress={() => addWorkout(saveWorkout)}
+              title="SAVE WORKOUT"
+              fill="#000"
+              color="#fff"
+              isLoading={result.isLoading}
             />
-            <Image
-              style={styles.image2}
-              source={require('../../assets/images/4.png')}
-              resizeMode="contain"
-            />
-          </View>
-          <Video
-            ref={video}
-            style={styles.video}
-            source={{
-              uri: 'https://trnr-test-01.s3.ap-southeast-2.amazonaws.com/8K+HDR+++Batpod+(The+Dark+Knight)+++Dolby+5.1.mp4',
-            }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.category}>UPPER BODY</Text>
-            <Text style={styles.heading}>PUSH UPS</Text>
-            <Text style={styles.body}>
-              IDEAL FOR UPPER BODY CONDITIONING, TARGETING THE BACK, PECS, SHOULDERS, BICEPS,
-              TRICEPS AND ABS. HELPS DEVELOP MUSCLE MASS. PROTECT JOINTS AND INCREASE BONE DENSITY.
-              DOOR ANCHOR INCLUDED THAT CAN BE POSITIONED AT VARIOUS HEIGHTS TO LEVERAGE A DIVERSE
-              RANGE OF EXERCISES. CONTES DES AMINOS MANTAPELOS.
-            </Text>
-          </View>
-          <Button
-            onPress={() => Alert.alert('Exercise Saved!')}
-            title="SAVE WORKOUT"
-            fill="#000"
-            color="#fff"
-          />
-          {/* <View style={styles.buttons}>
+            {/* <View style={styles.buttons}>
             <Button
               title={status.isPlaying ? 'Pause' : 'Play'}
               onPress={() =>
@@ -76,7 +88,8 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
               }
             />
           </View> */}
-        </View>
+          </View>
+        </NetworkRequest>
       </ScrollView>
     </SafeAreaView>
   );
@@ -110,12 +123,13 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(162.5),
     height: Mixins.scaleSize(162.5),
     overflow: 'hidden',
+    marginBottom: Mixins.scaleSize(17.5),
   },
   row: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     width: Mixins.scaleSize(340),
     justifyContent: 'space-between',
-    marginBottom: Mixins.scaleSize(17.5),
   },
   video: {
     alignSelf: 'center',
@@ -123,9 +137,6 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(191.25),
     marginBottom: Mixins.scaleSize(17.5),
   },
-  // textContainer: {
-  //   width: Mixins.scaleSize(340),
-  // },
   category: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_18,

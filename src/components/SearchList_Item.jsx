@@ -19,7 +19,7 @@ const SearchListItem = ({ item }) => {
           })
         }
       >
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="contain" />
+        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
     </View>

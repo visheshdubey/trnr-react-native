@@ -28,7 +28,7 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
                 onPress={() =>
                   navigation.navigate('HS_ExerciseDetailScreen', {
                     exerciseId: item.id,
-                    categoryName: item.name,
+                    name: item.name,
                   })
                 }
               />

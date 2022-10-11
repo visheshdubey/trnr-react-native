@@ -19,6 +19,7 @@ export const BaseTabNav = () => {
         },
         tabBarStyle: { position: 'absolute', backgroundColor: '#000' },
         headerTitleAlign: 'center',
+        headerTintColor: 'black',
         headerTitleStyle: {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,

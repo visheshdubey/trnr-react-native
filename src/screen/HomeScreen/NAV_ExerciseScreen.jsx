@@ -27,6 +27,7 @@ const NAV_ExerciseScreen = ({ route, navigation }) => {
         <Tab.Navigator
           screenOptions={{
             headerBackTitleVisible: false,
+            headerTintColor: 'black',
             tabBarScrollEnabled: data?.length > 3,
             headerTitleStyle: {
               fontFamily: Typography.FONT_FAMILY_HEADING,

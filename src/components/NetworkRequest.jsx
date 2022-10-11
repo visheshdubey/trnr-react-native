@@ -4,6 +4,7 @@ import { Mixins } from '../styles';
 
 const image = require('../assets/images/page_not_found.png');
 const NetworkRequest = ({ data, error, isLoading, children }) => {
+  // error ? console.log(JSON.stringify(error)) : null;
   return (
     <View style={styles.center}>
       {error ? (

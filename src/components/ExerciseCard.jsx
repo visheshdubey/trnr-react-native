@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   imageStyles: {
     width: Mixins.scaleSize(172.5),
     height: Mixins.scaleSize(172.5),
+    backgroundColor: '#ccc',
   },
   card: {
     overflow: 'hidden',

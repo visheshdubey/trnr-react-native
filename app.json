@@ -11,6 +11,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.trnr.trnrapp"
-    }
+    },
+    "orientation": "portrait"
   }
 }
