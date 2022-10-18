@@ -10,6 +10,7 @@ import BaseTabNav from './BaseTabNav';
 import { Typography } from './styles';
 import Test from './screen/Test';
 import SearchScreen from './screen/SearchScreen';
+import CountrySelectorScreen from './screen/CountrySelectorScreen';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -28,9 +29,11 @@ const BaseStackNav = () => {
           },
         }}
       >
+        {/* <HomeStack.Screen name="Test" component={Test} /> */}
         <HomeStack.Screen name="Welcome" component={Welcome} />
         <HomeStack.Screen name="SignIn" component={SignIn} />
         <HomeStack.Screen name="SignUp" component={SignUp} />
+        <HomeStack.Screen name="Country_Selector" component={CountrySelectorScreen} />
         {/* Calling Bottom Tab Navigation */}
         <HomeStack.Screen name="BaseTabNav" component={BaseTabNav} />
         <HomeStack.Screen name="SearchScreen" component={SearchScreen} />

@@ -20,14 +20,14 @@ const Welcome = ({ navigation, route }) => {
           EXERCISES.
         </Text>
         <Button
-          onPress={() => handleClick('SignUp', 'Sign Up')}
+          onPress={() => handleClick('SignIn', 'Sign In')}
           title="BEGIN"
           fill="#fff"
           color="#000"
           isLoading={false}
         ></Button>
-        <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
-          ALREADY MEMEBER? SIGN-IN HERE
+        <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
+          ALREADY MEMEBER? SIGN-UP HERE
         </Text>
       </ImageBackground>
     </View>

@@ -28,7 +28,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   }, [name]);
   // if (isSuccess) console.log(JSON.stringify(data));
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
         alwaysBounceVertical={false}
@@ -91,7 +91,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
           </View>
         </NetworkRequest>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(340),
     marginBottom: Mixins.scaleSize(17.5),
+    borderRadius: 15,
     overflow: 'hidden',
     marginHorizontal: 0,
   },
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(162.5),
     height: Mixins.scaleSize(162.5),
     overflow: 'hidden',
+    borderRadius: 15,
     marginBottom: Mixins.scaleSize(17.5),
   },
   row: {
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(191.25),
+    borderRadius: 15,
     marginBottom: Mixins.scaleSize(17.5),
   },
   category: {

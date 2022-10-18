@@ -6,8 +6,8 @@ import { Mixins, Typography } from '../styles';
 function Button({ onPress, title, fill, style, color, isLoading }) {
   const variant =
     color == '#fff'
-      ? require('../assets/images/000_btn.png')
-      : require('../assets/images/fff_btn.png');
+      ? require('../assets/images/000_btn_2.png')
+      : require('../assets/images/fff_btn_2.png');
   return (
     //
     <View style={[style]}>

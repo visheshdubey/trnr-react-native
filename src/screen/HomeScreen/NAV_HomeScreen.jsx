@@ -18,6 +18,7 @@ const NAV_HomeScreen = () => {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,
         },
+
         headerShadowVisible: false,
       }}
     >

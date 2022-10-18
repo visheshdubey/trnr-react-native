@@ -45,7 +45,9 @@ const SignIn = ({ navigation, route }) => {
         placeholder="PASSWORD"
         secureTextEntry={true}
       />
-
+      <Text style={styles.body} onPress={() => handleClick('Reset', 'Reset Password')}>
+        FORGOT PASSWORD?
+      </Text>
       <Button
         onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
         title="SIGNIN"

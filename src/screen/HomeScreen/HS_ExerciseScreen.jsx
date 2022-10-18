@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
 import NetworkRequest from '../../components/NetworkRequest';
 import { useGetExerciseCategoryQuery } from '../../services/Products';
 import { Mixins } from '../../styles';
+
 const HS_ExerciseScreen = ({ navigation, route }) => {
   const { productId, categoryId } = route.params;
-
+  const [dataLength, setDataLength] = useState(172.5);
   const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
-  console.log(endpoint);
-  const { error, data, isLoading } = useGetExerciseCategoryQuery(endpoint);
+  const { error, data, isLoading, isSuccess } = useGetExerciseCategoryQuery(endpoint);
+
+  useEffect(() => {
+    isSuccess ? (data?.length < 6 ? setDataLength(340) : setDataLength(172.5)) : null;
+  }, [data]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -17,13 +21,18 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          style={{ width: Mixins.scaleSize(365) }}
+          style={{ width: Mixins.scaleSize(375) }}
         >
           <View style={styles.grid}>
             {data?.map((item) => (
               <ExerciseCard
-                style={styles.item}
+                style={{
+                  margin: Mixins.scaleSize(5),
+                  width: Mixins.scaleSize(dataLength),
+                  height: Mixins.scaleSize(dataLength),
+                }}
                 item={item}
+                size={340}
                 key={item.id}
                 onPress={() =>
                   navigation.navigate('HS_ExerciseDetailScreen', {
@@ -55,12 +64,10 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: Mixins.scaleSize(400),
+    width: Mixins.WINDOW_WIDTH,
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: Mixins.scaleSize(80),
-  },
-  item: {
-    margin: Mixins.scaleSize(5),
   },
 });
 

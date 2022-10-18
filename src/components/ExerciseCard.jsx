@@ -4,7 +4,9 @@ import { Mixins, Typography } from '../styles';
 
 // const image = require('../assets/images/exercise1.png');
 const backdrop = require('../assets/images/cardGradient.png');
-const ExerciseCard = ({ style, onPress, item }) => {
+let globalSize;
+const ExerciseCard = ({ style, onPress, item, size }) => {
+  globalSize = size;
   console.log(item.image);
   return (
     <View style={[styles.container, style]}>
@@ -12,7 +14,7 @@ const ExerciseCard = ({ style, onPress, item }) => {
         <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
         <Image style={styles.backdrop} source={backdrop} resizeMode="cover"></Image>
         <View style={[styles.backdrop]}>
-          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>{item.category}</Text>
+          {/* <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>{item.category}</Text> */}
           <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{item.name}</Text>
         </View>
       </TouchableOpacity>
@@ -23,15 +25,18 @@ const ExerciseCard = ({ style, onPress, item }) => {
 const styles = StyleSheet.create({
   backdrop: {
     position: 'absolute',
-    width: Mixins.scaleSize(172.5),
+    width: '100%',
     bottom: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     paddingHorizontal: 20,
     paddingBottom: 15,
   },
   imageStyles: {
-    width: Mixins.scaleSize(172.5),
-    height: Mixins.scaleSize(172.5),
+    width: '100%',
+    height: '100%',
     backgroundColor: '#ccc',
+    borderRadius: 15,
   },
   card: {
     overflow: 'hidden',

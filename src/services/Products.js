@@ -1,10 +1,12 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
+import { CREATE_USER_QUERY } from '../utils/ApiConstants';
+// CREATE_USER_QUERY
 // Define a service using a base URL and expected endpoints
 export const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://trnr-app.herokuapp.com/api/' }),
+
     refetchOnReconnect: true,
     tagTypes: ['Workout'],
     endpoints: (builder) => ({
@@ -56,7 +58,8 @@ export const productsApi = createApi({
             }),
             invalidatesTags: ['Workout']
 
-        })
+        }),
+
 
     })
 })

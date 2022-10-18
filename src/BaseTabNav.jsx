@@ -36,7 +36,7 @@ export const BaseTabNav = () => {
         }}
       />
       <Tab.Screen
-        name="MyWorkouts"
+        name="My Workouts"
         component={MyWorkout}
         options={{
           tabBarIcon: ({ size, color }) => <Icon name="dumbbell" color={color} size={18} />,

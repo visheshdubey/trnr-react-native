@@ -5,8 +5,15 @@ import { Mixins, Typography } from '../styles';
 import moment from 'moment';
 
 const DatePicker = ({ style }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [show, setShow] = useState(false);
+
+  // useEffect(() => {
+  //   effect;
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, []);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -24,16 +31,21 @@ const DatePicker = ({ style }) => {
 
   return (
     <View style={style}>
-      <Text style={[styles.input]} placeholder="DATE" onPress={showDatepicker}>
-        {moment(date).format('DD MMMM YYYY')}
+      <Text
+        style={date ? [styles.input] : [styles.inputPlaceholder]}
+        placeholder="DATE"
+        onPress={showDatepicker}
+      >
+        {date ? moment(date).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
       </Text>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
+          value={date ? date : new Date()}
           mode="date"
           is24Hour={true}
           onChange={onChange}
+          display="default"
         />
       )}
     </View>
@@ -42,9 +54,16 @@ const DatePicker = ({ style }) => {
 const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_BODY,
-
     height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(12),
+    marginVertical: Mixins.scaleSize(5),
+    borderWidth: 1,
+    padding: Mixins.scaleSize(10),
+  },
+  inputPlaceholder: {
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    color: '#999',
+    height: Mixins.scaleSize(40),
+    marginVertical: Mixins.scaleSize(5),
     borderWidth: 1,
     padding: Mixins.scaleSize(10),
   },

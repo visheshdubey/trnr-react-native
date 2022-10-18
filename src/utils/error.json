@@ -1,0 +1,43 @@
+{
+    "requestId": "JcVnXoAeHhYJfbeoDiDs4",
+    "status": "fulfilled",
+    "endpointName": "createShopifyUser",
+    "startedTimeStamp": 1665602893667,
+    "data": {
+        "errors": [
+            {
+                "message": "Variable $input of type CustomerCreateInput! was provided invalid value",
+                "locations": [
+                    {
+                        "line": 1,
+                        "column": 25
+                    }
+                ],
+                "extensions": {
+                    "value": null,
+                    "problems": [
+                        {
+                            "path": [],
+                            "explanation": "Expected value to not be null"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "fulfilledTimeStamp": 1665602894257,
+    "isUninitialized": false,
+    "isLoading": false,
+    "isSuccess": true,
+    "isError": false,
+    "originalArgs": {
+        "input": {
+            "firstName": "John1",
+            "lastName": "Smith",
+            "email": "visheshd360@gmail.com",
+            "phone": "+918840224032",
+            "password": "5hopify",
+            "acceptsMarketing": true
+        }
+    }
+}
