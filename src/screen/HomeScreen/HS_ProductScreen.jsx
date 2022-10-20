@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RefreshControl, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import NetworkRequest from '../../components/NetworkRequest';
 import Product_Item from '../../components/Product_Item';
-import { useGetProductQuery } from '../../services/Products';
+import { useGetProductQuery } from '../../services/strapi';
 import { Mixins } from '../../styles';
 import { WHITE } from '../../styles/colors';
 

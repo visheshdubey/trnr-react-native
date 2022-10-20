@@ -7,7 +7,6 @@ const backdrop = require('../assets/images/cardGradient.png');
 let globalSize;
 const ExerciseCard = ({ style, onPress, item, size }) => {
   globalSize = size;
-  console.log(item.image);
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity style={styles.card} onPress={onPress} key={item.id}>

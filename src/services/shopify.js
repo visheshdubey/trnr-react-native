@@ -1,6 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CREATE_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL } from '../utils/ApiConstants'
+import { CREATE_USER_QUERY, GET_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL, ACCESS_TOKEN_USER_QUERY } from '../utils/ApiConstants'
 
 // Define a service using a base URL and expected endpoints
 export const shopifyApi = createApi({
@@ -24,8 +24,15 @@ export const shopifyApi = createApi({
                 body: JSON.stringify({ query: CREATE_USER_QUERY, variables: variables }),
             }),
         }),
+        getShopifyUser: builder.mutation({
+            query: (variables) => ({
+                url: `/`,
+                method: 'POST',
+                body: JSON.stringify({ query: GET_USER_QUERY, variables: variables }),
+            }),
+        }),
         accessTokenShopifyUser: builder.mutation({
-            query: ({ variables }) => ({
+            query: (variables) => ({
                 url: `/`,
                 method: 'POST',
                 body: JSON.stringify({ query: ACCESS_TOKEN_USER_QUERY, variables: variables }),
@@ -55,8 +62,9 @@ export const shopifyApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
     useCreateShopifyUserMutation,
-    // useUpdateShopifyUserMutation,
-    // useResetShopifyUserMutation,
-    // useAccessTokenShopifyUserMutation
+    useUpdateShopifyUserMutation,
+    useGetShopifyUserMutation,
+    useResetShopifyUserMutation,
+    useAccessTokenShopifyUserMutation
 
 } = shopifyApi

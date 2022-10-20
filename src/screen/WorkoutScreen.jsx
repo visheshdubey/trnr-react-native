@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import NetworkRequest from '../components/NetworkRequest';
 import Workout_Item from '../components/Workout_Item';
-import { useGetWorkoutsListQuery } from '../services/Products';
+import { useGetWorkoutsListQuery } from '../services/strapi';
 import { Mixins } from '../styles';
 import { WHITE } from '../styles/colors';
 

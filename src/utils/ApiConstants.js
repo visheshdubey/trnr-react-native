@@ -2,6 +2,8 @@ export const STOREFRONT_ACCESS_TOKEN = 'c43f4f2aa7e79003094fce2daf7dbf59'
 
 export const GRAPHQL_URL = 'https://trnr-test.myshopify.com/api/2022-10/graphql.json'
 
+export const userID = 116144281116144281
+
 export const CREATE_USER_QUERY = `
 mutation customerCreate($input: CustomerCreateInput!) {
   customerCreate(input: $input) {
@@ -10,7 +12,6 @@ mutation customerCreate($input: CustomerCreateInput!) {
       firstName
       lastName
       email
-      phone
       acceptsMarketing
     }
     customerUserErrors {
@@ -18,6 +19,18 @@ mutation customerCreate($input: CustomerCreateInput!) {
       message
       code
     }
+  }
+}
+`
+export const GET_USER_QUERY = `
+query GetUser($customerAccessToken: String!){
+  customer(customerAccessToken: $customerAccessToken) {
+    id
+    firstName
+    lastName
+    acceptsMarketing
+    email
+    phone
   }
 }
 `
@@ -68,16 +81,20 @@ mutation customerUpdate($customer: CustomerUpdateInput!, $customerAccessToken: S
 }`
 
 
-export const CREATE_USER_VAR = (fn, ln, email, phone, pswd, marketing = true) => ({
+export const CREATE_USER_VAR = (fn, ln, email, pswd, marketing = true) => ({
   input: {
     firstName: fn,
     lastName: ln,
     email: email,
-    phone: phone,
     password: pswd,
     acceptsMarketing: marketing
   }
 })
+export const GET_USER_VAR = (token) => (
+  {
+    customerAccessToken: token
+  }
+)
 
 export const RESET_USER_VAR = (email) => ({
 
@@ -101,3 +118,29 @@ export const UPDATE_USER_VAR = (fn, ln, email, phone, AUTH) => ({
   customerAccessToken: AUTH
 
 })
+
+export const STRAPI_ADD_WORKOUT = (exerciseID) => ({
+
+  data: {
+    exercises: exerciseID,
+  },
+
+})
+
+export const STRAPI_ADD_USER_DATA = (fn, ln = '', email, dob, gender, tnc) => (
+  {
+
+    data:
+    {
+      customer_id: userID,
+      firstName: fn,
+      lastName: ln,
+      email: email,
+      DOB: "1900-01-01",
+      // country: "Australia",
+
+      gender: gender,
+      tnc: false
+    }
+
+  })

@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HS_ExerciseScreen from './HS_ExerciseScreen';
 import { Mixins, Typography } from '../../styles';
-import { useGetExerciseCategoryListQuery } from '../../services/Products';
+import { useGetExerciseCategoryListQuery } from '../../services/strapi';
 import { Text, ActivityIndicator, StyleSheet } from 'react-native';
 import NetworkRequest from '../../components/NetworkRequest';
 import { useState, useEffect } from 'react';

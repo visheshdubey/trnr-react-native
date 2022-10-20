@@ -11,6 +11,7 @@ export const FONT_FAMILY_BODY = 'BebasNeuePro-Regular';
 // export const FONT_WEIGHT_BOLD = '700';
 
 // FONT SIZE
+export const FONT_SIZE_96 = scaleFont(96);
 export const FONT_SIZE_80 = scaleFont(80);
 export const FONT_SIZE_56 = scaleFont(56);
 export const FONT_SIZE_48 = scaleFont(48);

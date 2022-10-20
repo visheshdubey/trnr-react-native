@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import Button from '../components/Button';
 import { Typography } from '../styles';
+import { scaleFont } from '../styles/mixins';
 
 const image = require('../assets/images/bg.jpg');
 
@@ -20,14 +21,15 @@ const Welcome = ({ navigation, route }) => {
           EXERCISES.
         </Text>
         <Button
-          onPress={() => handleClick('SignIn', 'Sign In')}
+          onPress={() => handleClick('SignUp', 'Sign Up')}
           title="BEGIN"
           fill="#fff"
           color="#000"
           isLoading={false}
+          style={{ marginVertical: 20 }}
         ></Button>
-        <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
-          ALREADY MEMEBER? SIGN-UP HERE
+        <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
+          ALREADY MEMEBER? SIGN-IN HERE
         </Text>
       </ImageBackground>
     </View>
@@ -45,9 +47,9 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: 'white',
-    lineHeight: 84,
+    lineHeight: scaleFont(124),
     fontFamily: Typography.FONT_FAMILY_DISPLAY,
-    fontSize: Typography.FONT_SIZE_80,
+    fontSize: Typography.FONT_SIZE_96,
     textAlign: 'center',
   },
   body: {

@@ -1,10 +1,10 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CREATE_USER_QUERY } from '../utils/ApiConstants';
+import { CREATE_USER_QUERY, userID } from '../utils/ApiConstants';
 // CREATE_USER_QUERY
 // Define a service using a base URL and expected endpoints
-export const productsApi = createApi({
-    reducerPath: 'productsApi',
+export const strapiApi = createApi({
+    reducerPath: 'strapiApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://trnr-app.herokuapp.com/api/' }),
 
     refetchOnReconnect: true,
@@ -37,22 +37,29 @@ export const productsApi = createApi({
 
         }),
         getWorkoutsList: builder.query({
-            query: (userId) => `workouts/${userId}`,
-            keepUnusedDataFor: 1,
+            query: (userId) => `workouts/${userID}`,
+            keepUnuseDataFor: 1,
             providesTags: ['Workout']
 
         }),
-        addWorkout: builder.mutation({
-            query: ({ userId, ...patch }) => ({
-                url: `workouts/${userId}`,
+        addUserData: builder.mutation({
+            query: (body) => ({
+                url: `user-create/${userID}`,
                 method: 'POST',
-                body: patch,
+                body: body,
+            }),
+        }),
+        addWorkout: builder.mutation({
+            query: (body) => ({
+                url: `workouts/${userID}`,
+                method: 'POST',
+                body: body,
             }),
             invalidatesTags: ['Workout']
         }),
         deleteWorkout: builder.mutation({
             query: ({ userId, ...patch }) => ({
-                url: `workouts/${userId}?DELETE`,
+                url: `workouts/${userID}?DELETE`,
                 method: 'PUT',
                 body: patch,
             }),
@@ -74,6 +81,7 @@ export const {
     useGetExerciseQuery,
     useGetSearchQuery,
     useGetWorkoutsListQuery,
+    useAddUserDataMutation,
     useAddWorkoutMutation,
     useDeleteWorkoutMutation
-} = productsApi
+} = strapiApi

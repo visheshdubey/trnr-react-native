@@ -11,9 +11,9 @@ import {
 import { SafeAreaView } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useGetSearchQuery } from '../services/Products';
+import { useGetSearchQuery } from '../services/strapi';
 import NetworkRequest from '../components/NetworkRequest';
-import CountrySelectorList_Item from '../components/CountySelectorList_Item';
+import CountrySelectorList_Item from '../components/CountrySelectorList_Item';
 
 import { country_list } from '../utils/world';
 

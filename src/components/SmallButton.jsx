@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
-function Button({ onPress, title, fill, style, color, isLoading }) {
+function SmallButton({ onPress, title, fill, style, color, isLoading }) {
   return (
     //
     <View style={[style]}>
@@ -21,22 +21,24 @@ function Button({ onPress, title, fill, style, color, isLoading }) {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
+    borderRadius: 15,
   },
   btnBackground: {
-    width: Mixins.scaleSize(275),
-    height: Mixins.scaleSize(47),
-    backgroundColor: fill,
-    borderRadius: Mixins.scaleSize(47),
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: color,
+    width: Mixins.scaleSize(54),
+    height: Mixins.scaleSize(32),
   },
   text: {
     position: 'absolute',
-    width: Mixins.scaleSize(275),
-    height: Mixins.scaleSize(47),
+    width: Mixins.scaleSize(54),
+    height: Mixins.scaleSize(32),
     textAlign: 'center',
-    lineHeight: Mixins.scaleSize(47),
+    lineHeight: Mixins.scaleSize(32),
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
   },
 });
 
-export default Button;
+export default SmallButton;

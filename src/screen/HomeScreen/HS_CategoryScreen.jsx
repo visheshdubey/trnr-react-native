@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } f
 import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 
-import { useGetCategoryQuery } from '../../services/Products';
+import { useGetCategoryQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
 import Icon from 'react-native-vector-icons/AntDesign';
 const HS_CategoryScreen = ({ navigation }) => {
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     backgroundColor: '#fff',
     borderColor: '#ddd',
-    // borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: Mixins.scaleSize(15),
     paddingVertical: Mixins.scaleSize(15),
@@ -103,12 +102,6 @@ const styles = StyleSheet.create({
     fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,
     color: '#777',
-
-    // shadowColor: '#aaa',
-    // shadowOffset: { width: 20, height: 20 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 40,
-    // elevation: 3,
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,

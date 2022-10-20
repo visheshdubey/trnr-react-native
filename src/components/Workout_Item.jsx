@@ -3,8 +3,9 @@ import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useDeleteWorkoutMutation } from '../services/Products';
+import { useDeleteWorkoutMutation } from '../services/strapi';
 import { ActivityIndicator } from 'react-native';
+
 const WorkoutCard = ({ item }, props) => {
   const navigation = useNavigation();
   const [deleteWorkout, result] = useDeleteWorkoutMutation();

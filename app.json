@@ -12,6 +12,11 @@
     "ios": {
       "bundleIdentifier": "com.trnr.trnrapp"
     },
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "extra": {
+      "eas": {
+        "projectId": "b4733037-6a20-45ce-b087-7b3cbcc3a580"
+      }
+    }
   }
 }

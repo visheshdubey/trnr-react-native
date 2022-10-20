@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(60),
     borderRadius: 5,
     marginRight: Mixins.scaleSize(10),
-    backgroundColor: '#ccc',
+    backgroundColor: '#eee',
   },
   exercise: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

@@ -4,8 +4,9 @@ import { Video, AVPlaybackStatus } from 'expo-av';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Mixins, Spacing, Typography } from '../../styles';
 import Button from '../../components/Button';
-import { useAddWorkoutMutation, useGetExerciseQuery } from '../../services/Products';
+import { useAddWorkoutMutation, useGetExerciseQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
+import { STRAPI_ADD_WORKOUT } from '../../utils/ApiConstants';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const video = useRef(null);
@@ -74,7 +75,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
               <Text style={styles.body}>{data?.description}</Text>
             </View>
             <Button
-              onPress={() => addWorkout(saveWorkout)}
+              onPress={() => addWorkout(STRAPI_ADD_WORKOUT(exerciseId))}
               title="SAVE WORKOUT"
               fill="#000"
               color="#fff"
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(340),
     marginBottom: Mixins.scaleSize(17.5),
+    backgroundColor: '#eee',
     borderRadius: 15,
     overflow: 'hidden',
     marginHorizontal: 0,
@@ -123,6 +125,8 @@ const styles = StyleSheet.create({
   image2: {
     width: Mixins.scaleSize(162.5),
     height: Mixins.scaleSize(162.5),
+
+    backgroundColor: '#eee',
     overflow: 'hidden',
     borderRadius: 15,
     marginBottom: Mixins.scaleSize(17.5),
@@ -137,6 +141,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(191.25),
+
+    backgroundColor: '#eee',
     borderRadius: 15,
     marginBottom: Mixins.scaleSize(17.5),
   },

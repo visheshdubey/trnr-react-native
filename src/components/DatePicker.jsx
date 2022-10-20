@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(40),
     marginVertical: Mixins.scaleSize(5),
     borderWidth: 1,
+
+    borderRadius: 5,
     padding: Mixins.scaleSize(10),
   },
   inputPlaceholder: {
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(40),
     marginVertical: Mixins.scaleSize(5),
     borderWidth: 1,
+    borderRadius: 5,
     padding: Mixins.scaleSize(10),
   },
 });

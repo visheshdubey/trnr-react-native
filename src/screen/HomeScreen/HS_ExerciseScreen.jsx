@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
 import NetworkRequest from '../../components/NetworkRequest';
-import { useGetExerciseCategoryQuery } from '../../services/Products';
+import { useGetExerciseCategoryQuery } from '../../services/strapi';
 import { Mixins } from '../../styles';
 
 const HS_ExerciseScreen = ({ navigation, route }) => {
@@ -10,6 +10,8 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   const [dataLength, setDataLength] = useState(172.5);
   const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
   const { error, data, isLoading, isSuccess } = useGetExerciseCategoryQuery(endpoint);
+
+  const GRID_THRESHOLD = 6; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
 
   useEffect(() => {
     isSuccess ? (data?.length < 6 ? setDataLength(340) : setDataLength(172.5)) : null;
