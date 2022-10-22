@@ -36,7 +36,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
         bouncesZoom={false}
       >
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
-          <View style={{ alignItems: 'center', marginBottom: 100 }}>
+          <View style={{ alignItems: 'center', marginBottom: 100, marginTop: 20 }}>
             {data?.image_large?.map((item) => (
               <Image
                 style={styles.image}
@@ -98,6 +98,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fff',
     overflow: 'hidden',

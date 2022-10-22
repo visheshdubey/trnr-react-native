@@ -4,8 +4,6 @@ import { Mixins, Typography } from '../styles';
 
 import { useNavigation } from '@react-navigation/native';
 
-const image = require('../assets/images/dummy.jpg');
-
 function Search_Item({ item, style }) {
   const navigation = useNavigation();
   // console.log(props);

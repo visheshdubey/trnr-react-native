@@ -73,7 +73,7 @@ const Profile = ({ navigation, route }) => {
                     onPress={toggleEdit}
                     title="CLOSE"
                     fill="#000"
-                    color="#F66"
+                    color="#C53437"
                   ></SmallButton>
                 ) : (
                   <SmallButton
@@ -136,14 +136,22 @@ const Profile = ({ navigation, route }) => {
                     style={{ marginTop: Mixins.scaleSize(20) }}
                   ></Button>
                   <Button
-                    onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
+                    onPress={toggleEdit}
                     title="CLOSE"
                     fill="#fafafa"
-                    color="#f66"
+                    color="#C53437"
                     style={{ marginTop: Mixins.scaleSize(20) }}
                   ></Button>
                 </>
-              ) : null}
+              ) : (
+                <Button
+                  onPress={() => handleClick('BaseTabNav', 'HomeScreen')}
+                  title="LOG OUT"
+                  fill="#000"
+                  color="#C53437"
+                  style={{ marginTop: Mixins.scaleSize(20) }}
+                />
+              )}
             </View>
           </TouchableWithoutFeedback>
         </View>

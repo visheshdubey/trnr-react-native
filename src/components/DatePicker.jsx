@@ -8,13 +8,6 @@ const DatePicker = ({ style }) => {
   const [date, setDate] = useState(null);
   const [show, setShow] = useState(false);
 
-  // useEffect(() => {
-  //   effect;
-  //   return () => {
-  //     cleanup;
-  //   };
-  // }, []);
-
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
@@ -53,11 +46,11 @@ const DatePicker = ({ style }) => {
 };
 const styles = StyleSheet.create({
   input: {
-    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontFamily: Typography.FONT_FAMILY_HEADING,
     height: Mixins.scaleSize(40),
     marginVertical: Mixins.scaleSize(5),
     borderWidth: 1,
-
+    fontSize: Typography.FONT_SIZE_16,
     borderRadius: 5,
     padding: Mixins.scaleSize(10),
   },
@@ -66,6 +59,8 @@ const styles = StyleSheet.create({
     color: '#999',
     height: Mixins.scaleSize(40),
     marginVertical: Mixins.scaleSize(5),
+
+    fontSize: Typography.FONT_SIZE_16,
     borderWidth: 1,
     borderRadius: 5,
     padding: Mixins.scaleSize(10),

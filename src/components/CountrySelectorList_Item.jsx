@@ -3,8 +3,6 @@ import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import { useNavigation } from '@react-navigation/native';
 
-const image = require('../assets/images/dummy.jpg');
-
 function CountrySelectorList_Item({ item, style }) {
   const navigation = useNavigation();
   // console.log(props);

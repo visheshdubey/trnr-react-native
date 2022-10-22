@@ -1,18 +1,24 @@
 {
   "expo": {
-    "name": "trnr-application",
-    "slug": "trnr-application",
+    "name": "TRNR",
+    "slug": "TRNR",
+    "icon": "./assets/trnr_logo.png",
+    "userInterfaceStyle": "automatic",
+    "orientation": "portrait",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
-      "package": "com.trnr.trnrapp"
+      "package": "com.trnr.trnrapp",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/trnr_logo.png",
+        "backgroundColor": "#fff"
+      }
     },
     "ios": {
       "bundleIdentifier": "com.trnr.trnrapp"
     },
-    "orientation": "portrait",
     "extra": {
       "eas": {
         "projectId": "b4733037-6a20-45ce-b087-7b3cbcc3a580"

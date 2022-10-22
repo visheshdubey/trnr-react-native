@@ -28,7 +28,7 @@ const WorkoutCard = ({ item }, props) => {
         <View style={styles.text_icon}>
           <View style={{ flex: 6 }}>
             <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.category}>{item.exercise_category}</Text>
+            <Text style={styles.category}>{item.product}</Text>
           </View>
           <TouchableOpacity
             style={{
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(104),
     borderRadius: 5,
     marginRight: Mixins.scaleSize(10),
-    backgroundColor: '#ccc',
+    backgroundColor: '#eee',
   },
   name: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: Mixins.scaleSize(10),
     width: Mixins.WINDOW_WIDTH,
     height: Mixins.scaleSize(150),
-    backgroundColor: '#ccc',
+    backgroundColor: '#eee',
   },
   text: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

@@ -4,8 +4,6 @@ import { Mixins, Typography } from '../styles';
 
 import { useNavigation } from '@react-navigation/native';
 
-const image = require('../assets/images/dummy.jpg');
-
 function Product_Item({ item }) {
   const navigation = useNavigation();
   // console.log(props);
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(104),
     borderRadius: 5,
     marginRight: Mixins.scaleSize(10),
-    backgroundColor: '#ccc',
+    backgroundColor: '#eee',
   },
   text: {
     fontFamily: Typography.FONT_FAMILY_BODY,

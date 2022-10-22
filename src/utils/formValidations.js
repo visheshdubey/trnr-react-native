@@ -5,46 +5,47 @@ function validateEmail(mail) {
 export const formValidation = (email, fn, pswd, cpswd) => {
     let validationObj = {
         emailLabel: null,
-        fnLabel: null,
-        pswdLabel: null,
-        cpswdLabel: null,
-        hasErrorLabels: false
+        firstNameLabel: null,
+        passwordLabel: null,
+        confirmPasswordLabel: null,
+        hasErrorLabel: false,
+
     }
     //Checking Email
     if (email === '' || email === null) {
         validationObj.emailLabel = 'Email cannot be empty'
-        validationObj.hasErrorLabels = true
+        validationObj.hasErrorLabel = true
     }
     else if (!validateEmail(email)) {
         validationObj.emailLabel = 'Enter a valid Email'
-        validationObj.hasErrorLabels = true
+        validationObj.hasErrorLabel = true
     }
 
     //Checking First Name
     if (fn === '' || fn === null) {
-        validationObj.fnLabel = 'First name cannot be empty'
-        validationObj.hasErrorLabels = true
+        validationObj.firstNameLabel = 'First name cannot be empty'
+        validationObj.hasErrorLabel = true
     }
 
     //Checking Password
     if (pswd === '' || pswd === null) {
-        validationObj.pswdLabel = 'Password cannot be empty'
-        validationObj.hasErrorLabels = true
+        validationObj.passwordLabel = 'Password cannot be empty'
+        validationObj.hasErrorLabel = true
     }
 
     else if (pswd.length < 6) {
-        validationObj.pswdLabel = 'Password less than 6 charachter'
-        validationObj.hasErrorLabels = true
+        validationObj.passwordLabel = 'Password less than 6 charachter'
+        validationObj.hasErrorLabel = true
     }
 
     //Checking Password
     if (cpswd === '' || cpswd === null) {
-        validationObj.cpswdLabel = 'Field cannot be empty'
-        validationObj.hasErrorLabels = true
+        validationObj.confirmPasswordLabel = 'Confirm Password cannot be empty'
+        validationObj.hasErrorLabel = true
     }
     else if (String(pswd) !== String(cpswd)) {
-        validationObj.cpswdLabel = 'Password don\'t match'
-        validationObj.hasErrorLabels = true
+        validationObj.confirmPasswordLabel = 'Password don\'t match'
+        validationObj.hasErrorLabel = true
     }
 
 

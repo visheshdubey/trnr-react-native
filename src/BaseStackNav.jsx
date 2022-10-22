@@ -15,6 +15,7 @@ import CountrySelectorScreen from './screen/CountrySelectorScreen';
 const HomeStack = createNativeStackNavigator();
 
 const BaseStackNav = () => {
+  const [isSignnedIn, setstate] = React.useState(false);
   return (
     // App Core Navigation wrapper i.e stack
     <NavigationContainer>
@@ -30,13 +31,20 @@ const BaseStackNav = () => {
         }}
       >
         {/* <HomeStack.Screen name="Test" component={Test} /> */}
-        <HomeStack.Screen name="Welcome" component={Welcome} />
-        <HomeStack.Screen name="SignIn" component={SignIn} />
-        <HomeStack.Screen name="SignUp" component={SignUp} />
-        <HomeStack.Screen name="Country_Selector" component={CountrySelectorScreen} />
+        {/* <HomeStack.Screen name="Country_Selector" component={CountrySelectorScreen} /> */}
         {/* Calling Bottom Tab Navigation */}
-        <HomeStack.Screen name="BaseTabNav" component={BaseTabNav} />
-        <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
+        {isSignnedIn ? (
+          <>
+            <HomeStack.Screen name="BaseTabNav" component={BaseTabNav} />
+            <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
+          </>
+        ) : (
+          <>
+            <HomeStack.Screen name="Welcome" component={Welcome} />
+            <HomeStack.Screen name="SignIn" component={SignIn} />
+            <HomeStack.Screen name="SignUp" component={SignUp} />
+          </>
+        )}
       </HomeStack.Navigator>
     </NavigationContainer>
   );

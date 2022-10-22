@@ -136,11 +136,11 @@ export const STRAPI_ADD_USER_DATA = (fn, ln = '', email, dob, gender, tnc) => (
       firstName: fn,
       lastName: ln,
       email: email,
-      DOB: "1900-01-01",
+      DOB: dob,
       // country: "Australia",
 
       gender: gender,
-      tnc: false
+      tnc: tnc || 0
     }
 
   })

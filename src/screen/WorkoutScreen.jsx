@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  RefreshControl,
-  StyleSheet,
-  SafeAreaView,
-  FlatList,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import { RefreshControl, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import NetworkRequest from '../components/NetworkRequest';
 import Workout_Item from '../components/Workout_Item';
 import { useGetWorkoutsListQuery } from '../services/strapi';

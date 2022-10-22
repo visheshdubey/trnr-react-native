@@ -7,7 +7,14 @@ function Button({ onPress, title, fill, style, color, isLoading }) {
     //
     <View style={[style]}>
       <TouchableOpacity style={styles.container} onPress={onPress}>
-        <View style={styles.btnBackground}></View>
+        <View
+          style={[
+            styles.btnBackground,
+            {
+              backgroundColor: fill,
+            },
+          ]}
+        ></View>
 
         {isLoading ? (
           <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} />
@@ -25,7 +32,6 @@ const styles = StyleSheet.create({
   btnBackground: {
     width: Mixins.scaleSize(275),
     height: Mixins.scaleSize(47),
-    backgroundColor: fill,
     borderRadius: Mixins.scaleSize(47),
   },
   text: {

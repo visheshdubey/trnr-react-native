@@ -19,7 +19,7 @@ const HS_CategoryScreen = ({ navigation }) => {
           <Text
             style={[
               styles.searchBar,
-              Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.2, 3, 2, '#121212'),
+              Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa'),
             ]}
             onPress={() => navigation.navigate('SearchScreen', '')}
           >
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     backgroundColor: '#fff',
     borderColor: '#ddd',
-    borderRadius: 5,
+    borderRadius: 10,
     paddingHorizontal: Mixins.scaleSize(15),
     paddingVertical: Mixins.scaleSize(15),
     fontFamily: Typography.FONT_FAMILY_BODY,

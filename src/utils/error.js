@@ -76,5 +76,7 @@
                 }
             }
         }
-    }
+    },
+    //ERROR WHILE CREATING CUSTOMER
+
 ]
