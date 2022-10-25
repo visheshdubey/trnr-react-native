@@ -1,8 +1,15 @@
-export const STOREFRONT_ACCESS_TOKEN = 'c43f4f2aa7e79003094fce2daf7dbf59'
+// export const STOREFRONT_ACCESS_TOKEN = '8835638804792f77f9eedee5e216964b'
+export const STOREFRONT_ACCESS_TOKEN = '5c84835c5d297ef8541b2d70b76b2a2b'
 
-export const GRAPHQL_URL = 'https://trnr-test.myshopify.com/api/2022-10/graphql.json'
+export const GRAPHQL_URL = 'https://trnr.com/api/2022-10/graphql.json'
 
-export const userID = 116144281116144281
+export const STRAPI_URL = 'https://apiapp.trnr.com/api/'
+
+
+
+export const DEFAULT_PSWD = () => (Math.floor(Math.random() * (9999999999999 - 11111111111)) + 11111111111);
+
+
 
 export const CREATE_USER_QUERY = `
 mutation customerCreate($input: CustomerCreateInput!) {
@@ -39,6 +46,7 @@ mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
     customerAccessTokenCreate(input: $input) {
       customerAccessToken {
         accessToken
+        expiresAt
       }
       customerUserErrors {
       field
@@ -107,38 +115,79 @@ export const ACCESS_TOKEN_USER_VAR = (email, pswd) => ({
     password: pswd
   }
 })
-export const UPDATE_USER_VAR = (fn, ln, email, phone, AUTH) => ({
+export const UPDATE_USER_VAR = (fn, ln, AUTH) => ({
 
   customer: {
     firstName: fn,
     lastName: ln,
-    email: email,
-    phone: phone
   },
   customerAccessToken: AUTH
 
 })
 
-export const STRAPI_ADD_WORKOUT = (exerciseID) => ({
+export const STRAPI_ADD_WORKOUT = (cust_id, exerciseID) => ({
+  userId: cust_id,
+  data: {
+    exercises: exerciseID,
+  },
 
+})
+export const STRAPI_DELETE_WORKOUT = (cust_id, exerciseID) => ({
+  userId: cust_id,
   data: {
     exercises: exerciseID,
   },
 
 })
 
-export const STRAPI_ADD_USER_DATA = (fn, ln = '', email, dob, gender, tnc) => (
+export const STRAPI_ADD_USER_DATA = (cust_id, fn, ln = '', email, dob, gender, tnc = true) => (
   {
+    userId: cust_id,
+    data: {
+      customer_id: cust_id,
+      firstName: fn,
+      lastName: ln,
+      email: email,
+      DOB: dob, //|| new Date("1-1-1000"),
+      gender: gender,
+      tnc: tnc ? "TRUE" : "FALSE"
+    }
 
-    data:
-    {
-      customer_id: userID,
+  })
+
+export const STRAPI_ADD_USER_DATA_AT_SIGNIN = (cust_id, fn, ln = '', email) => (
+  {
+    userId: cust_id,
+    data: {
+      customer_id: cust_id,
+      firstName: fn,
+      lastName: ln,
+      email: email,
+    }
+
+  })
+export const STRAPI_ADD_USER_DATA_AT_PROFILE = (cust_id, fn, ln = '', gender, dob) => (
+  {
+    userId: cust_id,
+    data: {
+      customer_id: cust_id,
+      firstName: fn,
+      lastName: ln,
+      DOB: dob, //|| new Date("1-1-1000"),
+      gender: gender
+    }
+
+  })
+
+export const STRAPI_GET_USER_DATA = (cust_id, fn, ln = '', email, dob = new Date(null), gender = 'OTHER', tnc = true) => (
+  {
+    userId: cust_id,
+    data: {
+      customer_id: cust_id,
       firstName: fn,
       lastName: ln,
       email: email,
       DOB: dob,
-      // country: "Australia",
-
       gender: gender,
       tnc: tnc || 0
     }

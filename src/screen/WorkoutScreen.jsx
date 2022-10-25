@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RefreshControl, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 import NetworkRequest from '../components/NetworkRequest';
 import Workout_Item from '../components/Workout_Item';
 import { useGetWorkoutsListQuery } from '../services/strapi';
@@ -9,8 +10,10 @@ import { WHITE } from '../styles/colors';
 // NetworkRequest
 const MyWorkout = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { data, error, isLoading, refetch } = useGetWorkoutsListQuery(1);
-  // const { categoryId } = route.params;
+  const userId = useSelector((state) => state.user.customerID);
+  console.log(userId);
+  const { data, error, isLoading, refetch } = useGetWorkoutsListQuery(userId);
+  console.log(JSON.stringify(data) + '-----' + JSON.stringify(error));
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>

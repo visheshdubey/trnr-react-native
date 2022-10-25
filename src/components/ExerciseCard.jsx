@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { Mixins, Typography } from '../styles';
+import { Typography } from '../styles';
 
 // const image = require('../assets/images/exercise1.png');
 const backdrop = require('../assets/images/cardGradient.png');

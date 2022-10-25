@@ -4,7 +4,12 @@ import MyWorkout from './screen/WorkoutScreen';
 import Profile from './screen/Profile';
 import { Typography } from './styles';
 
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Linking } from 'react-native';
+import ShopScreen from './screen/ShopScreen';
+import HomeIcon from './components/HomeIcon';
+import WorkoutIcon from './components/WorkoutIcon';
+import ShopIcon from './components/ShopIcon';
+import ProfileIcon from './components/ProfileIcon';
 
 const Tab = createBottomTabNavigator();
 export const BaseTabNav = () => {
@@ -28,25 +33,39 @@ export const BaseTabNav = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HOME"
         component={NAV_HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ size, color }) => <Icon name="home" color={color} size={18} />,
+          tabBarIcon: ({ size, color }) => <HomeIcon fill={color} size={18} />, //<Icon name="home" color={color} size={18} />,
         }}
       />
       <Tab.Screen
-        name="My Workouts"
+        name="MY WORKOUTS"
         component={MyWorkout}
         options={{
-          tabBarIcon: ({ size, color }) => <Icon name="dumbbell" color={color} size={18} />,
+          tabBarIcon: ({ size, color }) => <WorkoutIcon fill={color} size={18} />,
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="SHOP"
+        component={ShopScreen}
+        options={{
+          tabBarIcon: ({ size, color }) => <ShopIcon fill={color} size={18} />,
+        }}
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            Linking.openURL('https://trnr.com');
+            e.preventDefault();
+          },
+        }}
+      />
+      <Tab.Screen
+        name="PROFILE"
         component={Profile}
         options={{
-          tabBarIcon: ({ size, color }) => <Icon name="user-alt" color={color} size={18} />,
+          tabBarIcon: ({ size, color }) => <ProfileIcon fill={color} size={18} />,
         }}
       />
     </Tab.Navigator>

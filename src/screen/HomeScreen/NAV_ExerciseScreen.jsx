@@ -1,10 +1,10 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HS_ExerciseScreen from './HS_ExerciseScreen';
-import { Mixins, Typography } from '../../styles';
+import { Typography } from '../../styles';
 import { useGetExerciseCategoryListQuery } from '../../services/strapi';
 import { Text, ActivityIndicator, StyleSheet } from 'react-native';
-import NetworkRequest from '../../components/NetworkRequest';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import NoData from '../../components/NoData';
 const Tab = createMaterialTopTabNavigator();
 
 const NAV_ExerciseScreen = ({ route, navigation }) => {
@@ -20,7 +20,7 @@ const NAV_ExerciseScreen = ({ route, navigation }) => {
   return (
     <>
       {error ? (
-        <Text style={styles.center}>Oh no, there was an error = </Text>
+        <Text style={styles.errorText}>Network connection failed! </Text>
       ) : isLoading ? (
         <ActivityIndicator style={styles.center} color="#000" />
       ) : data.length > 0 ? (
@@ -43,16 +43,11 @@ const NAV_ExerciseScreen = ({ route, navigation }) => {
           }}
         >
           {data?.map((item) => (
-            <Tab.Screen
-              name={item.exerciseCategory}
-              key={item.id}
-              component={HS_ExerciseScreen}
-              initialParams={{ categoryId: item.id, categoryName: item.name, productId: productId }}
-            />
+            <Tab.Screen name={item.exerciseCategory} key={item.id} component={HS_ExerciseScreen} initialParams={{ categoryId: item.id, categoryName: item.name, productId: productId }} />
           ))}
         </Tab.Navigator>
       ) : (
-        <Text>No Exercises</Text>
+        <NoData />
       )}
     </>
   );
@@ -63,6 +58,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  errorText: {
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_24,
+
+    color: '#ccc',
   },
 });
 

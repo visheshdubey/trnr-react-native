@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 
@@ -8,31 +8,18 @@ import NetworkRequest from '../../components/NetworkRequest';
 import Icon from 'react-native-vector-icons/AntDesign';
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
-  const handleClick = (x, y) => {
-    navigation.navigate(x, { name: y });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <View style={styles.searchBarContainer}>
-          <Text
-            style={[
-              styles.searchBar,
-              Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa'),
-            ]}
-            onPress={() => navigation.navigate('SearchScreen', '')}
-          >
+          <Text style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]} onPress={() => navigation.navigate('SearchScreen', '')}>
             <Icon name="search1" color="#aaa" size={16} />
             {'   '}
             SEARCH FOR A PRODUCT OR WORKOUT
           </Text>
         </View>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          style={{ width: Mixins.scaleSize(340) }}
-        >
+        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(340) }}>
           <View style={styles.scrollview}>
             <Text style={styles.heading}>BEGIN YOUR </Text>
             <Text style={[styles.heading_2, {}]}>JOURNEY </Text>

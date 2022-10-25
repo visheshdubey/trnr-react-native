@@ -8,14 +8,13 @@ import SignIn from './screen/SignIn';
 import SignUp from './screen/SignUp';
 import BaseTabNav from './BaseTabNav';
 import { Typography } from './styles';
-import Test from './screen/Test';
 import SearchScreen from './screen/SearchScreen';
-import CountrySelectorScreen from './screen/CountrySelectorScreen';
-
+import { useSelector } from 'react-redux';
+import ResetScreen from './screen/ResetScreen';
 const HomeStack = createNativeStackNavigator();
 
 const BaseStackNav = () => {
-  const [isSignnedIn, setstate] = React.useState(false);
+  const isSignnedIn = useSelector((state) => state.user.isSignnedIn);
   return (
     // App Core Navigation wrapper i.e stack
     <NavigationContainer>
@@ -30,9 +29,6 @@ const BaseStackNav = () => {
           },
         }}
       >
-        {/* <HomeStack.Screen name="Test" component={Test} /> */}
-        {/* <HomeStack.Screen name="Country_Selector" component={CountrySelectorScreen} /> */}
-        {/* Calling Bottom Tab Navigation */}
         {isSignnedIn ? (
           <>
             <HomeStack.Screen name="BaseTabNav" component={BaseTabNav} />
@@ -45,6 +41,7 @@ const BaseStackNav = () => {
             <HomeStack.Screen name="SignUp" component={SignUp} />
           </>
         )}
+        <HomeStack.Screen name="Reset" component={ResetScreen} />
       </HomeStack.Navigator>
     </NavigationContainer>
   );

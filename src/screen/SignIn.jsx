@@ -1,35 +1,126 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
-import DatePicker from '../components/DatePicker';
 import { useAccessTokenShopifyUserMutation, useGetShopifyUserMutation } from '../services/shopify';
-import { ACCESS_TOKEN_USER_VAR, GET_USER_VAR } from '../utils/ApiConstants';
+import { ACCESS_TOKEN_USER_VAR, GET_USER_VAR, STRAPI_ADD_USER_DATA_AT_SIGNIN } from '../utils/ApiConstants';
+
+import { getDataObject, storeDataObject } from '../services/local';
+import { signInFormValidation } from '../utils/formValidations';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { signin } from '../services/features/userSlice';
+import { useAddUserDataMutation } from '../services/strapi';
+
+import Warning from 'react-native-vector-icons/FontAwesome';
 
 const SignIn = ({ navigation, route }) => {
+  //Form States
   const [email, onChangeEmail] = React.useState(null);
   const [password, onChangePassword] = React.useState(null);
+  // Label States
+  const [emailLabel, onChangeEmailLabel] = React.useState(null);
+  const [passwordLabel, onChangePasswordLabel] = React.useState(null);
 
+  const isSignnedIn = useSelector((state) => state.user.isSignnedIn);
+  const dispatch = useDispatch();
+  //Error Refs
+  let hasErrorLabel = useRef(false);
+  let someErrorLabel = useRef(false);
+  let successLabel = useRef(false);
+
+  const [rerender, setRerender] = React.useState(false);
   const [accessTokenShopifyUser, tokenResult] = useAccessTokenShopifyUserMutation();
-  const [getShopifyUser, userResult] = useGetShopifyUserMutation();
+  const [getShopifyUser, shopifyUserResult] = useGetShopifyUserMutation();
+  const [addUserData, userResult] = useAddUserDataMutation();
 
   const handleClick = (x, y) => {
     navigation.navigate(x, { name: y });
   };
+  //Set data to Local Storage
+  const setLocal = async (data) => {
+    await storeDataObject(data);
+  };
+  // Get Local data
+  const getLocal = async () => {
+    const x = await getDataObject();
+    console.log('Local Data:- ' + JSON.stringify(x));
+  };
 
+  //BULK CHANGE LABEL
+  const handleLabelChange = (el, pl) => {
+    onChangeEmailLabel(el);
+    onChangePasswordLabel(pl);
+  };
   const handleSignIn = () => {
-    accessTokenShopifyUser(ACCESS_TOKEN_USER_VAR(email, password))
-      .then((result, err) => {
-        const token = result.data.data.customerAccessTokenCreate.customerAccessToken.accessToken;
-        console.log(JSON.stringify(token));
-        return token;
-      })
-      .then((result, err) => getShopifyUser(GET_USER_VAR(result)))
-      .then((result, err) => {
-        console.log(result.data.data.customer.firstName);
-        //save user object in ASYNC STORAGE
-      });
+    //Initializing error flags
+    hasErrorLabel.current = false;
+    someErrorLabel.current = false;
+    console.log('SIGNIN ERROR -> 1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
+
+    //Performing initial form validation
+    const formErr = signInFormValidation(email, password);
+
+    //Changing Labels
+    handleLabelChange(formErr.emailLabel, formErr.passwordLabel);
+
+    //Setting label error flag to true if form failed any field validation
+    if (formErr.hasErrorLabel) hasErrorLabel.current = true;
+
+    // If form has no error submit it to SHOPIFY
+    if (!hasErrorLabel.current) {
+      accessTokenShopifyUser(ACCESS_TOKEN_USER_VAR(email, password))
+        .then((result) => {
+          const accessTokenResult = result?.data.data.customerAccessTokenCreate;
+          console.log('AccessToken :- ' + JSON.stringify(accessTokenResult));
+          // Checking if we encountered any error || error array length > 0
+          if (!accessTokenResult?.customerUserErrors.length > 0) {
+            if (accessTokenResult?.customerAccessToken.accessToken) {
+              const token = accessTokenResult?.customerAccessToken.accessToken;
+              const expiresAt = accessTokenResult?.customerAccessToken.expiresAt;
+              console.log('Token :-' + token);
+              //Returning Token because user token is stored in local
+              return { token, expiresAt };
+            }
+          }
+          throw new Error('Failed to generate access token');
+        })
+        .then(async ({ token, expiresAt }) => {
+          const shopifyUserData = await getShopifyUser(GET_USER_VAR(token));
+          return { shopifyUserData, token, expiresAt };
+        })
+        .then(async ({ shopifyUserData, token, expiresAt }) => {
+          // Checking if all previous then went through
+
+          console.log(JSON.stringify(shopifyUserData));
+          let customerObj = shopifyUserData?.data.data.customer;
+          let gId = customerObj.id;
+          const myArray = gId.split('/');
+          let customerID = parseInt(myArray[myArray.length - 1]);
+          console.log(customerID);
+          const strapi = await addUserData(STRAPI_ADD_USER_DATA_AT_SIGNIN(customerID, customerObj.firstName, customerObj.lastName, customerObj.email));
+          if (strapi?.data.name) throw new Error('Validation Error');
+          console.log(JSON.stringify(userResult));
+          const data = {
+            isSignnedIn: true,
+            accessToken: token,
+            customerID: customerID,
+            expiresAt: expiresAt,
+          };
+          console.log('Storing token locally');
+
+          setLocal(data);
+          getLocal();
+          dispatch(signin(data));
+          console.log(isSignnedIn);
+        })
+        .catch((err) => {
+          console.log(err);
+          someErrorLabel.current = true;
+          setRerender(!rerender); //Re-render to show refs updated value
+        });
+    }
   };
   // result.isSuccess ? null : null;
   return (
@@ -50,20 +141,26 @@ const SignIn = ({ navigation, route }) => {
       </View>
 
       <Text style={[styles.body, { marginTop: 5 }]}>SIGNIN TO YOUR ACCOUNT</Text>
-      <TextInput
-        style={[styles.input, { width: Mixins.scaleSize(340), marginTop: Mixins.scaleSize(50) }]}
-        onChangeText={onChangeEmail}
-        value={email}
-        placeholder="EMAIL ADDRESS"
-      />
-      <TextInput
-        style={[styles.input, { width: Mixins.scaleSize(340) }]}
-        onChangeText={onChangePassword}
-        value={password}
-        placeholder="PASSWORD"
-        secureTextEntry={true}
-      />
-      <Text style={styles.body} onPress={() => handleClick('Reset', 'Reset Password')}>
+      {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
+      {someErrorLabel.current ? (
+        <Text style={styles.topLabel}>
+          <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
+        </Text>
+      ) : (
+        <View
+          style={{
+            marginTop: Mixins.scaleSize(32),
+          }}
+        ></View>
+      )}
+
+      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" />
+      {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
+      {/* --------------------------------PASSWORD--------------------------------------------- */}
+      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangePassword} value={password} placeholder="PASSWORD" secureTextEntry={true} />
+      <Text style={styles.label}>{passwordLabel}</Text>
+
+      <Text style={[styles.body, { marginTop: Mixins.scaleSize(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>
         RESET PASSWORD?
       </Text>
       <Button
@@ -71,10 +168,11 @@ const SignIn = ({ navigation, route }) => {
         title="SIGNIN"
         fill="#000"
         color="#fff"
-        style={{ marginTop: 20 }}
+        style={{ marginVertical: 20 }}
+        isLoading={shopifyUserResult.isLoading || userResult.isLoading || tokenResult.isLoading}
       ></Button>
       <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
-        NEW MEMEBER? SIGN-UP HERE
+        NEW MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-UP HERE</Text>
       </Text>
     </SafeAreaView>
   );
@@ -86,6 +184,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingVertical: 70,
+    backgroundColor: '#fff',
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
@@ -100,10 +199,31 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_16,
     borderRadius: 5,
-    height: 40,
-    marginVertical: 12,
+    height: Mixins.scaleSize(40),
+    marginVertical: Mixins.scaleSize(15),
     borderWidth: 1,
-    padding: 10,
+    padding: Mixins.scaleSize(10),
+  },
+  label: {
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    width: Mixins.scaleSize(340),
+    fontSize: Typography.FONT_SIZE_16,
+    marginTop: Mixins.scaleSize(-12),
+    marginBottom: Mixins.scaleSize(10),
+    // borderWidth: 1,
+    color: 'red',
+  },
+  topLabel: {
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_16,
+    marginTop: Mixins.scaleSize(24),
+    marginBottom: Mixins.scaleSize(10),
+    backgroundColor: '#FFF4D8',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    color: 'red',
   },
 });

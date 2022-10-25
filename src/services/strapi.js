@@ -1,11 +1,8 @@
-// Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CREATE_USER_QUERY, userID } from '../utils/ApiConstants';
-// CREATE_USER_QUERY
-// Define a service using a base URL and expected endpoints
+import { STRAPI_URL } from '../utils/ApiConstants';
 export const strapiApi = createApi({
     reducerPath: 'strapiApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://trnr-app.herokuapp.com/api/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: STRAPI_URL }),
 
     refetchOnReconnect: true,
     tagTypes: ['Workout'],
@@ -37,29 +34,33 @@ export const strapiApi = createApi({
 
         }),
         getWorkoutsList: builder.query({
-            query: (userId) => `workouts/${userID}`,
+            query: (userId) => `workouts/${userId}`,
             keepUnuseDataFor: 1,
             providesTags: ['Workout']
 
         }),
+        getUserData: builder.query({
+            query: (userId) => `user-create/${userId}`,
+
+        }),
         addUserData: builder.mutation({
-            query: (body) => ({
-                url: `user-create/${userID}`,
+            query: ({ userId, ...patch }) => ({
+                url: `user-create/${userId}`,
                 method: 'POST',
-                body: body,
+                body: patch,
             }),
         }),
         addWorkout: builder.mutation({
-            query: (body) => ({
-                url: `workouts/${userID}`,
+            query: ({ userId, ...patch }) => ({
+                url: `workouts/${userId}`,
                 method: 'POST',
-                body: body,
+                body: patch,
             }),
             invalidatesTags: ['Workout']
         }),
         deleteWorkout: builder.mutation({
             query: ({ userId, ...patch }) => ({
-                url: `workouts/${userID}?DELETE`,
+                url: `workouts/${userId}?DELETE`,
                 method: 'PUT',
                 body: patch,
             }),
@@ -71,8 +72,6 @@ export const strapiApi = createApi({
     })
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const {
     useGetCategoryQuery,
     useGetProductQuery,
@@ -80,6 +79,7 @@ export const {
     useGetExerciseCategoryQuery,
     useGetExerciseQuery,
     useGetSearchQuery,
+    useGetUserDataQuery,
     useGetWorkoutsListQuery,
     useAddUserDataMutation,
     useAddWorkoutMutation,

@@ -1,94 +1,64 @@
-import { useEffect, useRef, useState } from 'react';
-import { RefreshControl, View, StyleSheet, Image, ScrollView, Text, Alert } from 'react-native';
-import { Video, AVPlaybackStatus } from 'expo-av';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Mixins, Spacing, Typography } from '../../styles';
+import { useEffect, useState } from 'react';
+import { RefreshControl, View, StyleSheet, Image, ScrollView, Text } from 'react-native';
+import { Mixins, Typography } from '../../styles';
 import Button from '../../components/Button';
 import { useAddWorkoutMutation, useGetExerciseQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
 import { STRAPI_ADD_WORKOUT } from '../../utils/ApiConstants';
+import { useSelector } from 'react-redux';
+import VideoPlayer from '../../components/VideoPlayer';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
-  const video = useRef(null);
-  const [status, setStatus] = useState({});
   const [refreshing, setRefreshing] = useState(false);
   const { name, exerciseId } = route.params;
-  const { error, data, isLoading, isSuccess, refetch } = useGetExerciseQuery(exerciseId);
+  const { error, data, isLoading, refetch } = useGetExerciseQuery(exerciseId);
   const [addWorkout, result] = useAddWorkoutMutation();
+  const userId = useSelector((state) => state.user.customerID);
 
-  const saveWorkout = {
-    userId: 1,
-    data: {
-      exercises: exerciseId,
-    },
-  };
+  // const [orientationIsLandscape, setOrientation] = useState(true);
+
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    console.log('Ex. Detail Screen mounted');
+  }, []);
+
   useEffect(() => {
     navigation.setOptions({
       title: name,
     });
   }, [name]);
-  // if (isSuccess) console.log(JSON.stringify(data));
+  useEffect(() => {
+    console.log(status.isBuffering);
+  }, [status]);
+  const handleSave = async () => {
+    const work = await addWorkout(STRAPI_ADD_WORKOUT(userId, exerciseId)).catch((err) => console.log(err));
+    console.log(JSON.stringify(work));
+  };
   return (
     <View style={styles.container}>
-      <ScrollView
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
-        alwaysBounceVertical={false}
-        bouncesZoom={false}
-      >
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />} alwaysBounceVertical={false} bouncesZoom={false}>
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
+          {/* Video Player */}
+          {data?.video != null ? <VideoPlayer style={styles.video} videoUrl={data?.video.url} /> : null}
+          {/* Large Images */}
           <View style={{ alignItems: 'center', marginBottom: 100, marginTop: 20 }}>
             {data?.image_large?.map((item) => (
-              <Image
-                style={styles.image}
-                key={item.id}
-                source={{ uri: item.url }}
-                resizeMode="contain"
-              />
+              <Image style={styles.image} key={item.id} source={{ uri: item.url }} resizeMode="contain" />
             ))}
-
+            {/* Small Images  */}
             <View style={styles.row}>
               {data?.image_small?.map((item) => (
-                <Image
-                  style={styles.image2}
-                  key={item.id}
-                  source={{ uri: item.url }}
-                  resizeMode="contain"
-                />
+                <Image style={styles.image2} key={item.id} source={{ uri: item.url }} resizeMode="contain" />
               ))}
             </View>
-            {data?.video != null ? (
-              <Video
-                ref={video}
-                style={styles.video}
-                source={{
-                  uri: data?.video.url,
-                }}
-                useNativeControls
-                resizeMode="contain"
-                isLooping
-                onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-              />
-            ) : null}
+            {/* Text Body  */}
             <View style={styles.textContainer}>
               <Text style={styles.category}>{data?.exercise_category?.name}</Text>
               <Text style={styles.heading}>{data?.name}</Text>
               <Text style={styles.body}>{data?.description}</Text>
             </View>
-            <Button
-              onPress={() => addWorkout(STRAPI_ADD_WORKOUT(exerciseId))}
-              title="SAVE WORKOUT"
-              fill="#000"
-              color="#fff"
-              isLoading={result.isLoading}
-            />
-            {/* <View style={styles.buttons}>
-            <Button
-              title={status.isPlaying ? 'Pause' : 'Play'}
-              onPress={() =>
-                status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-              }
-            />
-          </View> */}
+            <Button onPress={handleSave} title="SAVE WORKOUT" fill="#000" color="#fff" isLoading={result.isLoading} />
           </View>
         </NetworkRequest>
       </ScrollView>

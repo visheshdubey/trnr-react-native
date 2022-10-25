@@ -4,16 +4,11 @@ import { Mixins, Typography } from '../styles';
 
 function SmallButton({ onPress, title, fill, style, color, isLoading }) {
   return (
-    //
     <View style={[style]}>
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={[styles.btnBackground, { borderColor: color }]}></View>
 
-        {isLoading ? (
-          <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} />
-        ) : (
-          <Text style={[styles.text, { color: color }]}>{title}</Text>
-        )}
+        {isLoading ? <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} /> : <Text style={[styles.text, { color: color }]}>{title}</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -25,7 +20,7 @@ const styles = StyleSheet.create({
   },
   btnBackground: {
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 5,
     width: Mixins.scaleSize(54),
     height: Mixins.scaleSize(32),
   },

@@ -5,25 +5,17 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useDeleteWorkoutMutation } from '../services/strapi';
 import { ActivityIndicator } from 'react-native';
+import { STRAPI_DELETE_WORKOUT } from '../utils/ApiConstants';
+import { useSelector } from 'react-redux';
 
 const WorkoutCard = ({ item }, props) => {
   const navigation = useNavigation();
   const [deleteWorkout, result] = useDeleteWorkoutMutation();
-  // console.log(props);
-  const obj = {
-    userId: 1,
-    data: {
-      exercises: item.id,
-    },
-  };
+  const userId = useSelector((state) => state.user.customerID);
+
   return (
     <View style={styles.separator} key={item.id}>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() =>
-          navigation.navigate('HS_ExerciseDetailScreen', { name: item.name, exerciseId: item.id })
-        }
-      >
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('HS_ExerciseDetailScreen', { name: item.name, exerciseId: item.id })}>
         <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
         <View style={styles.text_icon}>
           <View style={{ flex: 6 }}>
@@ -37,13 +29,9 @@ const WorkoutCard = ({ item }, props) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onPress={() => deleteWorkout(obj)}
+            onPress={() => deleteWorkout(STRAPI_DELETE_WORKOUT(userId, item.id))}
           >
-            {result.isLoading ? (
-              <ActivityIndicator color="red" />
-            ) : (
-              <Icon name="delete" color="red" size={18} />
-            )}
+            {result.isLoading ? <ActivityIndicator color="red" /> : <Icon name="delete" color="red" size={18} />}
           </TouchableOpacity>
         </View>
       </TouchableOpacity>

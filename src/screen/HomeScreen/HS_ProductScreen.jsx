@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { RefreshControl, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { RefreshControl, StyleSheet, SafeAreaView, FlatList, View, Text } from 'react-native';
 import NetworkRequest from '../../components/NetworkRequest';
 import Product_Item from '../../components/Product_Item';
 import { useGetProductQuery } from '../../services/strapi';
-import { Mixins } from '../../styles';
+import { Mixins, Typography } from '../../styles';
 import { WHITE } from '../../styles/colors';
 
 const HS_ProductScreen = ({ route, navigation }) => {
@@ -16,13 +16,15 @@ const HS_ProductScreen = ({ route, navigation }) => {
       title: categoryName,
     });
   }, [categoryName]);
-  // const onRefresh = React.useCallback(() => {
-  //   setRefreshing(true);
-  //   refetch().then(() => setRefreshing(false));
-  // }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
+        {data?.length === 0 ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={styles.errorText}>NO PRODUCTS</Text>
+          </View>
+        ) : null}
         <FlatList
           style={styles.list}
           data={data}
@@ -47,6 +49,11 @@ const styles = StyleSheet.create({
   list: {
     width: Mixins.scaleSize(340),
     marginBottom: Mixins.scaleSize(70),
+  },
+  errorText: {
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_24,
+    color: '#ccc',
   },
 });
 

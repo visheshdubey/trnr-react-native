@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
 import NetworkRequest from '../../components/NetworkRequest';
 import { useGetExerciseCategoryQuery } from '../../services/strapi';
@@ -14,17 +14,13 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   const GRID_THRESHOLD = 6; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
 
   useEffect(() => {
-    isSuccess ? (data?.length < 6 ? setDataLength(340) : setDataLength(172.5)) : null;
+    isSuccess ? (data?.length < GRID_THRESHOLD ? setDataLength(340) : setDataLength(172.5)) : null;
   }, [data]);
 
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          style={{ width: Mixins.scaleSize(375) }}
-        >
+        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(375) }}>
           <View style={styles.grid}>
             {data?.map((item) => (
               <ExerciseCard

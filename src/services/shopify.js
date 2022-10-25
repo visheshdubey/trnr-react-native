@@ -1,8 +1,6 @@
-// Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CREATE_USER_QUERY, GET_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL, ACCESS_TOKEN_USER_QUERY } from '../utils/ApiConstants'
+import { CREATE_USER_QUERY, GET_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL, ACCESS_TOKEN_USER_QUERY, RESET_USER_QUERY, UPDATE_USER_QUERY } from '../utils/ApiConstants'
 
-// Define a service using a base URL and expected endpoints
 export const shopifyApi = createApi({
     reducerPath: 'shopifyApi',
     baseQuery: fetchBaseQuery({
@@ -39,7 +37,7 @@ export const shopifyApi = createApi({
             }),
         }),
         updateShopifyUser: builder.mutation({
-            query: ({ variables }) => ({
+            query: (variables) => ({
                 url: `/`,
                 method: 'POST',
                 body: JSON.stringify({ query: UPDATE_USER_QUERY, variables: variables }),
@@ -47,7 +45,7 @@ export const shopifyApi = createApi({
 
         }),
         resetShopifyUser: builder.mutation({
-            query: ({ variables }) => ({
+            query: (variables) => ({
                 url: `/`,
                 method: 'POST',
                 body: JSON.stringify({ query: RESET_USER_QUERY, variables: variables }),
@@ -58,8 +56,7 @@ export const shopifyApi = createApi({
     })
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
+
 export const {
     useCreateShopifyUserMutation,
     useUpdateShopifyUserMutation,
