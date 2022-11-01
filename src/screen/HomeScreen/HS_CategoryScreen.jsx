@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,
-    color: '#777',
+    color: '#aaa',
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,

@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
-import { RefreshControl, View, StyleSheet, Image, ScrollView, Text } from 'react-native';
+import { useEffect, useState, useRef } from 'react';
+import { RefreshControl, View, StyleSheet, Image, ScrollView, Text, useWindowDimensions } from 'react-native';
 import { Mixins, Typography } from '../../styles';
 import Button from '../../components/Button';
 import { useAddWorkoutMutation, useGetExerciseQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
-import { STRAPI_ADD_WORKOUT } from '../../utils/ApiConstants';
+import { LOG, STRAPI_ADD_WORKOUT } from '../../utils/ApiConstants';
 import { useSelector } from 'react-redux';
-import VideoPlayer from '../../components/VideoPlayer';
+import VideoPlayerComponent from '../../components/VideoPlayerComponent';
 import * as ScreenOrientation from 'expo-screen-orientation';
+
+import { useIsFocused } from '@react-navigation/native';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -15,32 +17,37 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const { error, data, isLoading, refetch } = useGetExerciseQuery(exerciseId);
   const [addWorkout, result] = useAddWorkoutMutation();
   const userId = useSelector((state) => state.user.customerID);
+  const [rerender, setRerender] = useState(false);
 
-  // const [orientationIsLandscape, setOrientation] = useState(true);
+  const inFullscreen2 = useRef(false);
 
-  useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    console.log('Ex. Detail Screen mounted');
-  }, []);
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     navigation.setOptions({
       title: name,
     });
   }, [name]);
+
   useEffect(() => {
-    console.log(status.isBuffering);
-  }, [status]);
+    if (width > height) inFullscreen2.current = false;
+    else inFullscreen2.current = true;
+    setRerender(!rerender);
+    console.log('Width X Height', width, 'X', height);
+  }, [width, height, refreshing]);
+
   const handleSave = async () => {
-    const work = await addWorkout(STRAPI_ADD_WORKOUT(userId, exerciseId)).catch((err) => console.log(err));
-    console.log(JSON.stringify(work));
+    const work = await addWorkout(STRAPI_ADD_WORKOUT(userId, exerciseId)).catch((err) => {
+      return console.log('🔴 ~ file: HS_ExerciseDetailScreen.jsx ~ line 33 ~ handleSave ~ err', err);
+    });
+    if (LOG === true) console.log('🚀 ~ file: HS_ExerciseDetailScreen.jsx ~ line 37 ~ handleSave ~ JSON.stringify(work)', JSON.stringify(work));
   };
   return (
     <View style={styles.container}>
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />} alwaysBounceVertical={false} bouncesZoom={false}>
+      <ScrollView alwaysBounceVertical={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />} bouncesZoom={false} scrollEnabled={inFullscreen2.current}>
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
           {/* Video Player */}
-          {data?.video != null ? <VideoPlayer style={styles.video} videoUrl={data?.video.url} /> : null}
+          {data?.video != null ? <VideoPlayerComponent style={styles.video} videoUrl={data?.video.url} navigation={navigation} /> : null}
           {/* Large Images */}
           <View style={{ alignItems: 'center', marginBottom: 100, marginTop: 20 }}>
             {data?.image_large?.map((item) => (
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(191.25),
 
-    backgroundColor: '#eee',
+    backgroundColor: '#000',
     borderRadius: 15,
     marginBottom: Mixins.scaleSize(17.5),
   },

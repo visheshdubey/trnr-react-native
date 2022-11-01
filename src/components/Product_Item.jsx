@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Image, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
 import { useNavigation } from '@react-navigation/native';
 
 function Product_Item({ item }) {
   const navigation = useNavigation();
-  // console.log(props);
+  // if(LOG===true) console.log(props);
 
   return (
     <View style={styles.separator} key={item.id}>
-      <TouchableOpacity
+      <Pressable
         style={styles.container}
         onPress={() =>
           navigation.navigate('NAV_ExerciseScreen', {
@@ -21,7 +21,7 @@ function Product_Item({ item }) {
       >
         <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
         <Text style={styles.text}>{item.name}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

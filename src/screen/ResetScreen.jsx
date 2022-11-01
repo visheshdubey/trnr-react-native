@@ -4,7 +4,7 @@ import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
 import { useResetShopifyUserMutation } from '../services/shopify';
-import { RESET_USER_VAR } from '../utils/ApiConstants';
+import { LOG, RESET_USER_VAR } from '../utils/ApiConstants';
 
 import { resetFormValidation } from '../utils/formValidations';
 
@@ -40,9 +40,8 @@ const ResetScreen = ({ navigation: { goBack }, route }) => {
   };
   const handleSignIn = () => {
     //Initializing error flags
-    hasErrorLabel.current = false;
-    someErrorLabel.current = false;
-    console.log('SIGNIN ERROR -> 1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
+    if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 43 ~ .then ~ someErrorLabel.current', someErrorLabel.current);
+    if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 44 ~ .then ~ hasErrorLabel.current', hasErrorLabel.current);
 
     //Performing initial form validation
     const formErr = resetFormValidation(email);
@@ -60,7 +59,7 @@ const ResetScreen = ({ navigation: { goBack }, route }) => {
           if (result?.data.errors) {
             throw new Error(result?.data.errors[0].message);
           }
-          console.log('AccessToken :- ' + JSON.stringify(result));
+          if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 64 ~ .Shopify Access Token result ~ JSON.stringify(result)', JSON.stringify(result));
           if (!result?.data.data.customerRecover.customerUserErrors.length > 0) {
             successLabel.current = true;
             setRerender(!rerender);
@@ -74,7 +73,7 @@ const ResetScreen = ({ navigation: { goBack }, route }) => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log('🔴 ~ file: ResetScreen.jsx ~ line 78 ~ handleSignIn ~ err', err);
           someErrorLabel.current = true;
           setRerender(!rerender); //Re-render to show refs updated value
         });
@@ -123,7 +122,7 @@ const ResetScreen = ({ navigation: { goBack }, route }) => {
         ></View>
       )}
 
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" />
+      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
       {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
       {!isSignnedIn ? (
         <>

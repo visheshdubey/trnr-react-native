@@ -1,9 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { STRAPI_URL } from '../utils/ApiConstants';
+import { STRAPI_ACCESS_TOKEN, STRAPI_URL } from '../utils/ApiConstants';
 export const strapiApi = createApi({
     reducerPath: 'strapiApi',
-    baseQuery: fetchBaseQuery({ baseUrl: STRAPI_URL }),
-
+    baseQuery: fetchBaseQuery({
+        baseUrl: STRAPI_URL,
+        prepareHeaders: (headers) => {
+            headers.set('Authorization', STRAPI_ACCESS_TOKEN);
+            headers.set('Content-Type', 'application/json');
+            return headers
+        },
+    }),
     refetchOnReconnect: true,
     tagTypes: ['Workout'],
     endpoints: (builder) => ({
@@ -35,7 +41,7 @@ export const strapiApi = createApi({
         }),
         getWorkoutsList: builder.query({
             query: (userId) => `workouts/${userId}`,
-            keepUnuseDataFor: 1,
+            keepUnuseDataFor: 10,
             providesTags: ['Workout']
 
         }),

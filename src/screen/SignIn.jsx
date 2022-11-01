@@ -4,7 +4,7 @@ import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
 import { useAccessTokenShopifyUserMutation, useGetShopifyUserMutation } from '../services/shopify';
-import { ACCESS_TOKEN_USER_VAR, GET_USER_VAR, STRAPI_ADD_USER_DATA_AT_SIGNIN } from '../utils/ApiConstants';
+import { ACCESS_TOKEN_USER_VAR, GET_USER_VAR, LOG, STRAPI_ADD_USER_DATA_AT_SIGNIN } from '../utils/ApiConstants';
 
 import { getDataObject, storeDataObject } from '../services/local';
 import { signInFormValidation } from '../utils/formValidations';
@@ -45,7 +45,7 @@ const SignIn = ({ navigation, route }) => {
   // Get Local data
   const getLocal = async () => {
     const x = await getDataObject();
-    console.log('Local Data:- ' + JSON.stringify(x));
+    if (LOG === true) console.log('Local Data:- ' + JSON.stringify(x));
   };
 
   //BULK CHANGE LABEL
@@ -57,7 +57,7 @@ const SignIn = ({ navigation, route }) => {
     //Initializing error flags
     hasErrorLabel.current = false;
     someErrorLabel.current = false;
-    console.log('SIGNIN ERROR -> 1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
+    if (LOG === true) console.log('SIGNIN ERROR -> 1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
 
     //Performing initial form validation
     const formErr = signInFormValidation(email, password);
@@ -73,13 +73,13 @@ const SignIn = ({ navigation, route }) => {
       accessTokenShopifyUser(ACCESS_TOKEN_USER_VAR(email, password))
         .then((result) => {
           const accessTokenResult = result?.data.data.customerAccessTokenCreate;
-          console.log('AccessToken :- ' + JSON.stringify(accessTokenResult));
+          if (LOG === true) console.log('AccessToken :- ' + JSON.stringify(accessTokenResult));
           // Checking if we encountered any error || error array length > 0
           if (!accessTokenResult?.customerUserErrors.length > 0) {
             if (accessTokenResult?.customerAccessToken.accessToken) {
               const token = accessTokenResult?.customerAccessToken.accessToken;
               const expiresAt = accessTokenResult?.customerAccessToken.expiresAt;
-              console.log('Token :-' + token);
+              if (LOG === true) console.log('Token :-' + token);
               //Returning Token because user token is stored in local
               return { token, expiresAt };
             }
@@ -93,30 +93,30 @@ const SignIn = ({ navigation, route }) => {
         .then(async ({ shopifyUserData, token, expiresAt }) => {
           // Checking if all previous then went through
 
-          console.log(JSON.stringify(shopifyUserData));
+          if (LOG === true) console.log(JSON.stringify(shopifyUserData));
           let customerObj = shopifyUserData?.data.data.customer;
           let gId = customerObj.id;
           const myArray = gId.split('/');
           let customerID = parseInt(myArray[myArray.length - 1]);
-          console.log(customerID);
+          if (LOG === true) console.log(customerID);
           const strapi = await addUserData(STRAPI_ADD_USER_DATA_AT_SIGNIN(customerID, customerObj.firstName, customerObj.lastName, customerObj.email));
           if (strapi?.data.name) throw new Error('Validation Error');
-          console.log(JSON.stringify(userResult));
+          if (LOG === true) console.log(JSON.stringify(userResult));
           const data = {
             isSignnedIn: true,
             accessToken: token,
             customerID: customerID,
             expiresAt: expiresAt,
           };
-          console.log('Storing token locally');
+          if (LOG === true) console.log('Storing token locally');
 
           setLocal(data);
           getLocal();
           dispatch(signin(data));
-          console.log(isSignnedIn);
+          if (LOG === true) console.log(isSignnedIn);
         })
         .catch((err) => {
-          console.log(err);
+         console.log(err);
           someErrorLabel.current = true;
           setRerender(!rerender); //Re-render to show refs updated value
         });
@@ -154,10 +154,10 @@ const SignIn = ({ navigation, route }) => {
         ></View>
       )}
 
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" />
+      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
       {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
       {/* --------------------------------PASSWORD--------------------------------------------- */}
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangePassword} value={password} placeholder="PASSWORD" secureTextEntry={true} />
+      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangePassword} value={password} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="#aaa" />
       <Text style={styles.label}>{passwordLabel}</Text>
 
       <Text style={[styles.body, { marginTop: Mixins.scaleSize(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CREATE_USER_QUERY, GET_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL, ACCESS_TOKEN_USER_QUERY, RESET_USER_QUERY, UPDATE_USER_QUERY } from '../utils/ApiConstants'
+import { CREATE_USER_QUERY, GET_USER_QUERY, STOREFRONT_ACCESS_TOKEN, GRAPHQL_URL, ACCESS_TOKEN_USER_QUERY, RESET_USER_QUERY, UPDATE_USER_QUERY, RENEW_ACCESS_TOKEN_VAR, RENEW_ACCESS_TOKEN } from '../utils/ApiConstants'
 
 export const shopifyApi = createApi({
     reducerPath: 'shopifyApi',
@@ -51,6 +51,14 @@ export const shopifyApi = createApi({
                 body: JSON.stringify({ query: RESET_USER_QUERY, variables: variables }),
             }),
 
+        }),
+        renewAccessToken: builder.mutation({
+            query: (variables) => ({
+                url: `/`,
+                method: 'POST',
+                body: JSON.stringify({ query: RENEW_ACCESS_TOKEN, variables: variables }),
+            }),
+
         })
 
     })
@@ -62,6 +70,7 @@ export const {
     useUpdateShopifyUserMutation,
     useGetShopifyUserMutation,
     useResetShopifyUserMutation,
-    useAccessTokenShopifyUserMutation
+    useAccessTokenShopifyUserMutation,
+    useRenewAccessTokenMutation
 
 } = shopifyApi

@@ -9,7 +9,7 @@ import { formValidation } from '../utils/formValidations';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useCreateShopifyUserMutation, useResetShopifyUserMutation } from '../services/shopify';
-import { CREATE_USER_VAR, DEFAULT_PSWD, RESET_USER_VAR, STRAPI_ADD_USER_DATA } from '../utils/ApiConstants';
+import { CREATE_USER_VAR, DEFAULT_PSWD, LOG, RESET_USER_VAR, STRAPI_ADD_USER_DATA } from '../utils/ApiConstants';
 import { useAddUserDataMutation } from '../services/strapi';
 
 import moment from 'moment';
@@ -48,7 +48,7 @@ const SignUp = ({ navigation }) => {
   React.useEffect(() => {
     if (createResult.isError || userResult.isError || resetResult.isError) someErrorLabel.current = true;
     setRerender(!rerender); //Re-render to show refs updated value
-    console.log(createResult.isError + '---' + JSON.stringify(userResult) + ' --- ' + resetResult.isError + '1. SWW :' + someErrorLabel.current);
+    if (LOG === true) console.log(createResult.isError + '---' + JSON.stringify(userResult) + ' --- ' + resetResult.isError + '1. SWW :' + someErrorLabel.current);
   }, [createResult.isError, userResult.isError, resetResult.isError]);
 
   //DATE PICKER METHODS
@@ -62,7 +62,7 @@ const SignUp = ({ navigation }) => {
 
   const handleConfirm = (date) => {
     setDOB(moment(date).format());
-    console.log('A date has been picked: ', moment(date).format());
+    if (LOG === true) console.log('A date has been picked: ', moment(date).format());
     hideDatePicker();
   };
 
@@ -92,7 +92,7 @@ const SignUp = ({ navigation }) => {
     //Initializing error flags
     hasErrorLabel.current = false;
     someErrorLabel.current = false;
-    console.log('1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
+    if (LOG === true) console.log('1. SWW :' + someErrorLabel.current + '  --  ERR: ' + hasErrorLabel.current + '  ' + Date.now());
 
     //Performing initial form validation
     const formErr = formValidation(email, firstName);
@@ -105,7 +105,7 @@ const SignUp = ({ navigation }) => {
     // If form has no error submit it to SHOPIFY
     if (!hasErrorLabel.current) {
       //Creating User
-      console.log('Creating customer :- ' + password);
+      if (LOG === true) console.log('Creating customer :- ' + password);
       createShopifyUserMutation(CREATE_USER_VAR(firstName, lastName, email, password, terms))
         .then((result) => {
           //Checking if response had some base errors
@@ -119,7 +119,7 @@ const SignUp = ({ navigation }) => {
           if (customerCreate?.customerUserErrors.length > 0) {
             customerCreate?.customerUserErrors.map((item) => {
               onChangeEmailLabel(item.message);
-              console.log(item.message);
+              if (LOG === true) console.log(item.message);
               errorMSG = item.message;
             });
             //Found error so we dont have result
@@ -129,9 +129,9 @@ const SignUp = ({ navigation }) => {
         })
         //Now, generating a RESET password link
         .then(async (result) => {
-          console.log('Sending reset password link ...');
+          if (LOG === true) console.log('Sending reset password link ...');
           const resetResult = await resetShopifyUserMutation(RESET_USER_VAR(email));
-          console.log('AccessToken :- ' + JSON.stringify(resetResult));
+          if (LOG === true) console.log('AccessToken :- ' + JSON.stringify(resetResult));
           if (!resetResult?.data.data.customerRecover.customerUserErrors.length > 0) {
             successLabel.current = true;
             setRerender(!rerender);
@@ -144,7 +144,7 @@ const SignUp = ({ navigation }) => {
           }
         })
         .then((result) => {
-          console.log(JSON.stringify(result));
+          if (LOG === true) console.log(JSON.stringify(result));
           let gId = result?.data.data.customerCreate.customer.id;
           const myArray = gId.split('/');
           let customerId = parseInt(myArray[myArray.length - 1]);
@@ -208,7 +208,7 @@ const SignUp = ({ navigation }) => {
                     }}
                   ></View>
                 )}
-                <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" />
+                <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
                 {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
                 {/* ----------------------------USER NAME ------------------------------------------ */}
                 <View
@@ -219,8 +219,8 @@ const SignUp = ({ navigation }) => {
                     alignItems: 'center',
                   }}
                 >
-                  <TextInput style={[styles.input, { width: Mixins.scaleSize(165) }]} onChangeText={onChangeFirstName} value={firstName} placeholder="FIRST NAME" />
-                  <TextInput style={[styles.input, { width: Mixins.scaleSize(165) }]} onChangeText={onChangeLastName} value={lastName} placeholder="LAST NAME" />
+                  <TextInput style={[styles.input, { width: Mixins.scaleSize(165) }]} onChangeText={onChangeFirstName} value={firstName} placeholder="FIRST NAME" placeholderTextColor="#aaa" />
+                  <TextInput style={[styles.input, { width: Mixins.scaleSize(165) }]} onChangeText={onChangeLastName} value={lastName} placeholder="LAST NAME" placeholderTextColor="#aaa" />
                 </View>
                 {firstNameLabel ? <Text style={styles.label}>{firstNameLabel}</Text> : null}
 
@@ -253,7 +253,7 @@ const SignUp = ({ navigation }) => {
                   </Text>
                 </View>
                 <Text
-                  style={DOB ? [styles.input, { width: Mixins.scaleSize(340) }] : [styles.inputPlaceholder, { width: Mixins.scaleSize(340) }]}
+                  style={DOB ? [styles.input, { width: Mixins.scaleSize(340), lineHeight: Mixins.scaleSize(40) }] : [styles.inputPlaceholder, { width: Mixins.scaleSize(340) }]}
                   // placeholder="ENTER YOUR DOB"
                   onPress={showDatePicker}
                 >

@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
 function Button({ onPress, title, fill, style, color, isLoading }) {
   return (
     //
     <View style={[style]}>
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Pressable style={styles.container} onPress={onPress}>
         <View
           style={[
             styles.btnBackground,
@@ -15,13 +15,8 @@ function Button({ onPress, title, fill, style, color, isLoading }) {
             },
           ]}
         ></View>
-
-        {isLoading ? (
-          <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} />
-        ) : (
-          <Text style={[styles.text, { color: color }]}>{title}</Text>
-        )}
-      </TouchableOpacity>
+        {isLoading ? <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} /> : <Text style={[styles.text, { color: color }]}>{title}</Text>}
+      </Pressable>
     </View>
   );
 }

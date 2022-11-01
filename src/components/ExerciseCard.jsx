@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { Typography } from '../styles';
 
 // const image = require('../assets/images/exercise1.png');
@@ -9,14 +9,14 @@ const ExerciseCard = ({ style, onPress, item, size }) => {
   globalSize = size;
   return (
     <View style={[styles.container, style]}>
-      <TouchableOpacity style={styles.card} onPress={onPress} key={item.id}>
+      <Pressable style={styles.card} onPress={onPress} key={item.id}>
         <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
         <Image style={styles.backdrop} source={backdrop} resizeMode="cover"></Image>
         <View style={[styles.backdrop]}>
           {/* <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>{item.category}</Text> */}
           <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{item.name}</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };

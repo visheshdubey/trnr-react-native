@@ -1,15 +1,15 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator } from 'react-native';
+import { StyleSheet, Pressable, View, Text, ActivityIndicator } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
 function SmallButton({ onPress, title, fill, style, color, isLoading }) {
   return (
     <View style={[style]}>
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Pressable style={styles.container} onPress={onPress}>
         <View style={[styles.btnBackground, { borderColor: color }]}></View>
 
         {isLoading ? <ActivityIndicator color={color} style={[styles.text, { borderWidth: 0 }]} /> : <Text style={[styles.text, { color: color }]}>{title}</Text>}
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

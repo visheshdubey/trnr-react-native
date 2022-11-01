@@ -7,10 +7,14 @@ import SplashScreen from './screen/SplashScreen';
 
 import { Provider, useDispatch } from 'react-redux';
 import { store } from './store';
-import { getDataObject } from './services/local';
+import { getDataObject, storeDataObject } from './services/local';
 
-import { signin } from './services/features/userSlice';
+import { logout, signin } from './services/features/userSlice';
+import { LOG, RENEW_ACCESS_TOKEN_VAR } from './utils/ApiConstants';
+import moment from 'moment/moment';
+import { useRenewAccessTokenMutation } from './services/shopify';
 
+// moment
 const App = () => {
   return (
     <Provider store={store}>
@@ -21,16 +25,45 @@ const App = () => {
 
 const SplashScreenComponent = () => {
   const dispatch = useDispatch();
+  const [renewAccessToken, result] = useRenewAccessTokenMutation();
   const getLocal = async () => await getDataObject();
+  const setLocal = async (data) => {
+    await storeDataObject(data);
+  };
+  const handleLogout = () => {
+    dispatch(logout());
+    setLocal({});
+  };
 
   useEffect(() => {
     const loadData = async () => {
       const data = await getLocal();
       dispatch(signin(data));
+
+      var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
+      var days = duration.asDays();
+
+      if (days < 5 && data.accessToken) {
+        //Updating the Access Token
+        renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
+          .then((result) => {
+            console.log(JSON.stringify(result));
+            if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
+
+            let newData = data;
+            //Storing Access Token
+            newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
+            setLocal(newData);
+          })
+          .catch((err) => {
+            handleLogout();
+            console.log(err);
+          });
+      }
     };
     loadData();
   }, []);
-  //   LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const [show, setShow] = useState(false);
   const [fontsLoaded, error] = useFonts({
     'BlankRiver-Bold': require('./assets/fonts/BlankRiver-Bold.ttf'),
@@ -39,7 +72,7 @@ const SplashScreenComponent = () => {
   });
   useEffect(() => {
     if (fontsLoaded) setShow(true);
-    console.log(fontsLoaded);
+    if (LOG === true) console.log('🚀 ~ file: App.jsx ~ line 42 ~ useEffect ~ fontsLoaded', fontsLoaded);
   }, [fontsLoaded]);
 
   return <View style={{ flex: 1 }}>{!show ? <SplashScreen /> : <BaseStackNav />}</View>;

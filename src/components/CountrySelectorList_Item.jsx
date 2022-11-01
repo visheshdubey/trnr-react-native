@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Image, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import { useNavigation } from '@react-navigation/native';
 
 function CountrySelectorList_Item({ item, style }) {
   const navigation = useNavigation();
-  // console.log(props);
+  // if(LOG===true) console.log(props);
 
   return (
     <View style={[styles.separator, style]} key={item.id}>
-      <TouchableOpacity
+      <Pressable
         style={styles.container}
         onPress={() =>
           navigation.navigate('SignUp', {
@@ -27,7 +27,7 @@ function CountrySelectorList_Item({ item, style }) {
         <View>
           <Text style={styles.exercise}>{item.name}</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }

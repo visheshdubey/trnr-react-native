@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  Button,
-} from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TextInput, Pressable, Button } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -16,6 +8,7 @@ import NetworkRequest from '../components/NetworkRequest';
 import CountrySelectorList_Item from '../components/CountrySelectorList_Item';
 
 import { country_list } from '../utils/world';
+import { LOG } from '../utils/ApiConstants';
 
 const CountrySelectorScreen = ({ navigation: { goBack } }) => {
   const [text, setText] = useState('');
@@ -25,7 +18,7 @@ const CountrySelectorScreen = ({ navigation: { goBack } }) => {
   const data = country_list;
   useEffect(() => {
     if (text.length == 1) {
-      console.log(text.length + '---->' + text);
+      if (LOG === true) console.log(text.length + '---->' + text);
       setFirstChar(text);
     }
     if (text.length == 0) setFirstChar('A');
@@ -33,14 +26,11 @@ const CountrySelectorScreen = ({ navigation: { goBack } }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>
-        <TouchableOpacity onPress={() => goBack()}>
+        <Pressable onPress={() => goBack()}>
           <Icon name="arrowleft" color="#000" size={22} />
-        </TouchableOpacity>
+        </Pressable>
         <TextInput
-          style={[
-            styles.searchBar,
-            Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.2, 3, 2, '#121212'),
-          ]}
+          style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.2, 3, 2, '#121212')]}
           autoFocus={true}
           value={text}
           onChangeText={setText}
@@ -48,11 +38,7 @@ const CountrySelectorScreen = ({ navigation: { goBack } }) => {
           // onPress={() => navigation.navigate('SearchScreen', '')}
         />
       </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        style={{ width: Mixins.WINDOW_WIDTH }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.WINDOW_WIDTH }}>
         {data?.map((item) => {
           if (item.name.toLowerCase().startsWith(text.toLowerCase()))
             return (

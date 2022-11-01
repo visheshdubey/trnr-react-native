@@ -1,30 +1,21 @@
-import { Dimensions, PixelRatio } from 'react-native';
+import { PixelRatio } from 'react-native';
 export const WINDOW_WIDTH = Dimensions.get('window').width;
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 const guidelineBaseWidth = 375;
+const guidelineBaseHeight = 812;
+
+const horizontalScale = (size) => (width / guidelineBaseWidth) * size;
+const verticalScale = (size) => (height / guidelineBaseHeight) * size;
+const moderateScale = (size, factor = 0.5) => size + (horizontalScale(size) - size) * factor;
+
+export { horizontalScale, verticalScale, moderateScale };
 
 export const scaleSize = size => (WINDOW_WIDTH / guidelineBaseWidth) * size;
 
-export const scaleFont = size => size * PixelRatio.getFontScale();
-
-function dimensions(top, right = top, bottom = top, left = right, property) {
-    let styles = {};
-
-    styles[`${property}Top`] = top;
-    styles[`${property}Right`] = right;
-    styles[`${property}Bottom`] = bottom;
-    styles[`${property}Left`] = left;
-
-    return styles;
-}
-
-export function margin(top, right, bottom, left) {
-    return dimensions(top, right, bottom, left, 'margin');
-}
-
-export function padding(top, right, bottom, left) {
-    return dimensions(top, right, bottom, left, 'padding');
-}
-
+export const scaleFont = (size, factor = 0.5) => size + (horizontalScale(size) - size) * factor;
 
 
 export function boxShadow(color, offset = { height: 2, width: 2 },
