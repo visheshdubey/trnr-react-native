@@ -11,7 +11,7 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
   const { error, data, isLoading, isSuccess } = useGetExerciseCategoryQuery(endpoint);
 
-  const GRID_THRESHOLD = 2; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
+  const GRID_THRESHOLD = 6; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
 
   useEffect(() => {
     isSuccess ? (data?.length < GRID_THRESHOLD ? setDataLength(340) : setDataLength(172.5)) : null;

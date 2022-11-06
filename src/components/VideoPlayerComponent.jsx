@@ -31,9 +31,10 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
 
   useEffect(() => {
     // set initial orientation
-    // ScreenOrientation.getOrientationAsync().then((info) => {
-    //   dispatch(updateOrientation(ScreenOrientation.Orientation));
-    // });
+    ScreenOrientation.getOrientationAsync().then((info) => {
+      dispatch(updateOrientation(1));
+      ScreenOrientation.unlockAsync();
+    });
 
     // subscribe to future changes
     const subscription = ScreenOrientation.addOrientationChangeListener(async (evt) => {
@@ -45,12 +46,12 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
 
         updateFullscreenHandler(true);
         // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
-        ScreenOrientation.unlockAsync();
+        // ScreenOrientation.unlockAsync();
       }
       if (evt.orientationInfo.orientation === 1) {
         setStatusBarHidden(false, 'fade');
         // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-        ScreenOrientation.unlockAsync();
+        // ScreenOrientation.unlockAsync();
         updateFullscreenHandler(false);
         console.log('------------------->?');
       }
