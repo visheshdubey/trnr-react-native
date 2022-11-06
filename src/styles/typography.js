@@ -30,6 +30,14 @@ export const LINE_HEIGHT_20 = scaleFont(20);
 export const LINE_HEIGHT_18 = scaleFont(18);
 export const LINE_HEIGHT_16 = scaleFont(16);
 
+export const truncateString = (str, num) => {
+     if (str.length > num) {
+          return str.slice(0, num) + "...";
+     } else {
+          return str;
+     }
+}
+
 // FONT STYLE
 // export const FONT_REGULAR = {
 //   fontFamily: FONT_FAMILY_REGULAR,

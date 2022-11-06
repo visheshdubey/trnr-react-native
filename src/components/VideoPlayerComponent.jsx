@@ -9,15 +9,65 @@ import { LOG } from '../utils/ApiConstants';
 
 import VideoPlayer from 'expo-video-player';
 import { Mixins } from '../styles';
+import { useNavigation } from '@react-navigation/native';
+import { DeviceMotion } from 'expo-sensors';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateFullscreen, updateOrientation } from '../services/features/videoPlayerSlice';
 
-const VideoPlayerComponent = ({ videoUrl, style, navigation }) => {
+const VideoPlayerComponent = ({ videoUrl, style }) => {
   const refVideo2 = useRef(null);
   const { height, width } = useWindowDimensions();
-  const [inFullscreen2, setInFullsreen2] = useState(false);
+  const [rerender, setRerender] = useState(false);
+  const navigation = useNavigation();
+  const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
+  const orientation = useSelector((state) => state.videoPlayer.orientation);
+  const dispatch = useDispatch();
+  const inFullscreenRef = useRef(false);
+
+  const updateFullscreenHandler = (fs) => {
+    inFullscreenRef.current = fs;
+    dispatch(updateFullscreen(fs));
+  };
+
   useEffect(() => {
-    if (inFullscreen2) {
+    // set initial orientation
+    // ScreenOrientation.getOrientationAsync().then((info) => {
+    //   dispatch(updateOrientation(ScreenOrientation.Orientation));
+    // });
+
+    // subscribe to future changes
+    const subscription = ScreenOrientation.addOrientationChangeListener(async (evt) => {
+      dispatch(updateOrientation(evt.orientationInfo.orientation));
+      // console.log(evt.orientationInfo.orientation);
+      console.log('🚀 ~ file: VideoPlayerComponent.jsx ~ line 41 ~ subscription ~ evt.orientationInfo.orientation', evt.orientationLock);
+      if (evt.orientationInfo.orientation !== 1) {
+        setStatusBarHidden(true, 'fade');
+
+        updateFullscreenHandler(true);
+        // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+        ScreenOrientation.unlockAsync();
+      }
+      if (evt.orientationInfo.orientation === 1) {
+        setStatusBarHidden(false, 'fade');
+        // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+        ScreenOrientation.unlockAsync();
+        updateFullscreenHandler(false);
+        console.log('------------------->?');
+      }
+    });
+
+    // return a clean up function to unsubscribe from notifications
+    return () => {
+      ScreenOrientation.removeOrientationChangeListener(subscription);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (inFullscreenRef.current) {
       navigation.setOptions({
         headerShown: false,
+        headerBackVisible: false,
+        gestureEnabled: false,
       });
       navigation.getParent()?.setOptions({
         tabBarStyle: {
@@ -27,6 +77,7 @@ const VideoPlayerComponent = ({ videoUrl, style, navigation }) => {
     } else {
       navigation.setOptions({
         headerShown: true,
+        headerBackVisible: true,
       });
       navigation.getParent()?.setOptions({
         tabBarStyle: {
@@ -36,59 +87,80 @@ const VideoPlayerComponent = ({ videoUrl, style, navigation }) => {
         },
       });
     }
-    // return () =>
-    //   navigation.getParent()?.setOptions({
-    //     tabBarStyle: undefined,
-    //   });
-  }, [inFullscreen2]);
-  useEffect(() => {
-    const backAction = async () => {
-      if (inFullscreen2) {
-        setStatusBarHidden(false, 'fade');
-        setInFullsreen2(!inFullscreen2);
-        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-        console.log('Back Pressed');
-      } else {
-        navigation.goBack();
-      }
-      return true;
-    };
+  }, [inFullscreenRef.current]);
 
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', async (e) => {
+        if (inFullscreenRef.current) {
+          e.preventDefault();
+          console.log('Yo 1', inFullscreenRef);
+          setStatusBarHidden(false, 'fade');
+          updateFullscreenHandler(!inFullscreenRef.current);
+          refVideo2.current.setStatusAsync({
+            shouldPlay: false,
+          });
+          setRerender(!rerender);
+          // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+          await ScreenOrientation.unlockAsync();
+        } else {
+          navigation.dispatch(e.data.action);
+          console.log('Yo 2', inFullscreenRef);
+        }
 
-    return () => backHandler.remove();
-  }, [inFullscreen2]);
+        e.preventDefault();
+        console.log(await ScreenOrientation.getOrientationAsync());
+      }),
+    [navigation]
+  );
+
   return (
-    <View style={{ borderRadius: inFullscreen2 ? 0 : 15, overflow: 'hidden' }}>
+    <View
+      style={{
+        alignItems: 'center',
+        overflow: 'hidden',
+        width: inFullscreenRef.current ? width : Mixins.WINDOW_WIDTH,
+        backgroundColor: '#000',
+      }}
+    >
       <VideoPlayer
+        // defaultControlsVisible={true}
         videoProps={{
           shouldPlay: false,
-          resizeMode: inFullscreen2 ? 'contain' : 'cover',
+          resizeMode: inFullscreenRef.current ? 'cover' : 'contain',
           source: {
             uri: videoUrl,
           },
           ref: refVideo2,
         }}
         fullscreen={{
-          inFullscreen: inFullscreen2,
+          inFullscreen: inFullscreenRef.current,
           enterFullscreen: async () => {
             setStatusBarHidden(true, 'fade');
-            setInFullsreen2(!inFullscreen2);
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+            updateFullscreenHandler(!inFullscreenRef.current);
+
+            // await ScreenOrientation.unlockAsync();
             refVideo2.current.setStatusAsync({
-              shouldPlay: true,
+              shouldPlay: false,
             });
           },
           exitFullscreen: async () => {
             setStatusBarHidden(false, 'fade');
-            setInFullsreen2(!inFullscreen2);
-            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+            updateFullscreenHandler(!inFullscreenRef.current);
+            // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+            await ScreenOrientation.unlockAsync();
+            console.log('<<<<<<', refVideo2.current.playbackStatus);
+            refVideo2.current.setStatusAsync({
+              shouldPlay: false,
+            });
           },
         }}
         style={{
           videoBackgroundColor: 'black',
-          height: inFullscreen2 ? height : Mixins.scaleSize(191.25),
-          width: inFullscreen2 ? width : Mixins.scaleSize(340),
+          height: inFullscreenRef.current ? height : (Mixins.WINDOW_WIDTH / 16) * 9,
+          width: inFullscreenRef.current ? (orientation == 1 ? width : width - 50) : Mixins.WINDOW_WIDTH,
+          backgroundColor: '#000',
         }}
       />
     </View>

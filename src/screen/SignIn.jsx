@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, Text, View, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
@@ -116,7 +116,7 @@ const SignIn = ({ navigation, route }) => {
           if (LOG === true) console.log(isSignnedIn);
         })
         .catch((err) => {
-         console.log(err);
+          console.log(err);
           someErrorLabel.current = true;
           setRerender(!rerender); //Re-render to show refs updated value
         });
@@ -125,55 +125,60 @@ const SignIn = ({ navigation, route }) => {
   // result.isSuccess ? null : null;
   return (
     <SafeAreaView style={styles.container}>
-      <Logo />
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 30,
-        }}
-      >
-        <Text style={styles.heading}>WELCOME BACK </Text>
-        {/* <Text style={[styles.heading_2, {}]}>MEMBER </Text> */}
-      </View>
+      <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.inner}>
+            <Logo />
 
-      <Text style={[styles.body, { marginTop: 5 }]}>SIGNIN TO YOUR ACCOUNT</Text>
-      {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
-      {someErrorLabel.current ? (
-        <Text style={styles.topLabel}>
-          <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
-        </Text>
-      ) : (
-        <View
-          style={{
-            marginTop: Mixins.scaleSize(32),
-          }}
-        ></View>
-      )}
+            <View style={styles.container_2}>
+              <Text style={styles.heading}>WELCOME BACK </Text>
+              {/* <Text style={[styles.heading_2, {}]}>MEMBER </Text> */}
+            </View>
 
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
-      {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
-      {/* --------------------------------PASSWORD--------------------------------------------- */}
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangePassword} value={password} placeholder="PASSWORD" secureTextEntry={true} placeholderTextColor="#aaa" />
-      <Text style={styles.label}>{passwordLabel}</Text>
+            <Text style={[styles.body, { marginTop: Mixins.moderateScale(5) }]}>SIGNIN TO YOUR ACCOUNT</Text>
+            {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
+            {someErrorLabel.current ? (
+              <Text style={styles.topLabel}>
+                <Warning name="warning" color="red" size={Mixins.moderateScale(16)} /> SOMETHING WENT WRONG, TRY AGAIN LATER
+              </Text>
+            ) : (
+              <View
+                style={{
+                  marginTop: Mixins.moderateScale(32),
+                }}
+              ></View>
+            )}
 
-      <Text style={[styles.body, { marginTop: Mixins.scaleSize(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>
-        RESET PASSWORD?
-      </Text>
-      <Button
-        onPress={handleSignIn}
-        title="SIGNIN"
-        fill="#000"
-        color="#fff"
-        style={{ marginVertical: 20 }}
-        isLoading={shopifyUserResult.isLoading || userResult.isLoading || tokenResult.isLoading}
-      ></Button>
-      <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
-        NEW MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-UP HERE</Text>
-      </Text>
+            <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
+            {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
+            {/* --------------------------------PASSWORD--------------------------------------------- */}
+            <TextInput
+              style={[styles.input, { width: Mixins.scaleSize(340) }]}
+              onChangeText={onChangePassword}
+              value={password}
+              placeholder="PASSWORD"
+              secureTextEntry={true}
+              placeholderTextColor="#aaa"
+            />
+            <Text style={styles.label}>{passwordLabel}</Text>
+
+            <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>
+              RESET PASSWORD?
+            </Text>
+            <Button
+              onPress={handleSignIn}
+              title="SIGNIN"
+              fill="#000"
+              color="#fff"
+              style={{ marginVertical: Mixins.moderateScale(20) }}
+              isLoading={shopifyUserResult.isLoading || userResult.isLoading || tokenResult.isLoading}
+            ></Button>
+            <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
+              NEW MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-UP HERE</Text>
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -183,16 +188,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 70,
     backgroundColor: '#fff',
+  },
+  container_2: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: Mixins.moderateScale(30),
+  },
+  inner: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: 'white',
+    paddingVertical: Mixins.moderateScale(70),
+    
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
-    fontSize: 28,
+    fontSize: Typography.FONT_SIZE_28,
   },
   heading_2: {
     fontFamily: Typography.FONT_FAMILY_DISPLAY,
-    fontSize: 32,
+    fontSize: Typography.FONT_SIZE_32,
   },
   body: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
@@ -200,30 +219,30 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+    borderRadius: Mixins.moderateScale(5),
+    height: Mixins.moderateScale(40),
+    marginVertical: Mixins.moderateScale(15),
     borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10),
   },
   label: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     width: Mixins.scaleSize(340),
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-12),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(-12),
+    marginBottom: Mixins.moderateScale(10),
     // borderWidth: 1,
     color: 'red',
   },
   topLabel: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(24),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(24),
+    marginBottom: Mixins.moderateScale(10),
     backgroundColor: '#FFF4D8',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingHorizontal: Mixins.moderateScale(16),
+    paddingVertical: Mixins.moderateScale(8),
+    borderRadius: Mixins.moderateScale(8),
     color: 'red',
   },
 });

@@ -203,7 +203,7 @@ const Profile = ({ navigation }) => {
                 >
                   <Text style={styles.heading}>
                     {'Hi, '}
-                    {firstName}
+                    {firstName && Typography.truncateString(firstName, 12)}
                   </Text>
 
                   {edit ? (
@@ -222,7 +222,7 @@ const Profile = ({ navigation }) => {
                     ) : (
                       <View
                         style={{
-                          marginTop: Mixins.scaleSize(32),
+                          marginTop: Mixins.moderateScale(32, 0.1),
                         }}
                       ></View>
                     )}
@@ -233,31 +233,32 @@ const Profile = ({ navigation }) => {
                     ) : (
                       <View
                         style={{
-                          marginTop: Mixins.scaleSize(32),
+                          marginTop: Mixins.moderateScale(32, 0.1),
                         }}
                       ></View>
                     )}
-                    <Text style={[styles.disableInput, { width: Mixins.scaleSize(340) }]}>{email}</Text>
+                    <Text style={[styles.disableInput, { width: Mixins.moderateScale(340, 0.1) }]}>{email}</Text>
                     {emailLabel && hasErrorLabel.current ? <Text style={styles.label}>{emailLabel}</Text> : null}
                     {/* ----------------------------USER NAME ------------------------------------------ */}
                     <View
                       style={{
-                        width: Mixins.scaleSize(340),
+                        width: Mixins.moderateScale(340, 0.1),
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}
                     >
                       <TextInput
-                        style={[edit ? styles.input : styles.disableInput, { width: Mixins.scaleSize(165) }]}
+                        style={[edit ? styles.input : styles.disableInput, { width: Mixins.moderateScale(165, 0.1) }]}
                         onChangeText={onChangeFirstName}
                         editable={edit}
                         value={firstName}
                         placeholder="FIRST NAME"
                         placeholderTextColor="#aaa"
                       />
+
                       <TextInput
-                        style={[edit ? styles.input : styles.disableInput, { width: Mixins.scaleSize(165) }]}
+                        style={[edit ? styles.input : styles.disableInput, { width: Mixins.moderateScale(165, 0.1) }]}
                         onChangeText={onChangeLastName}
                         editable={edit}
                         value={lastName}
@@ -272,10 +273,10 @@ const Profile = ({ navigation }) => {
                     <View
                       style={[
                         {
-                          width: Mixins.scaleSize(340),
+                          width: Mixins.moderateScale(340, 0.1),
                           flexDirection: 'row',
                           justifyContent: 'space-around',
-                          marginVertical: Mixins.scaleSize(5),
+                          marginVertical: Mixins.moderateScale(5, 0.1),
                         },
                       ]}
                     >
@@ -295,24 +296,26 @@ const Profile = ({ navigation }) => {
                         OTHER
                       </Text>
                     </View>
-                    <Text
-                      style={DOB ? [edit ? styles.input : styles.disableInput, { width: Mixins.scaleSize(340) }] : [styles.inputPlaceholder, { width: Mixins.scaleSize(340) }]}
-                      // placeholder="ENTER YOUR DOB"
-                      onPress={showDatePicker}
-                    >
-                      {DOB ? moment(DOB).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
-                    </Text>
+                    <View style={[styles.custom_input, { backgroundColor: !edit ? '#f9f9f9' : '#fff', borderColor: !edit ? '#ddd' : '#000', color: !edit ? '#888' : '#000' }]}>
+                      <Text
+                        // placeholder="ENTER YOUR DOB"
+                        style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_16, color: edit ? (DOB ? '#000' : '#999') : '#999' }}
+                        onPress={showDatePicker}
+                      >
+                        {DOB ? moment(DOB).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
+                      </Text>
+                    </View>
 
                     <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
                   </View>
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     {edit ? (
-                      <View style={{ minHeight: Mixins.scaleSize(100), justifyContent: 'space-between' }}>
+                      <View style={{ minHeight: Mixins.moderateScale(100, 0.1), justifyContent: 'space-between' }}>
                         <Button onPress={handleSave} title="SAVE" fill="#000" color="#fff" isLoading={updateResult.isLoading || isLoading}></Button>
                         <Button onPress={toggleEdit} title="CLOSE" fill="#f9f9f9" color="#C53437"></Button>
                       </View>
                     ) : (
-                      <View style={{ minHeight: Mixins.scaleSize(100), justifyContent: 'space-between' }}>
+                      <View style={{ minHeight: Mixins.moderateScale(100, 0.1), justifyContent: 'space-between' }}>
                         <Button onPress={() => navigation.navigate('Reset', 'Reset Password')} title="RESET PASSWORD" fill="#FFF" color="black" />
                         <Button onPress={handleLogout} title="LOG OUT" fill="#f9f9f9" color="red" />
                       </View>
@@ -332,12 +335,13 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: Mixins.moderateScale(150, 0.1),
   },
   inner: {
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    marginTop: 30,
+    marginTop: Mixins.moderateScale(30, 0.1),
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,
@@ -346,10 +350,10 @@ const styles = StyleSheet.create({
   editField: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_14,
-    borderRadius: 2,
-    paddingHorizontal: 4,
-    paddingVertical: 4,
-    borderWidth: 1.2,
+    borderRadius: Mixins.moderateScale(2, 0.1),
+    paddingHorizontal: Mixins.moderateScale(4, 0.1),
+    paddingVertical: Mixins.moderateScale(4, 0.1),
+    borderWidth: 1,
   },
   heading_2: {
     fontFamily: Typography.FONT_FAMILY_DISPLAY,
@@ -361,23 +365,32 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+    borderRadius: Mixins.moderateScale(5, 0.1),
+    height: Mixins.moderateScale(40, 0.1),
+    marginVertical: Mixins.moderateScale(15, 0.1),
     borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10, 0.1),
+  },
+
+  custom_input: {
+    borderRadius: Mixins.moderateScale(5),
+    width: Mixins.moderateScale(340, 0.1),
+    height: Mixins.moderateScale(40),
+    marginVertical: Mixins.moderateScale(15),
+    borderWidth: 1,
+    padding: Mixins.moderateScale(10),
   },
   disableInput: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
     backgroundColor: '#f9f9f9',
-    borderRadius: 5,
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+    borderRadius: Mixins.moderateScale(5, 0.1),
+    height: Mixins.moderateScale(40, 0.1),
+    marginVertical: Mixins.moderateScale(15, 0.1),
     borderWidth: 1,
     borderColor: '#ddd',
     color: '#888',
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10, 0.1),
   },
   checkbox: {
     color: 'black',
@@ -388,48 +401,48 @@ const styles = StyleSheet.create({
   inputPlaceholder: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
+    borderRadius: Mixins.moderateScale(5, 0.1),
     color: '#999',
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+    height: Mixins.moderateScale(40, 0.1),
+    marginVertical: Mixins.moderateScale(15, 0.1),
     borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10, 0.1),
   },
   label: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
-    width: Mixins.scaleSize(340),
+    width: Mixins.moderateScale(340, 0.1),
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-12),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(-12, 0.1),
+    marginBottom: Mixins.moderateScale(10, 0.1),
     // borderWidth: 1,
     color: 'red',
   },
   labelSmall: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
-    width: Mixins.scaleSize(165),
+    width: Mixins.moderateScale(165, 0.1),
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-15),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(-15, 0.1),
+    marginBottom: Mixins.moderateScale(10, 0.1),
     color: 'red',
   },
   topLabel: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    marginVertical: Mixins.scaleSize(0),
+    marginVertical: Mixins.moderateScale(0),
     backgroundColor: '#FFF4D8',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: Mixins.moderateScale(16, 0.1),
+    paddingVertical: Mixins.moderateScale(8, 0.1),
     borderRadius: 8,
     color: 'red',
   },
   topSuccessLabel: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(0),
-    marginBottom: Mixins.scaleSize(0),
+    marginTop: Mixins.moderateScale(0),
+    marginBottom: Mixins.moderateScale(0),
     backgroundColor: '#E3FFD9',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: Mixins.moderateScale(16, 0.1),
+    paddingVertical: Mixins.moderateScale(8, 0.1),
     borderRadius: 8,
     color: '#1D6F00',
   },

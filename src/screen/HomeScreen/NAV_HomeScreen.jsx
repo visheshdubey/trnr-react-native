@@ -1,12 +1,63 @@
 import { Typography } from '../../styles';
 import HS_CategoryScreen from './HS_CategoryScreen';
 import HS_ExerciseView from './NAV_ExerciseScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, cardStyleInterpolator } from '@react-navigation/native-stack';
 import HS_ExerciseDetailScreen from './HS_ExerciseDetailScreen';
 import HS_ProductScreen from './HS_ProductScreen';
 import NAV_ExerciseScreen from './NAV_ExerciseScreen';
-
+import 'react-native-gesture-handler';
+import { Animated } from 'react-native';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+// Animated
 const Stack = createNativeStackNavigator();
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
+  const progress = Animated.add(
+    current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    }),
+    next
+      ? next.progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolate: 'clamp',
+        })
+      : 0
+  );
+
+  return {
+    cardStyle: {
+      transform: [
+        {
+          translateX: Animated.multiply(
+            progress.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [
+                screen.width, // Focused, but offscreen in the beginning
+                0, // Fully focused
+                screen.width * -0.3, // Fully unfocused
+              ],
+              extrapolate: 'clamp',
+            }),
+            inverted
+          ),
+        },
+      ],
+    },
+  };
+};
 const NAV_HomeScreen = () => {
   return (
     <Stack.Navigator
@@ -27,6 +78,7 @@ const NAV_HomeScreen = () => {
         component={HS_CategoryScreen}
         options={{
           headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -34,6 +86,7 @@ const NAV_HomeScreen = () => {
         component={HS_ExerciseView}
         options={{
           title: 'BALANCE TRAINER',
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -41,6 +94,8 @@ const NAV_HomeScreen = () => {
         component={HS_ExerciseDetailScreen}
         options={{
           title: 'HS_ExerciseDetailScreen',
+          gestureEnabled: true,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -48,6 +103,8 @@ const NAV_HomeScreen = () => {
         component={NAV_ExerciseScreen}
         options={{
           title: 'NAV_ExerciseScreen',
+
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -55,6 +112,8 @@ const NAV_HomeScreen = () => {
         component={HS_ProductScreen}
         options={{
           title: 'HS_ProductScreen',
+
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </Stack.Navigator>

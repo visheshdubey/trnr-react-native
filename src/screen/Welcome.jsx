@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import Button from '../components/Button';
-import { Typography } from '../styles';
+import { Mixins, Typography } from '../styles';
 import { scaleFont } from '../styles/mixins';
 
 const image = require('../assets/images/bg.jpg');
@@ -18,7 +18,7 @@ const Welcome = ({ navigation }) => {
           IDEAL FOR UPPER BODY CONDITIONING, TARGETING THE BACK, PECS, SHOULDERS, BICEPS, TRICEPS AND ABS. HELPS DEVELOP MUSCLE MASS, PROTECT JOINTS AND INCREASE BONE DENSITY. DOOR ANCHOR INCLUDED
           THAT CAN BE POSITIONED AT VARIOUS HEIGHTS TO LEVERAGE A DIVERSE RANGE OF EXERCISES.
         </Text>
-        <Button onPress={() => handleClick('SignUp', 'Sign Up')} title="BEGIN" fill="#fff" color="#000" isLoading={false} style={{ marginVertical: 20 }}></Button>
+        <Button onPress={() => handleClick('SignUp', 'Sign Up')} title="BEGIN" fill="#fff" color="#000" isLoading={false} style={{ marginVertical: Mixins.moderateScale(20) }}></Button>
         <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
           ALREADY MEMEBER? SIGN-IN HERE
         </Text>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: 20,
+    paddingBottom: Mixins.moderateScale(20),
   },
   heading: {
     color: 'white',

@@ -38,32 +38,34 @@ const SplashScreenComponent = () => {
   useEffect(() => {
     const loadData = async () => {
       const data = await getLocal();
-      dispatch(signin(data));
+      if (data) {
+        dispatch(signin(data));
 
-      var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
-      var days = duration.asDays();
+        var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
+        var days = duration.asDays();
 
-      if (days < 5 && data.accessToken) {
-        //Updating the Access Token
-        renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
-          .then((result) => {
-            console.log(JSON.stringify(result));
-            if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
+        if (days < 5 && data.accessToken) {
+          //Updating the Access Token
+          renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
+            .then((result) => {
+              console.log(JSON.stringify(result));
+              if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
 
-            let newData = data;
-            //Storing Access Token
-            newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
-            setLocal(newData);
-          })
-          .catch((err) => {
-            handleLogout();
-            console.log(err);
-          });
+              let newData = data;
+              //Storing Access Token
+              newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
+              setLocal(newData);
+            })
+            .catch((err) => {
+              handleLogout();
+              console.log(err);
+            });
+        }
       }
     };
     loadData();
   }, []);
-  LogBox.ignoreAllLogs();
+  // LogBox.ignoreAllLogs();
   const [show, setShow] = useState(false);
   const [fontsLoaded, error] = useFonts({
     'BlankRiver-Bold': require('./assets/fonts/BlankRiver-Bold.ttf'),

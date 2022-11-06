@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { G, Path } from 'react-native-svg';
+import { Mixins } from '../styles';
 
 const WorkoutIcon = (props) => (
   <Svg width={27} height={18} fill="none" xmlns="http://www.w3.org/2000/svg">

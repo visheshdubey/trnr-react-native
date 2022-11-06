@@ -19,22 +19,13 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const userId = useSelector((state) => state.user.customerID);
   const [rerender, setRerender] = useState(false);
 
-  const inFullscreen2 = useRef(false);
-
-  const { height, width } = useWindowDimensions();
-
+  const isFocused = useIsFocused();
+  const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
   useEffect(() => {
     navigation.setOptions({
       title: name,
     });
   }, [name]);
-
-  useEffect(() => {
-    if (width > height) inFullscreen2.current = false;
-    else inFullscreen2.current = true;
-    setRerender(!rerender);
-    console.log('Width X Height', width, 'X', height);
-  }, [width, height, refreshing]);
 
   const handleSave = async () => {
     const work = await addWorkout(STRAPI_ADD_WORKOUT(userId, exerciseId)).catch((err) => {
@@ -44,7 +35,14 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <ScrollView alwaysBounceVertical={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />} bouncesZoom={false} scrollEnabled={inFullscreen2.current}>
+      <ScrollView
+        alwaysBounceVertical={false}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
+        bouncesZoom={false}
+        scrollEnabled={!inFullscreen}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
           {/* Video Player */}
           {data?.video != null ? <VideoPlayerComponent style={styles.video} videoUrl={data?.video.url} navigation={navigation} /> : null}
@@ -94,9 +92,9 @@ const styles = StyleSheet.create({
   image: {
     width: Mixins.scaleSize(340),
     height: Mixins.scaleSize(340),
-    marginBottom: Mixins.scaleSize(17.5),
+    marginBottom: Mixins.moderateScale(17.5),
     backgroundColor: '#eee',
-    borderRadius: 15,
+    borderRadius: Mixins.moderateScale(15),
     overflow: 'hidden',
     marginHorizontal: 0,
   },
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
     overflow: 'hidden',
     borderRadius: 15,
-    marginBottom: Mixins.scaleSize(17.5),
+    marginBottom: Mixins.moderateScale(17.5),
   },
   row: {
     flexDirection: 'row',
@@ -117,12 +115,12 @@ const styles = StyleSheet.create({
   },
   video: {
     alignSelf: 'center',
-    width: Mixins.scaleSize(340),
-    height: Mixins.scaleSize(191.25),
+    // width: Mixins.scaleSize(340),
+    // height: Mixins.scaleSize(191.25),
 
     backgroundColor: '#000',
-    borderRadius: 15,
-    marginBottom: Mixins.scaleSize(17.5),
+    // borderRadius: 15,
+    marginBottom: Mixins.moderateScale(17.5),
   },
   category: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
@@ -137,13 +135,13 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
   },
   body: {
-    marginTop: Mixins.scaleSize(12),
+    marginTop: Mixins.moderateScale(12),
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
     textAlign: 'left',
     lineHeight: Typography.LINE_HEIGHT_18,
     width: Mixins.scaleSize(340),
-    marginBottom: Mixins.scaleSize(17.5),
+    marginBottom: Mixins.moderateScale(17.5),
   },
 });
 export default HS_ExerciseDetailScreen;

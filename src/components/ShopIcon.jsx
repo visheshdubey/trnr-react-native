@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
-
+import { Mixins } from '../styles';
 const ShopIcon = (props) => (
   <Svg width={18} height={18} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path

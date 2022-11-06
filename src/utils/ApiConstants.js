@@ -10,7 +10,7 @@ export const GRAPHQL_URL = 'https://trnr.com/api/2022-10/graphql.json'
 
 export const STRAPI_URL = 'https://apiapp.trnr.com/api/'
 
-export const LOG = false;
+export const LOG = true;
 
 
 

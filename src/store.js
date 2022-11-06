@@ -3,15 +3,16 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { strapiApi } from './services/strapi'
 import { shopifyApi } from './services/shopify'
 import userSlice from './services/features/userSlice'
-
-
+import videoPlayerSlice from './services/features/videoPlayerSlice'
 
 export const store = configureStore({
     reducer: {
         // Add the generated reducer as a specific top-level slice
         [strapiApi.reducerPath]: strapiApi.reducer,
         [shopifyApi.reducerPath]: shopifyApi.reducer,
-        user: userSlice
+        user: userSlice,
+        videoPlayer: videoPlayerSlice
+
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.

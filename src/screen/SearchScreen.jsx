@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TextInput, Pressable, Button } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TextInput, Pressable, Button, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     alignSelf: 'center',
-    paddingTop: 40,
-    paddingHorizontal: Mixins.scaleSize(10),
+    paddingTop: StatusBar.currentHeight,
+    paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
   },
   item: {
@@ -78,16 +78,14 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: Mixins.scaleSize(5),
-    paddingVertical: Mixins.scaleSize(10),
   },
   searchBar: {
     width: Mixins.scaleSize(300),
     backgroundColor: '#fff',
     borderColor: '#ddd',
     borderRadius: 8,
-    paddingHorizontal: Mixins.scaleSize(15),
-    paddingVertical: Mixins.scaleSize(10),
+    paddingHorizontal: Mixins.moderateScale(15),
+    paddingVertical: Mixins.moderateScale(10),
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,

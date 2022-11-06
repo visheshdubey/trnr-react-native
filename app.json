@@ -17,7 +17,8 @@
       }
     },
     "ios": {
-      "bundleIdentifier": "com.trnr.application"
+      "bundleIdentifier": "com.trnr.application",
+      "requireFullScreen": true
     },
     "extra": {
       "eas": {

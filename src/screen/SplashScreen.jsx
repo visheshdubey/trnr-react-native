@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import Logo from '../components/Logo';
+import { Mixins } from '../styles';
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   indicator: {
-    marginTop: 15,
+    marginTop: Mixins.moderateScale(15),
   },
 });
 

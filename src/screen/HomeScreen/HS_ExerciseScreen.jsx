@@ -11,7 +11,7 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
   const { error, data, isLoading, isSuccess } = useGetExerciseCategoryQuery(endpoint);
 
-  const GRID_THRESHOLD = 6; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
+  const GRID_THRESHOLD = 2; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
 
   useEffect(() => {
     isSuccess ? (data?.length < GRID_THRESHOLD ? setDataLength(340) : setDataLength(172.5)) : null;
@@ -25,9 +25,9 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
             {data?.map((item) => (
               <ExerciseCard
                 style={{
-                  margin: Mixins.scaleSize(5),
-                  width: Mixins.scaleSize(dataLength),
-                  height: Mixins.scaleSize(dataLength),
+                  margin: Mixins.moderateScale(5),
+                  width: Mixins.moderateScale(dataLength),
+                  height: Mixins.moderateScale(dataLength),
                 }}
                 item={item}
                 size={340}
@@ -50,7 +50,7 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Mixins.scaleSize(10),
+    paddingTop: Mixins.moderateScale(10),
     alignItems: 'center',
     backgroundColor: '#fff',
   },
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     width: Mixins.WINDOW_WIDTH,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: Mixins.scaleSize(80),
+    marginBottom: Mixins.moderateScale(80),
   },
 });
 

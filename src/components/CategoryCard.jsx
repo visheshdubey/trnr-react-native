@@ -14,7 +14,7 @@ const CategoryCard = ({ item, style, onPress }) => {
         <Image style={[styles.backdrop, { width: Mixins.WINDOW_WIDTH, height: Mixins.scaleSize(150) }]} source={backdrop} resizeMode="cover"></Image>
         <View style={[styles.backdrop]}>
           {/* <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>CATEGORY</Text> */}
-          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{item.name}</Text>
+          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{Typography.truncateString(item.name, 50)}</Text>
         </View>
       </Pressable>
     </View>
@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
   backdrop: {
     position: 'absolute',
     bottom: 0,
-    paddingHorizontal: Mixins.scaleSize(20),
-    paddingBottom: Mixins.scaleSize(15),
+    paddingHorizontal: Mixins.moderateScale(20),
+    paddingBottom: Mixins.moderateScale(15),
   },
   imageStyles: {
-    borderRadius: Mixins.scaleSize(10),
+    borderRadius: Mixins.moderateScale(10),
     width: Mixins.WINDOW_WIDTH,
     height: Mixins.scaleSize(150),
     backgroundColor: '#eee',

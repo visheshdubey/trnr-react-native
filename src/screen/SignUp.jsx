@@ -175,36 +175,36 @@ const SignUp = ({ navigation }) => {
                     flexWrap: 'wrap',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginTop: Mixins.scaleSize(30),
+                    marginTop: Mixins.moderateScale(30),
                   }}
                 >
                   <Text style={styles.heading}>LET'S BECOME A </Text>
                   <Text style={[styles.heading_2, {}]}>MEMBER </Text>
                 </View>
-                <Text style={[styles.body, { marginTop: Mixins.scaleSize(5) }]}>AND RECIEVE THOUSANDS OF BENEFITS</Text>
+                <Text style={[styles.body, { marginTop: Mixins.moderateScale(5) }]}>AND RECIEVE THOUSANDS OF BENEFITS</Text>
               </View>
 
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 20 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
                 {someErrorLabel.current ? (
                   <Text style={styles.topLabel}>
-                    <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
+                    <Warning name="warning" color="red" size={Mixins.moderateScale(16)} /> SOMETHING WENT WRONG, TRY AGAIN LATER
                   </Text>
                 ) : (
                   <View
                     style={{
-                      marginTop: Mixins.scaleSize(32),
+                      marginTop: Mixins.moderateScale(32),
                     }}
                   ></View>
                 )}
                 {successLabel.current ? (
                   <Text style={styles.topSuccessLabel}>
-                    <Warning name="check" color="#1D6F00" size={16} /> ACCOUNT CREATED, CHECK YOUR EMAIL TO SET PASSWORD
+                    <Warning name="check" color="#1D6F00" size={Mixins.moderateScale(16)} /> ACCOUNT CREATED, CHECK YOUR EMAIL TO SET PASSWORD
                   </Text>
                 ) : (
                   <View
                     style={{
-                      marginTop: Mixins.scaleSize(32),
+                      marginTop: Mixins.moderateScale(32),
                     }}
                   ></View>
                 )}
@@ -232,38 +232,40 @@ const SignUp = ({ navigation }) => {
                       width: Mixins.scaleSize(340),
                       flexDirection: 'row',
                       justifyContent: 'space-around',
-                      marginVertical: Mixins.scaleSize(5),
+                      marginVertical: Mixins.moderateScale(5),
                     },
                   ]}
                 >
                   <Text style={[styles.body]} onPress={() => toggleGender('MALE')}>
-                    {gender == 'MALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={18} />}
+                    {gender == 'MALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
                     {'  '}
                     MALE
                   </Text>
                   <Text style={[styles.body]} onPress={() => toggleGender('FEMALE')}>
-                    {gender == 'FEMALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={18} />}
+                    {gender == 'FEMALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
                     {'  '}
                     FEMALE
                   </Text>
                   <Text style={[styles.body]} onPress={() => toggleGender('OTHER')}>
-                    {gender == 'OTHER' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={18} />}
+                    {gender == 'OTHER' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
                     {'  '}
                     OTHER
                   </Text>
                 </View>
-                <Text
-                  style={DOB ? [styles.input, { width: Mixins.scaleSize(340), lineHeight: Mixins.scaleSize(40) }] : [styles.inputPlaceholder, { width: Mixins.scaleSize(340) }]}
-                  // placeholder="ENTER YOUR DOB"
-                  onPress={showDatePicker}
-                >
-                  {DOB ? moment(DOB).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
-                </Text>
+                <View style={styles.custom_input}>
+                  <Text
+                    // placeholder="ENTER YOUR DOB"
+                    style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_16, color: DOB ? '#000' : '#999' }}
+                    onPress={showDatePicker}
+                  >
+                    {DOB ? moment(DOB).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
+                  </Text>
+                </View>
 
                 <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
 
-                <Text style={[styles.body, { marginTop: Mixins.scaleSize(5) }]} onPress={toggleTerms}>
-                  {terms ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={18} />}
+                <Text style={[styles.body, { marginTop: Mixins.moderateScale(5) }]} onPress={toggleTerms}>
+                  {terms ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
                   {'  '}AGREE TO OUR <Text style={{ textDecorationLine: 'underline' }}>TERMS AND CONDITIONS?</Text>
                 </Text>
                 <Button //
@@ -272,13 +274,13 @@ const SignUp = ({ navigation }) => {
                   fill="#000"
                   color="#fff"
                   isLoading={createResult.isLoading || userResult.isLoading}
-                  style={{ marginVertical: Mixins.scaleSize(30) }}
+                  style={{ marginVertical: Mixins.moderateScale(30) }}
                 ></Button>
                 <Text style={[styles.body]} onPress={() => handleClick('SignIn', 'Sign In')}>
                   {' '}
                   ALREADY A MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-IN HERE</Text>
                 </Text>
-                <Text style={[styles.body, { marginTop: Mixins.scaleSize(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>
+                <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => handleClick('Reset', 'Reset Password')}>
                   RESET PASSWORD?
                 </Text>
               </View>
@@ -300,7 +302,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: 'white',
-    paddingVertical: Mixins.scaleSize(70),
+    paddingVertical: Mixins.moderateScale(70),
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,
@@ -316,28 +318,26 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+    borderRadius: Mixins.moderateScale(5),
+    height: Mixins.moderateScale(40),
+    marginVertical: Mixins.moderateScale(15),
     borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10),
   },
-  inputPlaceholder: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
-    fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
-    color: '#999',
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
+  custom_input: {
+    borderRadius: Mixins.moderateScale(5),
+    width: Mixins.scaleSize(340),
+    height: Mixins.moderateScale(40),
+    marginVertical: Mixins.moderateScale(15),
     borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    padding: Mixins.moderateScale(10),
   },
   label: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     width: Mixins.scaleSize(340),
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-12),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(-12),
+    marginBottom: Mixins.moderateScale(10),
     // borderWidth: 1,
     color: 'red',
   },
@@ -345,8 +345,8 @@ const styles = StyleSheet.create({
     fontFamily: Typography.FONT_FAMILY_HEADING,
     width: Mixins.scaleSize(165),
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-15),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(-15),
+    marginBottom: Mixins.moderateScale(10),
     color: 'red',
   },
   topLabel: {
@@ -355,20 +355,20 @@ const styles = StyleSheet.create({
     // marginTop: Mixins.scaleSize(24),
     // marginBottom: Mixins.scaleSize(10),
     backgroundColor: '#FFF4D8',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingHorizontal: Mixins.moderateScale(16),
+    paddingVertical: Mixins.moderateScale(8),
+    borderRadius: Mixins.moderateScale(8),
     color: 'red',
   },
   topSuccessLabel: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(24),
-    marginBottom: Mixins.scaleSize(10),
+    marginTop: Mixins.moderateScale(24),
+    marginBottom: Mixins.moderateScale(10),
     backgroundColor: '#E3FFD9',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingHorizontal: Mixins.moderateScale(16),
+    paddingVertical: Mixins.moderateScale(8),
+    borderRadius: Mixins.moderateScale(8),
     color: '#1D6F00',
   },
 });

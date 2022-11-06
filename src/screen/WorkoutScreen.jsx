@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   list: {
     width: Mixins.scaleSize(340),
-    marginBottom: Mixins.scaleSize(70),
+    marginBottom: Mixins.moderateScale(50),
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, Text, View, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Logo from '../components/Logo';
 import Button from '../components/Button';
 import { Mixins, Typography } from '../styles';
@@ -12,7 +12,7 @@ import Warning from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../services/features/userSlice';
 
-const ResetScreen = ({ navigation: { goBack }, route }) => {
+const ResetScreen = ({ navigation: { goBack }, route, navigation }) => {
   //Form States
   const [email, onChangeEmail] = React.useState(null);
   // Label States
@@ -82,65 +82,71 @@ const ResetScreen = ({ navigation: { goBack }, route }) => {
   // result.isSuccess ? null : null;
   return (
     <SafeAreaView style={styles.container}>
-      <Logo />
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 30,
-        }}
-      >
-        <Text style={styles.heading}>WELCOME BACK </Text>
-        {/* <Text style={[styles.heading_2, {}]}>MEMBER </Text> */}
-      </View>
+      <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.inner}>
+            <Logo />
+            <View
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: Mixins.moderateScale(30),
+              }}
+            >
+              <Text style={styles.heading}>RESET PASSWORD</Text>
+              {/* <Text style={[styles.heading_2, {}]}>MEMBER </Text> */}
+            </View>
 
-      <Text style={[styles.body, { marginTop: 5 }]}>GENERATE A RESET PASSWORD LINK</Text>
-      {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
-      {someErrorLabel.current ? (
-        <Text style={styles.topLabel}>
-          <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
-        </Text>
-      ) : (
-        <View
-          style={{
-            marginTop: Mixins.scaleSize(32),
-          }}
-        ></View>
-      )}
-      {successLabel.current ? (
-        <Text style={styles.topSuccessLabel}>
-          <Warning name="check" color="#1D6F00" size={16} /> LINK GENERATED SUCCESFULLY, CHECK YOUR EMAIL!
-        </Text>
-      ) : (
-        <View
-          style={{
-            marginTop: Mixins.scaleSize(32),
-          }}
-        ></View>
-      )}
+            <Text style={[styles.body, { marginTop: 5 }]}>GENERATE A RESET PASSWORD LINK</Text>
+            {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
+            {someErrorLabel.current ? (
+              <Text style={styles.topLabel}>
+                <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
+              </Text>
+            ) : (
+              <View
+                style={{
+                  marginTop: Mixins.scaleSize(32),
+                }}
+              ></View>
+            )}
+            {successLabel.current ? (
+              <Text style={styles.topSuccessLabel}>
+                <Warning name="check" color="#1D6F00" size={16} /> LINK GENERATED SUCCESFULLY, CHECK YOUR EMAIL!
+              </Text>
+            ) : (
+              <View
+                style={{
+                  marginTop: Mixins.scaleSize(32),
+                }}
+              ></View>
+            )}
 
-      <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
-      {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
-      {!isSignnedIn ? (
-        <>
-          <Text style={[styles.body, { marginTop: Mixins.scaleSize(24) }]} onPress={() => handleClick('SignIn', 'SignIn')}>
-            REMEMBER PASSWORD?
-          </Text>
-        </>
-      ) : null}
-      <Button onPress={handleSignIn} title="GENERATE RESET LINK" fill="#000" color="#fff" style={{ marginVertical: 20 }} isLoading={resetResult.isLoading}></Button>
-      {isSignnedIn ? <Button onPress={goBack} title="CLOSE" fill="#fafafa" color="#C53437"></Button> : null}
+            <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
+            {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
+            {!isSignnedIn ? (
+              <>
+                <Text style={[styles.body, { marginTop: Mixins.scaleSize(24) }]} onPress={() => handleClick('SignIn', 'SignIn')}>
+                  REMEMBER PASSWORD?
+                </Text>
+              </>
+            ) : null}
+            <Button onPress={handleSignIn} title="GENERATE RESET LINK" fill="#000" color="#fff" style={{ marginVertical: 20 }} isLoading={resetResult.isLoading}></Button>
+            {isSignnedIn ? <Button onPress={goBack} title="CLOSE" fill="#fafafa" color="#C53437"></Button> : null}
 
-      {!isSignnedIn ? (
-        <>
-          <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
-            NEW MEMEBER? SIGN-UP HERE
-          </Text>
-        </>
-      ) : null}
+            {!isSignnedIn ? (
+              <>
+                <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
+                  NEW MEMEBER? SIGN-UP HERE
+                </Text>
+              </>
+            ) : null}
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -150,8 +156,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 70,
     backgroundColor: '#fff',
+  },
+  inner: {
+    flex: 1,
+    alignItems: 'center',
+    // justifyContent: 'center',
+    paddingVertical: Mixins.moderateScale(70, 0.1),
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

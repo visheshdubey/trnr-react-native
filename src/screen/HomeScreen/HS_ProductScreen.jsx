@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: WHITE,
     alignItems: 'center',
+    // paddingBottom: Mixins.moderateScale(70),
   },
 
   list: {
     width: Mixins.scaleSize(340),
-    marginBottom: Mixins.scaleSize(70),
+    marginBottom: Mixins.moderateScale(50),
   },
   errorText: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: Mixins.scaleSize(8),
-    height: Mixins.scaleSize(104),
+    marginVertical: Mixins.moderateScale(8),
+    height: Mixins.moderateScale(104),
   },
   text_icon: {
     width: Mixins.scaleSize(200),
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   imageStyles: {
-    width: Mixins.scaleSize(104),
-    height: Mixins.scaleSize(104),
+    width: Mixins.moderateScale(104, 0.1),
+    height: Mixins.moderateScale(104, 0.1),
     borderRadius: 5,
-    marginRight: Mixins.scaleSize(10),
+    marginRight: Mixins.moderateScale(10, 0.1),
     backgroundColor: '#eee',
   },
   name: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 
@@ -49,17 +49,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40,
-    paddingHorizontal: Mixins.scaleSize(10),
+    paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
+
+    paddingTop: StatusBar.currentHeight,
   },
 
   scrollview: {
     width: Mixins.scaleSize(340),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: Mixins.scaleSize(30),
-    marginBottom: Mixins.scaleSize(80),
+    marginTop: Mixins.moderateScale(30),
+    marginBottom: Mixins.moderateScale(80),
   },
   separator: {
     width: Mixins.scaleSize(340),
@@ -69,22 +70,22 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   item: {
-    marginVertical: Mixins.scaleSize(8),
-    borderRadius: Mixins.scaleSize(10),
+    marginVertical: Mixins.moderateScale(8),
+    borderRadius: Mixins.moderateScale(10),
     width: Mixins.scaleSize(340),
   },
   searchBarContainer: {
-    marginTop: Mixins.scaleSize(5),
-
-    paddingVertical: Mixins.scaleSize(10),
+    // marginTop: Mixins.moderateScale(5),
+    // paddingVertical: Mixins.moderateScale(10),
+    paddingBottom: Mixins.moderateScale(10),
   },
   searchBar: {
     width: Mixins.scaleSize(340),
     backgroundColor: '#fff',
     borderColor: '#ddd',
     borderRadius: 10,
-    paddingHorizontal: Mixins.scaleSize(15),
-    paddingVertical: Mixins.scaleSize(15),
+    paddingHorizontal: Mixins.moderateScale(15),
+    paddingVertical: Mixins.moderateScale(15),
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,
@@ -92,12 +93,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: 36,
+    fontSize: Typography.FONT_SIZE_32,
   },
   heading_2: {
     fontFamily: Typography.FONT_FAMILY_DISPLAY,
     fontSize: Typography.FONT_SIZE_56,
-    marginTop: -10,
+    marginTop: Mixins.moderateScale(-10),
   },
 });
 
