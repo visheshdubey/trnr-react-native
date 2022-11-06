@@ -23,7 +23,6 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
   const orientation = useSelector((state) => state.videoPlayer.orientation);
   const dispatch = useDispatch();
   const inFullscreenRef = useRef(false);
-
   const updateFullscreenHandler = (fs) => {
     inFullscreenRef.current = fs;
     dispatch(updateFullscreen(fs));
@@ -35,10 +34,15 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
       dispatch(updateOrientation(1));
       ScreenOrientation.unlockAsync();
     });
+    let timeout;
 
     // subscribe to future changes
     const subscription = ScreenOrientation.addOrientationChangeListener(async (evt) => {
       dispatch(updateOrientation(evt.orientationInfo.orientation));
+      timeout = setTimeout(async () => {
+        await ScreenOrientation.unlockAsync();
+        console.log('2. Unlocked');
+      }, 2000);
       // console.log(evt.orientationInfo.orientation);
       console.log('🚀 ~ file: VideoPlayerComponent.jsx ~ line 41 ~ subscription ~ evt.orientationInfo.orientation', evt.orientationLock);
       if (evt.orientationInfo.orientation !== 1) {
@@ -60,6 +64,7 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
     // return a clean up function to unsubscribe from notifications
     return () => {
       ScreenOrientation.removeOrientationChangeListener(subscription);
+      clearTimeout(timeout);
     };
   }, []);
 
@@ -102,15 +107,19 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
             shouldPlay: false,
           });
           setRerender(!rerender);
-          // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-          await ScreenOrientation.unlockAsync();
+          await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
+          // timeout = setTimeout(async () => {
+          //   await ScreenOrientation.unlockAsync();
+          //   console.log('1. Unlocked');
+          // }, 2000);
         } else {
+          e.preventDefault();
+          await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
           navigation.dispatch(e.data.action);
           console.log('Yo 2', inFullscreenRef);
         }
-
-        e.preventDefault();
-        console.log(await ScreenOrientation.getOrientationAsync());
+        // console.log(await ScreenOrientation.getOrientationAsync());
       }),
     [navigation]
   );
@@ -139,6 +148,7 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
           enterFullscreen: async () => {
             setStatusBarHidden(true, 'fade');
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
+
             updateFullscreenHandler(!inFullscreenRef.current);
 
             // await ScreenOrientation.unlockAsync();
@@ -150,8 +160,12 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
             setStatusBarHidden(false, 'fade');
             updateFullscreenHandler(!inFullscreenRef.current);
             // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-            await ScreenOrientation.unlockAsync();
-            console.log('<<<<<<', refVideo2.current.playbackStatus);
+            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+            // timeout = setTimeout(async () => {
+            //   await ScreenOrientation.unlockAsync();
+
+            //   console.log('3. Unlocked');
+            // }, 2000);
             refVideo2.current.setStatusAsync({
               shouldPlay: false,
             });
