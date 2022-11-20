@@ -11,6 +11,7 @@ import { Typography } from './styles';
 import SearchScreen from './screen/SearchScreen';
 import { useSelector } from 'react-redux';
 import ResetScreen from './screen/ResetScreen';
+import PolicyScreen from './screen/PolicyScreen';
 const HomeStack = createNativeStackNavigator();
 
 const BaseStackNav = () => {
@@ -20,6 +21,7 @@ const BaseStackNav = () => {
     <NavigationContainer>
       <HomeStack.Navigator
         screenOptions={{
+          headerTitleAlign: 'center',
           headerShown: false,
           headerBackTitleVisible: false,
           headerTintColor: 'black',
@@ -31,6 +33,7 @@ const BaseStackNav = () => {
       >
         {isSignnedIn ? (
           <>
+            {/* <HomeStack.Screen name="APPLICATION PRIVACY POLICY" component={PolicyScreen} options={{ headerShown: true }} /> */}
             <HomeStack.Screen name="BaseTabNav" component={BaseTabNav} />
             <HomeStack.Screen name="SearchScreen" component={SearchScreen} />
           </>
@@ -39,6 +42,7 @@ const BaseStackNav = () => {
             <HomeStack.Screen name="Welcome" component={Welcome} />
             <HomeStack.Screen name="SignIn" component={SignIn} />
             <HomeStack.Screen name="SignUp" component={SignUp} />
+            <HomeStack.Screen name="APPLICATION PRIVACY POLICY" component={PolicyScreen} options={{ headerShown: true }} />
           </>
         )}
         <HomeStack.Screen name="Reset" component={ResetScreen} />

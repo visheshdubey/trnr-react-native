@@ -7,16 +7,16 @@ import { useDeleteWorkoutMutation } from '../services/strapi';
 import { ActivityIndicator } from 'react-native';
 import { STRAPI_DELETE_WORKOUT } from '../utils/ApiConstants';
 import { useSelector } from 'react-redux';
-
+import FastImage from 'react-native-fast-image';
 const WorkoutCard = ({ item }, props) => {
   const navigation = useNavigation();
   const [deleteWorkout, result] = useDeleteWorkoutMutation();
   const userId = useSelector((state) => state.user.customerID);
-  0;
+
   return (
     <View style={styles.separator} key={item.id}>
       <Pressable style={styles.container} onPress={() => navigation.navigate('HS_ExerciseDetailScreen', { name: item.name, exerciseId: item.id })}>
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
+        <FastImage style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" fallback={true} />
         <View style={styles.text_icon}>
           <View style={{ flex: 6 }}>
             <Text style={styles.name}>{item.name}</Text>

@@ -7,8 +7,7 @@ import NetworkRequest from '../../components/NetworkRequest';
 import { LOG, STRAPI_ADD_WORKOUT } from '../../utils/ApiConstants';
 import { useSelector } from 'react-redux';
 import VideoPlayerComponent from '../../components/VideoPlayerComponent';
-import * as ScreenOrientation from 'expo-screen-orientation';
-
+import FastImage from 'react-native-fast-image';
 import { useIsFocused } from '@react-navigation/native';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
@@ -18,7 +17,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const [addWorkout, result] = useAddWorkoutMutation();
   const userId = useSelector((state) => state.user.customerID);
   const [rerender, setRerender] = useState(false);
-
+  const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
   const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
   useEffect(() => {
@@ -26,6 +25,9 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
       title: name,
     });
   }, [name]);
+  useEffect(() => {
+    if (inFullscreen) scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+  }, [inFullscreen]);
 
   const handleSave = async () => {
     const work = await addWorkout(STRAPI_ADD_WORKOUT(userId, exerciseId)).catch((err) => {
@@ -42,6 +44,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
         scrollEnabled={!inFullscreen}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        ref={scrollViewRef}
       >
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
           {/* Video Player */}
@@ -49,12 +52,12 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
           {/* Large Images */}
           <View style={{ alignItems: 'center', marginBottom: 100, marginTop: 20 }}>
             {data?.image_large?.map((item) => (
-              <Image style={styles.image} key={item.id} source={{ uri: item.url }} resizeMode="contain" />
+              <FastImage style={styles.image} key={item.id} source={{ uri: item.url }} resizeMode="cover" fallback={true} />
             ))}
             {/* Small Images  */}
             <View style={styles.row}>
               {data?.image_small?.map((item) => (
-                <Image style={styles.image2} key={item.id} source={{ uri: item.url }} resizeMode="contain" />
+                <FastImage style={styles.image2} key={item.id} source={{ uri: item.url }} resizeMode="cover" fallback={true} />
               ))}
             </View>
             {/* Text Body  */}

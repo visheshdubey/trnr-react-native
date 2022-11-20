@@ -8,6 +8,7 @@ import NAV_ExerciseScreen from './NAV_ExerciseScreen';
 import 'react-native-gesture-handler';
 import { Animated } from 'react-native';
 import { CardStyleInterpolators } from '@react-navigation/stack';
+import PolicyScreen from '../PolicyScreen';
 // Animated
 const Stack = createNativeStackNavigator();
 const config = {
@@ -78,7 +79,6 @@ const NAV_HomeScreen = () => {
         component={HS_CategoryScreen}
         options={{
           headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -86,7 +86,6 @@ const NAV_HomeScreen = () => {
         component={HS_ExerciseView}
         options={{
           title: 'BALANCE TRAINER',
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -94,8 +93,6 @@ const NAV_HomeScreen = () => {
         component={HS_ExerciseDetailScreen}
         options={{
           title: 'HS_ExerciseDetailScreen',
-          gestureEnabled: true,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -103,8 +100,6 @@ const NAV_HomeScreen = () => {
         component={NAV_ExerciseScreen}
         options={{
           title: 'NAV_ExerciseScreen',
-
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
       <Stack.Screen
@@ -112,8 +107,14 @@ const NAV_HomeScreen = () => {
         component={HS_ProductScreen}
         options={{
           title: 'HS_ProductScreen',
-
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <Stack.Screen
+        name="APPLICATION PRIVACY POLICY"
+        component={PolicyScreen}
+        options={{
+          title: 'APPLICATION PRIVACY POLICY',
+          headerShadowVisible: true,
         }}
       />
     </Stack.Navigator>

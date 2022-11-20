@@ -307,6 +307,12 @@ const Profile = ({ navigation }) => {
                     </View>
 
                     <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
+                    <Text
+                      style={{ textDecorationLine: 'underline', fontFamily: Typography.FONT_FAMILY_HEADING }}
+                      onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}
+                    >
+                      TERMS AND CONDITIONS?
+                    </Text>
                   </View>
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     {edit ? (

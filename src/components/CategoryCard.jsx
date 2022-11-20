@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
-import { WINDOW_WIDTH } from '../styles/mixins';
 import { LOG } from '../utils/ApiConstants';
+import ProgressiveImage from './ProgressiveImage';
 
 const backdrop = require('../assets/images/cardGradient.png');
 const CategoryCard = ({ item, style, onPress }) => {
@@ -10,12 +10,12 @@ const CategoryCard = ({ item, style, onPress }) => {
   return (
     <View style={[styles.container, style]}>
       <Pressable onPress={onPress}>
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
+        {/* <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
         <Image style={[styles.backdrop, { width: Mixins.WINDOW_WIDTH, height: Mixins.scaleSize(150) }]} source={backdrop} resizeMode="cover"></Image>
         <View style={[styles.backdrop]}>
-          {/* <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>CATEGORY</Text> */}
           <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{Typography.truncateString(item.name, 50)}</Text>
-        </View>
+        </View> */}
+        <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} text={item.name} />
       </Pressable>
     </View>
   );
@@ -37,9 +37,17 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(150),
     backgroundColor: '#eee',
   },
+  default: {
+    position: 'absolute',
+    width: Mixins.WINDOW_WIDTH,
+    height: Mixins.scaleSize(150),
+    bottom: 0,
+    borderRadius: 15,
+  },
   text: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     color: '#fff',
+    fontSize: Typography.FONT_SIZE_24,
   },
 });
 

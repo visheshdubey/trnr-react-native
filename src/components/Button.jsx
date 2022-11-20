@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, ActivityIndicator, Pressable } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
 function Button({ onPress, title, fill, style, color, isLoading }) {

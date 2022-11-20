@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
 
+  console.log(JSON.stringify(data));
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
 
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: Mixins.moderateScale(StatusBar.currentHeight + 5),
   },
 
   scrollview: {
@@ -75,8 +76,6 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
   },
   searchBarContainer: {
-    // marginTop: Mixins.moderateScale(5),
-    // paddingVertical: Mixins.moderateScale(10),
     paddingBottom: Mixins.moderateScale(10),
   },
   searchBar: {

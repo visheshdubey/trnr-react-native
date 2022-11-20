@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Image, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
-
 import { useNavigation } from '@react-navigation/native';
-
+import FastImage from 'react-native-fast-image';
+import ProgressiveImage from './ProgressiveImage';
 function Product_Item({ item }) {
   const navigation = useNavigation();
   // if(LOG===true) console.log(props);
@@ -19,7 +19,8 @@ function Product_Item({ item }) {
           })
         }
       >
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
+        {/* <FastImage style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" fallback={true} /> */}
+        <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} />
         <Text style={styles.text}>{item.name}</Text>
       </Pressable>
     </View>
@@ -41,6 +42,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: Mixins.moderateScale(10, 0.1),
     backgroundColor: '#eee',
+  },
+  default: {
+    position: 'absolute',
+    width: Mixins.moderateScale(104, 0.1),
+    height: Mixins.moderateScale(104, 0.1),
+    bottom: 0,
+    borderRadius: 5,
   },
   text: {
     fontFamily: Typography.FONT_FAMILY_BODY,

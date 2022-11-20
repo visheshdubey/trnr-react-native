@@ -266,7 +266,10 @@ const SignUp = ({ navigation }) => {
 
                 <Text style={[styles.body, { marginTop: Mixins.moderateScale(5) }]} onPress={toggleTerms}>
                   {terms ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
-                  {'  '}AGREE TO OUR <Text style={{ textDecorationLine: 'underline' }}>TERMS AND CONDITIONS?</Text>
+                  {'  '}AGREE TO OUR{' '}
+                  <Text style={{ textDecorationLine: 'underline' }} onPress={() => handleClick('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}>
+                    TERMS AND CONDITIONS?
+                  </Text>
                 </Text>
                 <Button //
                   onPress={handleSubmit} //{() => handleClick('BaseTabNav', 'HomeScreen')}

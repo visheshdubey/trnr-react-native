@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, { G, Path, Defs, ClipPath } from 'react-native-svg';
-import { Mixins } from '../styles';
+
 const ProfileIcon = (props) => (
   <Svg width={18} height={18} fill={props.fill} xmlns="http://www.w3.org/2000/svg" {...props}>
     <G clipPath="url(#a)" fill={props.fill}>

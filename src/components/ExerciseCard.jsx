@@ -1,21 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import { Typography, Mixins } from '../styles';
-
-// const image = require('../assets/images/exercise1.png');
-const backdrop = require('../assets/images/cardGradient.png');
-let globalSize;
+import ProgressiveImage from './ProgressiveImage';
 const ExerciseCard = ({ style, onPress, item, size }) => {
-  globalSize = size;
   return (
-    <View style={[styles.container, style]}>
+    <View style={[style]}>
       <Pressable style={styles.card} onPress={onPress} key={item.id}>
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
-        <Image style={styles.backdrop} source={backdrop} resizeMode="cover"></Image>
-        <View style={[styles.backdrop]}>
-          {/* <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_16 }]}>{item.category}</Text> */}
-          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{Typography.truncateString(item.name, 50)}</Text>
-        </View>
+        <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} text={item.name} />
       </Pressable>
     </View>
   );
@@ -31,6 +22,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.moderateScale(20),
     paddingBottom: Mixins.moderateScale(15),
   },
+  default: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    bottom: 0,
+    borderRadius: 15,
+  },
   imageStyles: {
     width: '100%',
     height: '100%',
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
     color: '#fff',
+    fontSize: Typography.FONT_SIZE_18,
   },
 });
 

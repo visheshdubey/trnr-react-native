@@ -15,12 +15,13 @@ const SearchScreen = ({ navigation: { goBack } }) => {
   const { data, error, isLoading } = useGetSearchQuery(firstChar);
 
   useEffect(() => {
-    if (text.length == 1) {
+    if (text.length > 0 && text.length < 3) {
       if (LOG === true) console.log('🚀 ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
       setFirstChar(text);
     }
-    if (text.length == 0) setFirstChar('S');
+    if (text.length == 0) setFirstChar('a');
   }, [text, data]);
+  console.log(data?.length);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -39,7 +40,7 @@ const SearchScreen = ({ navigation: { goBack } }) => {
       </View>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.WINDOW_WIDTH }}>
-          {data?.map((item) => {
+          {data?.slice(0, 100).map((item) => {
             if (item.exercise.toLowerCase().includes(text.toLowerCase()) || item.productName.toLowerCase().includes(text.toLowerCase()))
               return (
                 <Search_Item
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     alignSelf: 'center',
-    paddingTop: StatusBar.currentHeight,
+    paddingTop: Mixins.moderateScale(StatusBar.currentHeight + 5),
     paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
   },

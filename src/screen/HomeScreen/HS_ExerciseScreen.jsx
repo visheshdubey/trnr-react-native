@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
 import NetworkRequest from '../../components/NetworkRequest';
 import { useGetExerciseCategoryQuery } from '../../services/strapi';
@@ -22,24 +22,26 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(375) }}>
           <View style={styles.grid}>
-            {data?.map((item) => (
-              <ExerciseCard
-                style={{
-                  margin: Mixins.moderateScale(5),
-                  width: Mixins.moderateScale(dataLength),
-                  height: Mixins.moderateScale(dataLength),
-                }}
-                item={item}
-                size={340}
-                key={item.id}
-                onPress={() =>
-                  navigation.navigate('HS_ExerciseDetailScreen', {
-                    exerciseId: item.id,
-                    name: item.name,
-                  })
-                }
-              />
-            ))}
+            {data?.map((item) => {
+              return (
+                <ExerciseCard
+                  style={{
+                    margin: Mixins.moderateScale(5),
+                    width: Mixins.moderateScale(dataLength),
+                    height: Mixins.moderateScale(dataLength),
+                  }}
+                  item={item}
+                  size={340}
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate('HS_ExerciseDetailScreen', {
+                      exerciseId: item.id,
+                      name: item.name,
+                    })
+                  }
+                />
+              );
+            })}
           </View>
         </ScrollView>
       </NetworkRequest>

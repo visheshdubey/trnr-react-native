@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LogBox, View, Text } from 'react-native';
+import { LogBox, View, Text, StatusBar } from 'react-native';
 
 import { useFonts } from 'expo-font';
 import BaseStackNav from './BaseStackNav';

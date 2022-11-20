@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Pressable, Image, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 
 import { useNavigation } from '@react-navigation/native';
-
+import FastImage from 'react-native-fast-image';
 function Search_Item({ item, style }) {
   const navigation = useNavigation();
   // if(LOG===true) console.log(props);
@@ -19,7 +19,8 @@ function Search_Item({ item, style }) {
           })
         }
       >
-        <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" />
+        {/* <Image style={styles.imageStyles} source={{ uri: `https://wsrv.nl/?url=${item.image}&w=60` }} resizeMode="cover" /> */}
+        <FastImage style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" fallback={true} />
         <View>
           <Text style={styles.exercise}>{item.exercise}</Text>
           <Text style={styles.productName}>{item.productName}</Text>

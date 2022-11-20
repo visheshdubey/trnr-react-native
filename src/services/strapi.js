@@ -36,7 +36,7 @@ export const strapiApi = createApi({
 
         getSearch: builder.query({
             query: (endpoint) => `search/${endpoint}`,
-            keepUnusedDataFor: 15,
+            keepUnusedDataFor: 60,
 
         }),
         getWorkoutsList: builder.query({
