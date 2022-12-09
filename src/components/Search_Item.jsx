@@ -9,7 +9,7 @@ function Search_Item({ item, style }) {
   // if(LOG===true) console.log(props);
 
   return (
-    <View style={[styles.separator, style]} key={item.id}>
+    <View style={[styles.separator, style]}>
       <Pressable
         style={styles.container}
         onPress={() =>
@@ -19,7 +19,6 @@ function Search_Item({ item, style }) {
           })
         }
       >
-        {/* <Image style={styles.imageStyles} source={{ uri: `https://wsrv.nl/?url=${item.image}&w=60` }} resizeMode="cover" /> */}
         <FastImage style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" fallback={true} />
         <View>
           <Text style={styles.exercise}>{item.exercise}</Text>

@@ -8,7 +8,7 @@ export const STRAPI_ACCESS_TOKEN = 'Bearer 0100239b9066aaf680083d0c79d9303d1db5a
 
 export const GRAPHQL_URL = 'https://trnr.com/api/2022-10/graphql.json'
 
-export const STRAPI_URL = 'https://apiapp.trnr.com/api/'
+export const STRAPI_URL = 'https://be25-2401-4900-1c3d-37f7-c54d-e0c3-304d-e789.in.ngrok.io/api/'//'https://apiapp.trnr.com/api/'
 
 export const LOG = true;
 
@@ -149,30 +149,27 @@ export const RENEW_ACCESS_TOKEN_VAR = (token) => ({
   "customerAccessToken": token
 })
 
-export const STRAPI_ADD_WORKOUT = (cust_id, exerciseID) => ({
-  userId: cust_id,
+export const STRAPI_ADD_WORKOUT = (exerciseID) => ({
   data: {
     exercises: exerciseID,
   },
 
 })
-export const STRAPI_DELETE_WORKOUT = (cust_id, exerciseID) => ({
-  userId: cust_id,
+export const STRAPI_DELETE_WORKOUT = (exerciseID) => ({
   data: {
     exercises: exerciseID,
   },
 
 })
 
-export const STRAPI_ADD_USER_DATA = (cust_id, fn, ln = '', email, dob, gender, tnc = true) => (
+export const STRAPI_ADD_USER_DATA = (user_id, fn, ln = '', email, dob, gender, tnc = true) => (
   {
-    userId: cust_id,
+    userId: user_id,
     data: {
-      customer_id: cust_id,
       firstName: fn,
       lastName: ln,
       email: email,
-      DOB: moment(dob).format('YYYY-MM-DD'), //|| new Date("1-1-1000"),
+      DOB: dob ? moment(dob).format('YYYY-MM-DD') : moment(new Date()).format('YYYY-MM-DD'), //|| new Date("1-1-1000"),
       gender: gender,
       tnc: tnc ? "TRUE" : "FALSE"
     }

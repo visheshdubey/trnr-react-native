@@ -2,10 +2,14 @@
 function validateEmail(mail) {
     return String(mail).match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 }
-export const formValidation = (email, fn) => {
+export const formValidation = (email, fn, pswd, cpswd, gender, terms) => {
     let validationObj = {
         emailLabel: null,
         firstNameLabel: null,
+        passwordLabel: null,
+        cpasswordLabel: null,
+        genderLabel: null,
+        termsLabel: false,
         hasErrorLabel: false,
     }
     //Checking Email
@@ -24,6 +28,29 @@ export const formValidation = (email, fn) => {
         validationObj.hasErrorLabel = true
     }
 
+    if (pswd === '' || pswd === null) {
+        validationObj.passwordLabel = 'Password cannot be empty'
+        validationObj.hasErrorLabel = true
+    }
+
+    if (pswd.length < 8 || pswd.length > 20) {
+        validationObj.passwordLabel = 'Password length not matched'
+        validationObj.hasErrorLabel = true
+    }
+
+    if (cpswd !== pswd) {
+        validationObj.cpasswordLabel = 'Password do not match'
+        validationObj.hasErrorLabel = true
+    }
+
+    if (gender === '' || gender === null) {
+        validationObj.genderLabel = 'Gender cannot be empty'
+        validationObj.hasErrorLabel = true
+    }
+    if (terms === false) {
+        validationObj.termsLabel = true
+        validationObj.hasErrorLabel = true
+    }
     return validationObj;
 }
 

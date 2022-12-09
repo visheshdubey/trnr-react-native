@@ -7,13 +7,15 @@ import { useGetSearchQuery } from '../services/strapi';
 import NetworkRequest from '../components/NetworkRequest';
 import Search_Item from '../components/Search_Item';
 import { LOG } from '../utils/ApiConstants';
-
-const SearchScreen = ({ navigation: { goBack } }) => {
+import { country } from '../utils/CountryList';
+import Country_Item from '../components/Country_Item';
+// Country_Item;
+const CountrySelectorScreen = ({ navigation: { goBack } }) => {
   const [text, setText] = useState('');
-  const [firstChar, setFirstChar] = useState('S');
+  const [firstChar, setFirstChar] = useState('A');
 
-  const { data, error, isLoading } = useGetSearchQuery(firstChar);
-
+  // const { data, error, isLoading } = useGetSearchQuery(firstChar);
+  const data = country;
   useEffect(() => {
     if (text.length > 0 && text.length < 3) {
       if (LOG === true) console.log('🚀 ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
@@ -21,7 +23,6 @@ const SearchScreen = ({ navigation: { goBack } }) => {
     }
     if (text.length == 0) setFirstChar('a');
   }, [text, data]);
-  console.log(JSON.stringify(data));
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -33,36 +34,19 @@ const SearchScreen = ({ navigation: { goBack } }) => {
           autoFocus={true}
           value={text}
           onChangeText={setText}
-          placeholder={'SEARCH FOR A PRODUCT OR WORKOUT'}
+          placeholder={'SEARCH FOR YOUR COUNTRY'}
           // onPress={() => navigation.navigate('SearchScreen', '')}
           placeholderTextColor="#aaa"
         />
       </View>
-      <NetworkRequest error={error} data={data} isLoading={isLoading}>
-        {/* {data?.map((item) => {
-            if (item.exercise.toLowerCase().includes(text.toLowerCase()) || item.productName.toLowerCase().includes(text.toLowerCase()))
-              return (
-                <Search_Item
-                  style={styles.item}
-                  item={item}
-                  key={item.id}
-                  onPress={() =>
-                    navigation.navigate('HS_ExerciseDetailScreen', {
-                      exerciseId: item.id,
-                      categoryName: item.name,
-                    })
-                  }
-                />
-              );
-          })} */}
-        <FlatList
-          data={data?.filter((item) => item.exercise.toLowerCase().includes(text.toLowerCase()) || item.productName.toLowerCase().includes(text.toLowerCase()))}
-          style={styles.item}
-          renderItem={(props) => <Search_Item {...props} />}
-          keyExtractor={(item) => item.id}
-          keyboardShouldPersistTaps={'always'}
-        />
-      </NetworkRequest>
+
+      <FlatList
+        data={data?.filter((item) => item.name.toLowerCase().includes(text.toLowerCase()))}
+        style={styles.item}
+        renderItem={(props) => <Country_Item {...props} />}
+        keyExtractor={(item) => item.id}
+        keyboardShouldPersistTaps={'always'}
+      />
     </SafeAreaView>
   );
 };
@@ -100,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScreen;
+export default CountrySelectorScreen;

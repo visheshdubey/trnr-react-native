@@ -4,6 +4,7 @@ import { strapiApi } from './services/strapi'
 import { shopifyApi } from './services/shopify'
 import userSlice from './services/features/userSlice'
 import videoPlayerSlice from './services/features/videoPlayerSlice'
+import snackBarSlice from './services/features/snackBarSlice'
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         [strapiApi.reducerPath]: strapiApi.reducer,
         [shopifyApi.reducerPath]: shopifyApi.reducer,
         user: userSlice,
+        snackBar: snackBarSlice,
         videoPlayer: videoPlayerSlice
 
     },

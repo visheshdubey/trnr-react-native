@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LogBox, View, Text, StatusBar } from 'react-native';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import BaseStackNav from './BaseStackNav';
 import SplashScreen from './screen/SplashScreen';
@@ -18,7 +18,9 @@ import { useRenewAccessTokenMutation } from './services/shopify';
 const App = () => {
   return (
     <Provider store={store}>
-      <SplashScreenComponent />
+      <SafeAreaProvider>
+        <SplashScreenComponent />
+      </SafeAreaProvider>
     </Provider>
   );
 };
@@ -39,28 +41,29 @@ const SplashScreenComponent = () => {
     const loadData = async () => {
       const data = await getLocal();
       if (data) {
+        console.log(JSON.stringify(data));
         dispatch(signin(data));
 
-        var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
-        var days = duration.asDays();
+        // var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
+        // var days = duration.asDays();
 
-        if (days < 5 && data.accessToken) {
-          //Updating the Access Token
-          renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
-            .then((result) => {
-              console.log(JSON.stringify(result));
-              if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
+        // if (days < 5 && data.accessToken) {
+        //   //Updating the Access Token
+        //   renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
+        //     .then((result) => {
+        //       console.log(JSON.stringify(result));
+        //       if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
 
-              let newData = data;
-              //Storing Access Token
-              newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
-              setLocal(newData);
-            })
-            .catch((err) => {
-              handleLogout();
-              console.log(err);
-            });
-        }
+        //       let newData = data;
+        //       //Storing Access Token
+        //       newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
+        //       setLocal(newData);
+        //     })
+        //     .catch((err) => {
+        //       handleLogout();
+        //       console.log(err);
+        //     });
+        // }
       }
     };
     loadData();

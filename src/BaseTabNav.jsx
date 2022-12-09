@@ -1,8 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NAV_HomeScreen from './screen/HomeScreen/NAV_HomeScreen';
-import MyWorkout from './screen/WorkoutScreen';
-import Profile from './screen/Profile';
-import { Typography } from './styles';
+import { Mixins, Typography } from './styles';
 
 import { Linking } from 'react-native';
 import ShopScreen from './screen/ShopScreen';
@@ -10,6 +8,8 @@ import HomeIcon from './components/HomeIcon';
 import WorkoutIcon from './components/WorkoutIcon';
 import ShopIcon from './components/ShopIcon';
 import ProfileIcon from './components/ProfileIcon';
+import NAV_ProfileScreen from './screen/ProfileScreen/NAV_ProfileScreen';
+import NAV_WorkoutScreen from './screen/WorkoutScreen/NAV_WorkoutScreen';
 
 const Tab = createBottomTabNavigator();
 export const BaseTabNav = () => {
@@ -22,7 +22,7 @@ export const BaseTabNav = () => {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_14,
         },
-        tabBarStyle: { position: 'absolute', backgroundColor: '#000' },
+        tabBarStyle: { position: 'absolute', backgroundColor: '#000', height: Mixins.moderateScale(55), paddingBottom: Mixins.moderateScale(8) },
         headerTitleAlign: 'center',
         headerTintColor: 'black',
         headerTitleStyle: {
@@ -42,8 +42,9 @@ export const BaseTabNav = () => {
       />
       <Tab.Screen
         name="MY WORKOUTS"
-        component={MyWorkout}
+        component={NAV_WorkoutScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ size, color }) => <WorkoutIcon fill={color} size={18} />,
         }}
       />
@@ -63,9 +64,10 @@ export const BaseTabNav = () => {
       />
       <Tab.Screen
         name="PROFILE"
-        component={Profile}
+        component={NAV_ProfileScreen}
         options={{
           tabBarIcon: ({ size, color }) => <ProfileIcon fill={color} size={18} />,
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

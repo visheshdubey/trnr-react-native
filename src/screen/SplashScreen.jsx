@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import Logo from '../components/Logo';
 import { Mixins } from '../styles';
 const SplashScreen = () => {
   return (
     <View style={styles.container}>
-      <Logo />
+      <Image source={require('../assets/images/trnr-logo-light.png')} style={{ width: 150 }} resizeMode="contain"></Image>
       <ActivityIndicator color="#000" style={styles.indicator}></ActivityIndicator>
     </View>
   );

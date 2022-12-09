@@ -1,16 +1,14 @@
 import { Typography } from '../../styles';
-import HS_CategoryScreen from './HS_CategoryScreen';
-import HS_ExerciseView from './NAV_ExerciseScreen';
 import { createNativeStackNavigator, cardStyleInterpolator } from '@react-navigation/native-stack';
-import HS_ExerciseDetailScreen from './HS_ExerciseDetailScreen';
-import HS_ProductScreen from './HS_ProductScreen';
-import NAV_ExerciseScreen from './NAV_ExerciseScreen';
 import 'react-native-gesture-handler';
 import { Animated } from 'react-native';
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import PolicyScreen from '../PolicyScreen';
-import StatusBar from 'react';
-import HS_ShopScreen from './HS_ShopScreen';
+import MyAccount from './MyAccount';
+import ProfileMenu from './ProfileMenu';
+import About from './About';
+import Privacy from './Privacy';
+import MyAcc from './MyAcc';
 // Animated
 const Stack = createNativeStackNavigator();
 const config = {
@@ -61,7 +59,7 @@ const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
     },
   };
 };
-const NAV_HomeScreen = () => {
+const NAV_ProfileScreen = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -77,53 +75,59 @@ const NAV_HomeScreen = () => {
       }}
     >
       <Stack.Screen
-        name="HomeScreen"
-        component={HS_CategoryScreen}
+        name="ProfileMenu"
+        component={ProfileMenu}
         options={{
-          headerShown: false,
+          title: 'PROFILE',
+          headerTitleAlign: 'left',
+          headerShown: true,
+          headerTitleStyle: {
+            fontFamily: Typography.FONT_FAMILY_BODY,
+            fontSize: Typography.FONT_SIZE_20,
+          },
         }}
       />
       <Stack.Screen
-        name="HS_ExerciseScreen"
-        component={HS_ExerciseView}
+        name="MyAccount"
+        component={MyAccount}
         options={{
-          title: 'BALANCE TRAINER',
+          title: 'MY ACCOUNT',
+          headerShadowVisible: true,
+          headerShown: true,
         }}
       />
       <Stack.Screen
-        name="HS_ExerciseDetailScreen"
-        component={HS_ExerciseDetailScreen}
+        name="MyAcc"
+        component={MyAcc}
         options={{
-          title: 'HS_ExerciseDetailScreen',
+          title: 'MY ACCOUNT',
+          headerShadowVisible: true,
+          headerShown: true,
         }}
       />
       <Stack.Screen
-        name="NAV_ExerciseScreen"
-        component={NAV_ExerciseScreen}
+        name="About"
+        component={About}
         options={{
-          title: 'NAV_ExerciseScreen',
+          title: 'ABOUT',
+          headerShadowVisible: true,
+          headerShown: true,
         }}
       />
       <Stack.Screen
-        name="HS_ProductScreen"
-        component={HS_ProductScreen}
+        name="Privacy"
+        component={Privacy}
         options={{
-          title: 'HS_ProductScreen',
+          title: 'PRIVACY POLICY',
+          headerShadowVisible: true,
+          headerShown: true,
         }}
       />
       <Stack.Screen
-        name="APPLICATION PRIVACY POLICY"
+        name="APPLICATION_TNC"
         component={PolicyScreen}
         options={{
-          title: 'APPLICATION PRIVACY POLICY',
-          headerShadowVisible: true,
-        }}
-      />
-      <Stack.Screen
-        name="SHOP_SCREEN"
-        component={HS_ShopScreen}
-        options={{
-          title: 'SHOP PRODUCT',
+          title: 'TERMS AND CONDITION',
           headerShadowVisible: true,
         }}
       />
@@ -131,4 +135,4 @@ const NAV_HomeScreen = () => {
   );
 };
 
-export default NAV_HomeScreen;
+export default NAV_ProfileScreen;

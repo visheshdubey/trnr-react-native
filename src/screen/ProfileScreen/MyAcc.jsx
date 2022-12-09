@@ -1,17 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, Alert, Pressable } from 'react-native';
-import SnackBar from '../components/SnackBar';
-import { Mixins, Typography } from '../styles';
+import SnackBar from '../../components/SnackBar';
+import { Mixins, Typography } from '../../styles';
 import Icon from 'react-native-vector-icons/Fontisto';
-import Button from '../components/Button';
-import { moderateScale } from '../styles/mixins';
+import Button from '../../components/Button';
+import { moderateScale } from '../../styles/mixins';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import { formValidation } from '../utils/formValidations';
-import { useAddProfileMutation, useAddUserMutation } from '../services/strapi';
-import { STRAPI_ADD_USER_DATA } from '../utils/ApiConstants';
+import { formValidation } from '../../utils/formValidations';
+import { useAddProfileMutation, useAddUserMutation } from '../../services/strapi';
+import { STRAPI_ADD_USER_DATA } from '../../utils/ApiConstants';
 
-const SignUp = ({ navigation }) => {
+const MyAcc = ({ navigation }) => {
   const [state, setstate] = useState('NO');
 
   const [, updateState] = React.useState();
@@ -91,23 +91,16 @@ const SignUp = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-        <View style={{ marginVertical: Mixins.moderateScale(50) }}>
+        <View style={{ marginTop: Mixins.moderateScale(10) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Image
-                source={require('../assets/images/trnr-logo-light.png')}
-                style={{ width: Mixins.scaleSize(150), height: Mixins.scaleSize(37.5), marginBottom: moderateScale(20) }}
-                resizeMode="contain"
-              />
-              <Text style={styles.heading}>GET STARTED NOW</Text>
-              <Text style={[styles.body]}>TO ACCESS 100S OF EXERCISE VIDEOS AND MAKE THE MOST OF YOUR TRNR PRODUCTS</Text>
               {error && (
                 <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#ffe88c', borderRadius: moderateScale(5) }}>
                   <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#8f7306' }}>{error}</Text>
                 </View>
               )}
               <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                <View style={{ flex: 1, marginTop: 10, alignItems: 'center' }}>
+                <View style={{ flex: 1, marginTop: 0, alignItems: 'center' }}>
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>NAME</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -279,4 +272,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default MyAcc;

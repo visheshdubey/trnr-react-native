@@ -1,25 +1,25 @@
 import React, { useRef } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Text, View, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../components/Button';
-import NetworkRequest from '../components/NetworkRequest';
-import SmallButton from '../components/SmallButton';
-import { logout } from '../services/features/userSlice';
-import { useGetShopifyUserMutation, useUpdateShopifyUserMutation } from '../services/shopify';
-import { Mixins, Typography } from '../styles';
-import { GET_USER_VAR, LOG, STRAPI_ADD_USER_DATA_AT_PROFILE, UPDATE_USER_VAR } from '../utils/ApiConstants';
+import Button from '../../components/Button';
+import NetworkRequest from '../../components/NetworkRequest';
+import SmallButton from '../../components/SmallButton';
+import { logout } from '../../services/features/userSlice';
+import { useGetShopifyUserMutation, useUpdateShopifyUserMutation } from '../../services/shopify';
+import { Mixins, Typography } from '../../styles';
+import { GET_USER_VAR, LOG, STRAPI_ADD_USER_DATA_AT_PROFILE, UPDATE_USER_VAR } from '../../utils/ApiConstants';
 
-import { formValidation } from '../utils/formValidations';
+import { formValidation } from '../../utils/formValidations';
 
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { useAddUserDataMutation, useGetUserDataQuery } from '../services/strapi';
+import { useAddUserDataMutation, useGetUserDataQuery } from '../../services/strapi';
 import moment from 'moment';
-import { storeDataObject } from '../services/local';
+import { storeDataObject } from '../../services/local';
 
 import Icon from 'react-native-vector-icons/Fontisto';
 import Warning from 'react-native-vector-icons/FontAwesome';
 
-const Profile = ({ navigation }) => {
+const MyAccount = ({ navigation }) => {
   const [email, onChangeEmail] = React.useState(null);
   const [firstName, onChangeFirstName] = React.useState(null);
   const [lastName, onChangeLastName] = React.useState(null);
@@ -189,6 +189,7 @@ const Profile = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
           style={{ flex: 1, flexGrow: 1 }}
           // contentContainerStyle={{ flex: 1 }}
+          keyboardShouldPersistTaps={'always'}
         >
           <View style={[styles.container]}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
@@ -295,7 +296,7 @@ const Profile = ({ navigation }) => {
                         {'  '}
                         OTHER
                       </Text>
-                    </View>
+                  </View>
                     <View style={[styles.custom_input, { backgroundColor: !edit ? '#f9f9f9' : '#fff', borderColor: !edit ? '#ddd' : '#000', color: !edit ? '#888' : '#000' }]}>
                       <Text
                         // placeholder="ENTER YOUR DOB"
@@ -307,12 +308,6 @@ const Profile = ({ navigation }) => {
                     </View>
 
                     <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
-                    <Text
-                      style={{ textDecorationLine: 'underline', fontFamily: Typography.FONT_FAMILY_HEADING }}
-                      onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}
-                    >
-                      TERMS AND CONDITIONS?
-                    </Text>
                   </View>
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     {edit ? (
@@ -322,7 +317,19 @@ const Profile = ({ navigation }) => {
                       </View>
                     ) : (
                       <View style={{ minHeight: Mixins.moderateScale(100, 0.1), justifyContent: 'space-between' }}>
-                        <Button onPress={() => navigation.navigate('Reset', 'Reset Password')} title="RESET PASSWORD" fill="#FFF" color="black" />
+                        {/* <Button onPress={() => navigation.navigate('Reset', 'Reset Password')} title="RESET PASSWORD" fill="#ccc" color="black" />
+                        <Button onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')} title="TERMS AND CONDITION" fill="#ccc" color="black" /> */}
+                        <View style={{ flexDirection: 'row', width: Mixins.scaleSize(340), justifyContent: 'space-around', marginTop: Mixins.moderateScale(20) }}>
+                          <Text
+                            style={{ textDecorationLine: 'underline', fontFamily: Typography.FONT_FAMILY_HEADING }}
+                            onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}
+                          >
+                            TERMS AND CONDITIONS?
+                          </Text>
+                          <Text style={{ textDecorationLine: 'underline', fontFamily: Typography.FONT_FAMILY_HEADING }} onPress={() => navigation.navigate('Reset', 'Reset Password')}>
+                            RESET PASSWORD?
+                          </Text>
+                        </View>
                         <Button onPress={handleLogout} title="LOG OUT" fill="#f9f9f9" color="red" />
                       </View>
                     )}
@@ -337,7 +344,7 @@ const Profile = ({ navigation }) => {
   );
 };
 
-export default Profile;
+export default MyAccount;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,11 +1,24 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { STRAPI_ACCESS_TOKEN, STRAPI_URL } from '../utils/ApiConstants';
+import { getDataObject } from './local';
+
+const getLocal = async () => {
+    const x = await getDataObject();
+    console.log('Local Data Strapi:- ' + JSON.stringify(x));
+    return x;
+};
 export const strapiApi = createApi({
     reducerPath: 'strapiApi',
     baseQuery: fetchBaseQuery({
         baseUrl: STRAPI_URL,
-        prepareHeaders: (headers) => {
-            headers.set('Authorization', STRAPI_ACCESS_TOKEN);
+        prepareHeaders: (headers, { getState }) => {
+            const token = (getState()).user.accessToken;
+
+            // console.log("---->" + JSON.stringify(getState()));
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`)
+            }
+            // headers.set('Authorization', STRAPI_ACCESS_TOKEN);
             headers.set('Content-Type', 'application/json');
             return headers
         },
@@ -40,7 +53,7 @@ export const strapiApi = createApi({
 
         }),
         getWorkoutsList: builder.query({
-            query: (userId) => `workouts/${userId}`,
+            query: (userId) => `workouts/`,
             keepUnuseDataFor: 10,
             providesTags: ['Workout']
 
@@ -49,24 +62,38 @@ export const strapiApi = createApi({
             query: (userId) => `user-create/${userId}`,
 
         }),
-        addUserData: builder.mutation({
+        addProfile: builder.mutation({
             query: ({ userId, ...patch }) => ({
-                url: `user-create/${userId}`,
+                url: `profile/${userId}`,
+                method: 'POST',
+                body: patch,
+            }),
+        }),
+        addUser: builder.mutation({
+            query: ({ ...patch }) => ({
+                url: `auth/local/register/`,
+                method: 'POST',
+                body: patch,
+            }),
+        }),
+        userLogin: builder.mutation({
+            query: ({ ...patch }) => ({
+                url: `auth/local/`,
                 method: 'POST',
                 body: patch,
             }),
         }),
         addWorkout: builder.mutation({
-            query: ({ userId, ...patch }) => ({
-                url: `workouts/${userId}`,
+            query: ({ ...patch }) => ({
+                url: `workouts/`,
                 method: 'POST',
                 body: patch,
             }),
             invalidatesTags: ['Workout']
         }),
         deleteWorkout: builder.mutation({
-            query: ({ userId, ...patch }) => ({
-                url: `workouts/${userId}?DELETE`,
+            query: ({ ...patch }) => ({
+                url: `workouts/?DELETE`,
                 method: 'PUT',
                 body: patch,
             }),
@@ -87,7 +114,9 @@ export const {
     useGetSearchQuery,
     useGetUserDataQuery,
     useGetWorkoutsListQuery,
-    useAddUserDataMutation,
+    useAddProfileMutation,
+    useAddUserMutation,
     useAddWorkoutMutation,
+    useUserLoginMutation,
     useDeleteWorkoutMutation
 } = strapiApi

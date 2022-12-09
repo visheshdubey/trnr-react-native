@@ -53,3 +53,11 @@ export const generateBoxShadowStyle = (
 
     return boxShadow;
 };
+
+import { Platform, NativeModules } from 'react-native';
+const { StatusBarManager } = NativeModules;
+
+export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.getHeight((statusBarHeight) => {
+    console.log(statusBarHeight)
+    return statusBarHeight;
+}) : StatusBarManager.HEIGHT;
