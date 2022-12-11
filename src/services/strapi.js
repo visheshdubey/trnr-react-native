@@ -62,10 +62,21 @@ export const strapiApi = createApi({
             query: (userId) => `user-create/${userId}`,
 
         }),
+        getProfile: builder.query({
+            query: () => `profile/`,
+            keepUnusedDataFor: 1,
+        }),
         addProfile: builder.mutation({
             query: ({ userId, ...patch }) => ({
                 url: `profile/${userId}`,
                 method: 'POST',
+                body: patch,
+            }),
+        }),
+        updateProfile: builder.mutation({
+            query: ({ ...patch }) => ({
+                url: `profile/`,
+                method: 'PUT',
                 body: patch,
             }),
         }),
@@ -79,6 +90,13 @@ export const strapiApi = createApi({
         userLogin: builder.mutation({
             query: ({ ...patch }) => ({
                 url: `auth/local/`,
+                method: 'POST',
+                body: patch,
+            }),
+        }),
+        userReset: builder.mutation({
+            query: ({ ...patch }) => ({
+                url: `auth/forgot-password`,
                 method: 'POST',
                 body: patch,
             }),
@@ -114,8 +132,11 @@ export const {
     useGetSearchQuery,
     useGetUserDataQuery,
     useGetWorkoutsListQuery,
+    useGetProfileQuery,
     useAddProfileMutation,
     useAddUserMutation,
+    useUserResetMutation,
+    useUpdateProfileMutation,
     useAddWorkoutMutation,
     useUserLoginMutation,
     useDeleteWorkoutMutation

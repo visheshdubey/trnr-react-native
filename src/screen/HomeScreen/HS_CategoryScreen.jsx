@@ -4,6 +4,7 @@ import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 // SnackBar
 import { useGetCategoryQuery } from '../../services/strapi';
+import Icon from 'react-native-vector-icons/AntDesign';
 import NetworkRequest from '../../components/NetworkRequest';
 import SnackBar from '../../components/SnackBar';
 const HS_CategoryScreen = ({ navigation }) => {
@@ -15,20 +16,9 @@ const HS_CategoryScreen = ({ navigation }) => {
       <StatusBar animated={true} backgroundColor="#fff" barStyle={'dark-content'} />
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <View style={styles.searchBarContainer}>
-          <Text style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]} onPress={() => navigation.navigate('SearchScreen', '')}>
-            {/* <Icon name="search1" color="#aaa" size={16} /> */}
-            {'   '}
-            SEARCH FOR A PRODUCT OR WORKOUT
+          <Text style={[styles.searchBar_2]} onPress={() => navigation.navigate('SearchScreen', '')}>
+            <Icon name="search1" color="#aaa" size={16} /> SEARCH FOR A PRODUCT OR WORKOUT
           </Text>
-          {/* <Pressable onPress={() => navigation.navigate('SearchScreen', '')}>
-            <TextInput
-              style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]}
-              autoFocus={true}
-              editable={false}
-              placeholder={'SEARCH FOR A PRODUCT OR WORKOUT'}
-              placeholderTextColor="#aaa"
-            />
-          </Pressable> */}
         </View>
         <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(340) }}>
           <View style={styles.scrollview}>
@@ -94,6 +84,18 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: Mixins.moderateScale(15),
+    paddingVertical: Mixins.moderateScale(15),
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_16,
+    letterSpacing: 0.7,
+    color: '#777',
+  },
+  searchBar_2: {
+    width: Mixins.scaleSize(340),
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    paddingRight: Mixins.moderateScale(15),
     paddingVertical: Mixins.moderateScale(15),
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,

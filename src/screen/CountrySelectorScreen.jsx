@@ -10,10 +10,10 @@ import { LOG } from '../utils/ApiConstants';
 import { country } from '../utils/CountryList';
 import Country_Item from '../components/Country_Item';
 // Country_Item;
-const CountrySelectorScreen = ({ navigation: { goBack } }) => {
+const CountrySelectorScreen = ({ navigation: { goBack }, route }) => {
   const [text, setText] = useState('');
   const [firstChar, setFirstChar] = useState('A');
-
+  const { from } = route.params;
   // const { data, error, isLoading } = useGetSearchQuery(firstChar);
   const data = country;
   useEffect(() => {
@@ -43,7 +43,7 @@ const CountrySelectorScreen = ({ navigation: { goBack } }) => {
       <FlatList
         data={data?.filter((item) => item.name.toLowerCase().includes(text.toLowerCase()))}
         style={styles.item}
-        renderItem={(props) => <Country_Item {...props} />}
+        renderItem={(props) => <Country_Item {...props} from={from} />}
         keyExtractor={(item) => item.id}
         keyboardShouldPersistTaps={'always'}
       />

@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { logout } from '../../services/features/userSlice';
 import { storeDataObject } from '../../services/local';
-import { useGetShopifyUserMutation } from '../../services/shopify';
-import { GET_USER_QUERY, GET_USER_VAR } from '../../utils/ApiConstants';
+
 import Button from '../../components/Button';
 import { moderateScale } from '../../styles/mixins';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';

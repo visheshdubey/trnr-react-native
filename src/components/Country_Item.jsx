@@ -4,18 +4,18 @@ import { Mixins, Typography } from '../styles';
 
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
-function Country_Item({ item, style }) {
+function Country_Item({ item, style, from }) {
   const navigation = useNavigation();
+  // console.log(JSON.stringify(item));
   return (
-    <View style={[styles.separator, style]} key={item.id}>
+    <View style={[styles.separator, style]} key={item?.code}>
       <Pressable
         style={styles.container}
-        // onPress={() =>
-        //   navigation.navigate('HS_ExerciseDetailScreen', {
-        //     name: item.exercise,
-        //     exerciseId: item.id,
-        //   })
-        // }
+        onPress={() =>
+          navigation.navigate(from, {
+            location_input: item.name,
+          })
+        }
       >
         <View>
           <Text style={styles.country}>{item.name}</Text>

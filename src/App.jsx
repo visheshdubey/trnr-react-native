@@ -10,9 +10,8 @@ import { store } from './store';
 import { getDataObject, storeDataObject } from './services/local';
 
 import { logout, signin } from './services/features/userSlice';
-import { LOG, RENEW_ACCESS_TOKEN_VAR } from './utils/ApiConstants';
+import { LOG } from './utils/ApiConstants';
 import moment from 'moment/moment';
-import { useRenewAccessTokenMutation } from './services/shopify';
 
 // moment
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
 
 const SplashScreenComponent = () => {
   const dispatch = useDispatch();
-  const [renewAccessToken, result] = useRenewAccessTokenMutation();
   const getLocal = async () => await getDataObject();
   const setLocal = async (data) => {
     await storeDataObject(data);
@@ -43,27 +41,6 @@ const SplashScreenComponent = () => {
       if (data) {
         console.log(JSON.stringify(data));
         dispatch(signin(data));
-
-        // var duration = moment.duration(moment(data.expiresAt).diff(moment()), 'milliseconds');
-        // var days = duration.asDays();
-
-        // if (days < 5 && data.accessToken) {
-        //   //Updating the Access Token
-        //   renewAccessToken(RENEW_ACCESS_TOKEN_VAR(data.accessToken))
-        //     .then((result) => {
-        //       console.log(JSON.stringify(result));
-        //       if (result.data.errors?.length > 0 || result.data.data?.customerAccessTokenRenew.userErrors.length > 0) throw new Error('Error Encountered');
-
-        //       let newData = data;
-        //       //Storing Access Token
-        //       newData.accessToken = result.data.data?.customerAccessTokenRenew.customerAccessToken.accessToken;
-        //       setLocal(newData);
-        //     })
-        //     .catch((err) => {
-        //       handleLogout();
-        //       console.log(err);
-        //     });
-        // }
       }
     };
     loadData();

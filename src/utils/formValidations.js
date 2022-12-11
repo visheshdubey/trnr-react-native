@@ -53,8 +53,6 @@ export const formValidation = (email, fn, pswd, cpswd, gender, terms) => {
     }
     return validationObj;
 }
-
-
 export const signInFormValidation = (email, pswd) => {
     let validationObj = {
         emailLabel: null,

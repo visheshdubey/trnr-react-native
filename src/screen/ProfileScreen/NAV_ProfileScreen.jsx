@@ -1,64 +1,16 @@
 import { Typography } from '../../styles';
-import { createNativeStackNavigator, cardStyleInterpolator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import 'react-native-gesture-handler';
-import { Animated } from 'react-native';
-import { CardStyleInterpolators } from '@react-navigation/stack';
 import PolicyScreen from '../PolicyScreen';
-import MyAccount from './MyAccount';
 import ProfileMenu from './ProfileMenu';
 import About from './About';
 import Privacy from './Privacy';
 import MyAcc from './MyAcc';
+import ResetScreen from '../ResetScreen';
+import CountrySelectorScreen from '../CountrySelectorScreen';
 // Animated
 const Stack = createNativeStackNavigator();
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
-  const progress = Animated.add(
-    current.progress.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    }),
-    next
-      ? next.progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-          extrapolate: 'clamp',
-        })
-      : 0
-  );
 
-  return {
-    cardStyle: {
-      transform: [
-        {
-          translateX: Animated.multiply(
-            progress.interpolate({
-              inputRange: [0, 1, 2],
-              outputRange: [
-                screen.width, // Focused, but offscreen in the beginning
-                0, // Fully focused
-                screen.width * -0.3, // Fully unfocused
-              ],
-              extrapolate: 'clamp',
-            }),
-            inverted
-          ),
-        },
-      ],
-    },
-  };
-};
 const NAV_ProfileScreen = () => {
   return (
     <Stack.Navigator
@@ -85,15 +37,6 @@ const NAV_ProfileScreen = () => {
             fontFamily: Typography.FONT_FAMILY_BODY,
             fontSize: Typography.FONT_SIZE_20,
           },
-        }}
-      />
-      <Stack.Screen
-        name="MyAccount"
-        component={MyAccount}
-        options={{
-          title: 'MY ACCOUNT',
-          headerShadowVisible: true,
-          headerShown: true,
         }}
       />
       <Stack.Screen
@@ -124,11 +67,27 @@ const NAV_ProfileScreen = () => {
         }}
       />
       <Stack.Screen
+        name="ResetScreen"
+        component={ResetScreen}
+        options={{
+          title: 'RESET PASSWORD',
+          // headerShadowVisible: true,
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
         name="APPLICATION_TNC"
         component={PolicyScreen}
         options={{
           title: 'TERMS AND CONDITION',
           headerShadowVisible: true,
+        }}
+      />
+      <Stack.Screen
+        name="Country"
+        component={CountrySelectorScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -1,11 +1,22 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Typography, Mixins } from '../styles';
 import ProgressiveImage from './ProgressiveImage';
-const ExerciseCard = ({ style, onPress, item, size }) => {
+const ExerciseCard = ({ style, item }) => {
+  const navigation = useNavigation();
   return (
     <View style={[style]}>
-      <Pressable style={styles.card} onPress={onPress} key={item.id}>
+      <Pressable
+        style={styles.card}
+        onPress={() =>
+          navigation.navigate('HS_ExerciseDetailScreen', {
+            exerciseId: item.id,
+            name: item.name,
+          })
+        }
+        key={item.id}
+      >
         <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} text={item.name} />
       </Pressable>
     </View>

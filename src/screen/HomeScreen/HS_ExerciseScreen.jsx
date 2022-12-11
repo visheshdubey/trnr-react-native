@@ -1,5 +1,6 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, Image, FlatList } from 'react-native';
 import ExerciseCard from '../../components/ExerciseCard';
 import NetworkRequest from '../../components/NetworkRequest';
 import { useGetExerciseCategoryQuery } from '../../services/strapi';
@@ -8,6 +9,7 @@ import { Mixins } from '../../styles';
 const HS_ExerciseScreen = ({ navigation, route }) => {
   const { productId, categoryId } = route.params;
   const [dataLength, setDataLength] = useState(172.5);
+  const bottomTabHeight = useBottomTabBarHeight();
   const endpoint = `${productId}/${categoryId}`; //This has to be done because RTK dosen't accepts two params
   const { error, data, isLoading, isSuccess } = useGetExerciseCategoryQuery(endpoint);
 
@@ -18,9 +20,9 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   }, [data]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { marginBottom: bottomTabHeight }]}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
-        <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(375) }}>
+        {/* <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(375) }}>
           <View style={styles.grid}>
             {data?.map((item) => {
               return (
@@ -43,7 +45,28 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
               );
             })}
           </View>
-        </ScrollView>
+        </ScrollView> */}
+        <View></View>
+        <FlatList
+          data={data}
+          numColumns={data?.length > GRID_THRESHOLD ? 2 : 1}
+          renderItem={(props) => (
+            <ExerciseCard
+              style={{
+                margin: Mixins.moderateScale(5),
+                width: Mixins.moderateScale(dataLength),
+                height: Mixins.moderateScale(dataLength),
+              }}
+              {...props}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          keyboardShouldPersistTaps={'always'}
+          contentContainerStyle={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
       </NetworkRequest>
     </SafeAreaView>
   );
@@ -53,20 +76,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Mixins.moderateScale(10),
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: '#fff',
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: Mixins.WINDOW_WIDTH,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'red',
     marginBottom: Mixins.moderateScale(80),
   },
 });

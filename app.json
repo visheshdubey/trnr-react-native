@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "TRNR-dev",
+    "name": "TRNR",
     "slug": "trnr",
     "icon": "./assets/trnr_logo.png",
     "userInterfaceStyle": "automatic",
@@ -20,6 +20,16 @@
       "bundleIdentifier": "com.trnr.application",
       "requireFullScreen": true
     },
-    "extra": {}
+    "extra": {
+      "eas": {
+        "projectId": "25fbc033-4d54-4d9b-86b6-23d433495b4b"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/25fbc033-4d54-4d9b-86b6-23d433495b4b"
+    }
   }
 }

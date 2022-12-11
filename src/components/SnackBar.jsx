@@ -9,10 +9,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const { width, height } = Dimensions.get('window');
 const SnackBar = ({ state, text }) => {
   const headerHeight = useHeaderHeight();
-  const bottomTabHeight = 30; // useBottomTabBarHeight() || 0;
+  const bottomTabHeight = useBottomTabBarHeight() || 0;
   const entrance = useRef(new Animated.Value(height)).current;
   const x = height - bottomTabHeight * 2 - headerHeight - 10;
-  console.log(x);
+  console.log('TEst' + state);
   const entranceIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(entrance, {
@@ -43,7 +43,7 @@ const SnackBar = ({ state, text }) => {
           Mixins.generateBoxShadowStyle(-2, 4, '#999', 0.8, 3, 5, '#999'),
         ]}
       >
-        <Text style={{ fontFamily: Typography.FONT_FAMILY_HEADING, color: 'white', fontSize: Typography.FONT_SIZE_18 }}>
+        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, color: 'white', fontSize: Typography.FONT_SIZE_18 }}>
           {' '}
           <Icon name="information" color={'#fff'} size={18} />
           {'\t'}

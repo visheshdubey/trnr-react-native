@@ -11,9 +11,12 @@ import FastImage from 'react-native-fast-image';
 import { useIsFocused } from '@react-navigation/native';
 import SnackBar from '../../components/SnackBar';
 import { exerciseSnack } from '../../services/features/snackBarSlice';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { moderateScale } from '../../styles/mixins';
 
 const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
+  const bottomTabHeight = useBottomTabBarHeight();
   const { name, exerciseId } = route.params;
   const { error, data, isLoading, refetch } = useGetExerciseQuery(exerciseId);
   const userId = useSelector((state) => state.user.customerID);
@@ -68,7 +71,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
     navigation.navigate('SHOP_SCREEN', { link: data?.produc?.product_link });
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginBottom: bottomTabHeight }]}>
       <SnackBar state={snackState} text={snackText} />
       <ScrollView
         alwaysBounceVertical={false}
@@ -77,6 +80,10 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
         scrollEnabled={!inFullscreen}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
         ref={scrollViewRef}
       >
         <NetworkRequest error={error} data={data} isLoading={isLoading}>
@@ -125,15 +132,17 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
               <Text style={styles.heading}>{data?.name}</Text> */}
               <Text style={styles.body}>{data?.description}</Text>
             </View>
-            {workoutlist?.data?.exercises?.find((o) => o.id === exerciseId) ? (
-              <Button onPress={handleDelete} title="REMOVE FROM MY WORKOUT" fill="#eee" color="#333" isLoading={delresult.isLoading} />
-            ) : (
-              <Button onPress={handleSave} title="SAVE WORKOUT" fill="#000" color="#fff" isLoading={result.isLoading} />
-            )}
-
-            {data?.product?.product_link && <Button style={{ marginTop: 20 }} onPress={handleShop} title="SHOP PRODUCT" fill="#aaa" color="#333" />}
           </View>
         </NetworkRequest>
+        <View style={{ position: 'absolute', bottom: moderateScale(30) }}>
+          {workoutlist?.data?.exercises?.find((o) => o.id === exerciseId) ? (
+            <Button onPress={handleDelete} title="REMOVE FROM MY WORKOUT" fill="#E2E5E9" color="#333" isLoading={delresult.isLoading} />
+          ) : (
+            <Button onPress={handleSave} title="SAVE WORKOUT" fill="#000" color="#fff" isLoading={result.isLoading} />
+          )}
+
+          {data?.product?.product_link && <Button style={{ marginTop: 10 }} onPress={handleShop} title="SHOP PRODUCT" fill="#E2E5E9" color="#333" />}
+        </View>
       </ScrollView>
     </View>
   );

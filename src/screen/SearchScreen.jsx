@@ -15,13 +15,13 @@ const SearchScreen = ({ navigation: { goBack } }) => {
   const { data, error, isLoading } = useGetSearchQuery(firstChar);
 
   useEffect(() => {
-    if (text.length > 0 && text.length < 3) {
+    if (text.length > 0 && text.length < 5) {
       if (LOG === true) console.log('🚀 ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
       setFirstChar(text);
     }
     if (text.length == 0) setFirstChar('a');
   }, [text, data]);
-  console.log(JSON.stringify(data));
+  console.log(JSON.stringify(data?.length));
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -29,32 +29,15 @@ const SearchScreen = ({ navigation: { goBack } }) => {
           <Icon name="arrowleft" color="#000" size={22} />
         </Pressable>
         <TextInput
-          style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]}
+          style={[styles.searchBar_2]} //, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]}
           autoFocus={true}
           value={text}
           onChangeText={setText}
           placeholder={'SEARCH FOR A PRODUCT OR WORKOUT'}
-          // onPress={() => navigation.navigate('SearchScreen', '')}
           placeholderTextColor="#aaa"
         />
       </View>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
-        {/* {data?.map((item) => {
-            if (item.exercise.toLowerCase().includes(text.toLowerCase()) || item.productName.toLowerCase().includes(text.toLowerCase()))
-              return (
-                <Search_Item
-                  style={styles.item}
-                  item={item}
-                  key={item.id}
-                  onPress={() =>
-                    navigation.navigate('HS_ExerciseDetailScreen', {
-                      exerciseId: item.id,
-                      categoryName: item.name,
-                    })
-                  }
-                />
-              );
-          })} */}
         <FlatList
           data={data?.filter((item) => item.exercise.toLowerCase().includes(text.toLowerCase()) || item.productName.toLowerCase().includes(text.toLowerCase()))}
           style={styles.item}
@@ -97,6 +80,18 @@ const styles = StyleSheet.create({
     fontSize: Typography.FONT_SIZE_16,
     letterSpacing: 0.7,
     color: '#777',
+  },
+  searchBar_2: {
+    width: Mixins.scaleSize(300),
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+
+    borderBottomColor: '#ccc',
+    paddingRight: Mixins.moderateScale(15),
+    paddingVertical: Mixins.moderateScale(10),
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_16,
+    letterSpacing: 0.7,
   },
 });
 

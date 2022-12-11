@@ -90,14 +90,14 @@ const SignIn = ({ navigation }) => {
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>EMAIL</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="ENTER YOUR EMAIL" value={email} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="Enter your Email" value={email} placeholderTextColor="#aaa" />
                     </View>
                     {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
                   </View>
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>PASSWORD</Text>
                     <View style={{ flexDirection: 'row' }}>
-                      <TextInput style={styles.fieldInput} onChangeText={onChangePassword} value={password} placeholder="ENTER YOUR PASSWORD" secureTextEntry={true} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangePassword} value={password} placeholder="Enter your password" secureTextEntry={true} placeholderTextColor="#aaa" />
                     </View>
                     {errors.current?.passwordLabel ? <Text style={styles.error_text}>{errors.current?.passwordLabel}</Text> : null}
                     {errors.current?.cpasswordLabel ? <Text style={styles.error_text}>{errors.current?.cpasswordLabel}</Text> : null}
@@ -110,11 +110,11 @@ const SignIn = ({ navigation }) => {
                     isLoading={userLoginResult.isLoading}
                     style={{ marginVertical: Mixins.moderateScale(30) }}
                   ></Button>
-                  <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'Sign In')}>
+                  <Text style={[styles.body]} onPress={() => navigation.navigate('SignUp', 'Sign Up')}>
                     {' '}
-                    ALREADY A MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-IN HERE</Text>
+                    NEW MEMBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-UP HERE</Text>
                   </Text>
-                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('Reset', 'Reset Password')}>
+                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
                     RESET PASSWORD?
                   </Text>
                 </View>

@@ -1,218 +1,142 @@
-import React, { useRef } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Text, View, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import Logo from '../components/Logo';
-import Button from '../components/Button';
+import React, { useRef, useState } from 'react';
+import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import { Mixins, Typography } from '../styles';
-import { useResetShopifyUserMutation } from '../services/shopify';
-import { LOG, RESET_USER_VAR } from '../utils/ApiConstants';
+import Button from '../components/Button';
+import { moderateScale } from '../styles/mixins';
+import { resetFormValidation, signInFormValidation } from '../utils/formValidations';
+import { useUserLoginMutation, useUserResetMutation } from '../services/strapi';
+import { getDataObject, storeDataObject } from '../services/local';
+import { useDispatch } from 'react-redux';
+import { signin } from '../services/features/userSlice';
 
-import { resetFormValidation } from '../utils/formValidations';
-
-import Warning from 'react-native-vector-icons/FontAwesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../services/features/userSlice';
-
-const ResetScreen = ({ navigation: { goBack }, route, navigation }) => {
+const ResetScreen = ({ navigation }) => {
+  //Force Update
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   //Form States
   const [email, onChangeEmail] = React.useState(null);
-  // Label States
-  const [emailLabel, onChangeEmailLabel] = React.useState(null);
-
-  //Error Refs
-  let hasErrorLabel = useRef(false);
-  let someErrorLabel = useRef(false);
-  let successLabel = useRef(false);
-
-  const [rerender, setRerender] = React.useState(false);
+  const [password, onChangePassword] = React.useState('');
+  const [error, seterror] = useState(null);
+  const [info, setinfo] = useState('');
   //RTK Hooks
-  const [resetShopifyUserMutation, resetResult] = useResetShopifyUserMutation();
-
-  const isSignnedIn = useSelector((state) => state.user.isSignnedIn);
+  const [userReset, userResetResult] = useUserResetMutation();
   const dispatch = useDispatch();
 
-  const handleClick = (x, y) => {
-    navigation.navigate(x, { name: y });
+  let errors = useRef(null);
+  //Set data to Local Storage
+  const setLocal = async (data) => {
+    await storeDataObject(data);
   };
-
-  //BULK CHANGE LABEL
-  const handleLabelChange = (el) => {
-    onChangeEmailLabel(el);
+  // Get Local data
+  const getLocal = async () => {
+    const x = await getDataObject();
+    console.log('Local Data:- ' + JSON.stringify(x));
   };
-  const handleSignIn = () => {
-    //Initializing error flags
-    if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 43 ~ .then ~ someErrorLabel.current', someErrorLabel.current);
-    if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 44 ~ .then ~ hasErrorLabel.current', hasErrorLabel.current);
-
-    //Performing initial form validation
-    const formErr = resetFormValidation(email);
-
-    //Changing Labels
-    handleLabelChange(formErr.emailLabel);
-
-    //Setting label error flag to true if form failed any field validation
-    if (formErr.hasErrorLabel) hasErrorLabel.current = true;
-
-    // If form has no error submit it to SHOPIFY
-    if (!hasErrorLabel.current) {
-      resetShopifyUserMutation(RESET_USER_VAR(email))
-        .then((result) => {
-          if (result?.data.errors) {
-            throw new Error(result?.data.errors[0].message);
-          }
-          if (LOG === true) console.log('🚀 ~ file: ResetScreen.jsx ~ line 64 ~ .Shopify Access Token result ~ JSON.stringify(result)', JSON.stringify(result));
-          if (!result?.data.data.customerRecover.customerUserErrors.length > 0) {
-            successLabel.current = true;
-            setRerender(!rerender);
-
-            setTimeout(() => {
-              dispatch(logout());
-            }, 3500);
-            return result;
-          } else {
-            throw new Error('Failed to send password reset link!');
-          }
-        })
-        .catch((err) => {
-          console.log('🔴 ~ file: ResetScreen.jsx ~ line 78 ~ handleSignIn ~ err', err);
-          someErrorLabel.current = true;
-          setRerender(!rerender); //Re-render to show refs updated value
+  //Form Operations
+  const handleSubmit = async () => {
+    errors.current = resetFormValidation(email);
+    if (!errors.current.hasErrorLabel) {
+      try {
+        const data = await userReset({
+          email: email,
         });
+        if (data?.data?.ok) {
+          setinfo('Reset link shared on your email, please check your inbox.');
+        } else {
+          seterror('Something went wrong!');
+        }
+      } catch (err) {
+        console.log(err);
+        seterror(err.message);
+      }
+    } else {
+      forceUpdate();
     }
   };
-  // result.isSuccess ? null : null;
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <Logo />
-            <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: Mixins.moderateScale(30),
-              }}
-            >
-              <Text style={styles.heading}>RESET PASSWORD</Text>
-              {/* <Text style={[styles.heading_2, {}]}>MEMBER </Text> */}
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+        <View style={{ marginVertical: Mixins.moderateScale(50) }}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              {info && (
+                <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#bfb', borderRadius: moderateScale(5) }}>
+                  <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#003d0e' }}>{info}</Text>
+                </View>
+              )}
+              {error && (
+                <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#ffe88c', borderRadius: moderateScale(5) }}>
+                  <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#8f7306' }}>{error}</Text>
+                </View>
+              )}
+              <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <View style={{ flex: 1, marginTop: 10, alignItems: 'center' }}>
+                  <View style={styles.input_row}>
+                    <Text style={styles.fieldLabel}>EMAIL</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="Enter your Email" value={email} placeholderTextColor="#aaa" />
+                    </View>
+                    {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
+                  </View>
+                  <Button //
+                    onPress={handleSubmit}
+                    title="GENERATE LINK"
+                    fill="#000"
+                    color="#fff"
+                    isLoading={userResetResult.isLoading}
+                    style={{ marginVertical: Mixins.moderateScale(30) }}
+                  ></Button>
+                </View>
+              </View>
             </View>
-
-            <Text style={[styles.body, { marginTop: 5 }]}>GENERATE A RESET PASSWORD LINK</Text>
-            {/* ------------------------EMAIL ADDRESS------------------------------------------ */}
-            {someErrorLabel.current ? (
-              <Text style={styles.topLabel}>
-                <Warning name="warning" color="red" size={16} /> SOMETHING WENT WRONG, TRY AGAIN LATER
-              </Text>
-            ) : (
-              <View
-                style={{
-                  marginTop: Mixins.scaleSize(32),
-                }}
-              ></View>
-            )}
-            {successLabel.current ? (
-              <Text style={styles.topSuccessLabel}>
-                <Warning name="check" color="#1D6F00" size={16} /> LINK GENERATED SUCCESFULLY, CHECK YOUR EMAIL!
-              </Text>
-            ) : (
-              <View
-                style={{
-                  marginTop: Mixins.scaleSize(32),
-                }}
-              ></View>
-            )}
-
-            <TextInput style={[styles.input, { width: Mixins.scaleSize(340) }]} onChangeText={onChangeEmail} value={email} placeholder="EMAIL ADDRESS" placeholderTextColor="#aaa" />
-            {emailLabel ? <Text style={styles.label}>{emailLabel}</Text> : null}
-            {!isSignnedIn ? (
-              <>
-                <Text style={[styles.body, { marginTop: Mixins.scaleSize(24) }]} onPress={() => handleClick('SignIn', 'SignIn')}>
-                  REMEMBER PASSWORD?
-                </Text>
-              </>
-            ) : null}
-            <Button onPress={handleSignIn} title="GENERATE RESET LINK" fill="#000" color="#fff" style={{ marginVertical: 20 }} isLoading={resetResult.isLoading}></Button>
-            {isSignnedIn ? <Button onPress={goBack} title="CLOSE" fill="#fafafa" color="#C53437"></Button> : null}
-
-            {!isSignnedIn ? (
-              <>
-                <Text style={styles.body} onPress={() => handleClick('SignUp', 'Sign Up')}>
-                  NEW MEMEBER? SIGN-UP HERE
-                </Text>
-              </>
-            ) : null}
-          </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default ResetScreen;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  inner: {
-    flex: 1,
-    alignItems: 'center',
-    // justifyContent: 'center',
-    paddingVertical: Mixins.moderateScale(70, 0.1),
-  },
   heading: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
-    fontSize: 28,
-  },
-  heading_2: {
-    fontFamily: Typography.FONT_FAMILY_DISPLAY,
-    fontSize: 32,
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_28,
   },
   body: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
+    marginTop: Mixins.moderateScale(5),
+    width: Mixins.scaleSize(250),
+    textAlign: 'center',
   },
-  input: {
+  fieldLabel: {
     fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_18,
+  },
+  fieldInput: {
+    borderBottomWidth: 1,
+    flex: 1,
+    paddingVertical: 8,
+    fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
-    borderRadius: 5,
-    height: Mixins.scaleSize(40),
-    marginVertical: Mixins.scaleSize(15),
-    borderWidth: 1,
-    padding: Mixins.scaleSize(10),
+    marginRight: 5,
   },
-  label: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
+  custom_input: {
+    borderBottomWidth: 1,
+    flex: 1,
+    paddingVertical: moderateScale(13),
+    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontSize: Typography.FONT_SIZE_16,
+    marginRight: 5,
+  },
+  input_row: {
     width: Mixins.scaleSize(340),
-    fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(-12),
-    marginBottom: Mixins.scaleSize(10),
-    // borderWidth: 1,
-    color: 'red',
+    marginTop: 20,
+    // flexDirection: 'row',
   },
-  topLabel: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
+  error_text: {
+    fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(24),
-    marginBottom: Mixins.scaleSize(10),
-    backgroundColor: '#FFF4D8',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    color: 'red',
-  },
-  topSuccessLabel: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
-    fontSize: Typography.FONT_SIZE_16,
-    marginTop: Mixins.scaleSize(24),
-    marginBottom: Mixins.scaleSize(10),
-    backgroundColor: '#E3FFD9',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    color: '#1D6F00',
+    color: '#f22',
   },
 });
+
+export default ResetScreen;

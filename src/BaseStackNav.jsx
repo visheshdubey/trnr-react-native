@@ -10,9 +10,9 @@ import BaseTabNav from './BaseTabNav';
 import { Typography } from './styles';
 import SearchScreen from './screen/SearchScreen';
 import { useSelector } from 'react-redux';
-import ResetScreen from './screen/ResetScreen';
 import PolicyScreen from './screen/PolicyScreen';
 import CountrySelectorScreen from './screen/CountrySelectorScreen';
+import ResetScreen from './screen/ResetScreen';
 const HomeStack = createNativeStackNavigator();
 
 const BaseStackNav = () => {
@@ -46,7 +46,15 @@ const BaseStackNav = () => {
             <HomeStack.Screen name="APPLICATION PRIVACY POLICY" component={PolicyScreen} options={{ headerShown: true }} />
           </>
         )}
-        <HomeStack.Screen name="Reset" component={ResetScreen} />
+        <HomeStack.Screen
+          name="ResetScreen"
+          component={ResetScreen}
+          options={{
+            title: 'RESET PASSWORD',
+            // headerShadowVisible: true,
+            headerShown: true,
+          }}
+        />
         <HomeStack.Screen name="Country" component={CountrySelectorScreen} />
       </HomeStack.Navigator>
     </NavigationContainer>

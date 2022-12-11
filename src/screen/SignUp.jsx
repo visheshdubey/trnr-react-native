@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, Alert, Pressable } from 'react-native';
-import SnackBar from '../components/SnackBar';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/Fontisto';
 import Button from '../components/Button';
@@ -11,9 +10,9 @@ import { formValidation } from '../utils/formValidations';
 import { useAddProfileMutation, useAddUserMutation } from '../services/strapi';
 import { STRAPI_ADD_USER_DATA } from '../utils/ApiConstants';
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ navigation, route }) => {
   const [state, setstate] = useState('NO');
-
+  const location_input = route?.params?.location_input || null;
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
@@ -31,14 +30,12 @@ const SignUp = ({ navigation }) => {
   const [addUser, userResult] = useAddUserMutation();
   const [addProfile, userProfileResult] = useAddProfileMutation();
 
-  //   const state = useRef('NO').current;
-  let errors = useRef(null);
-  const openSnackBar = () => {
-    setstate('ENTER');
-    setTimeout(() => {
-      setstate('EXIT');
-    }, 2000);
-  };
+  React.useEffect(() => {
+    if (location_input) {
+      setLocation(location_input);
+    }
+  }, [location_input]);
+
   //GENDER SELECTION METHOD
   const toggleGender = (x) => {
     setGender(x);
@@ -48,17 +45,18 @@ const SignUp = ({ navigation }) => {
     setDatePickerVisibility(true);
   };
   const hideDatePicker = () => {
+    console.log('TESTTTTTT->');
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
     setDOB(moment(date).format());
-    if (LOG === true) console.log('A date has been picked: ', moment(date).format());
     hideDatePicker();
   };
   //TERMS TOGGLE BUTTON
   const toggleTerms = () => {
     setTerms(!terms);
   };
+  let errors = useRef(null);
   //Form Operations
   const handleSubmit = async () => {
     errors.current = formValidation(email, firstName, password, confirmPassword, gender, terms);
@@ -73,12 +71,12 @@ const SignUp = ({ navigation }) => {
         console.log(id);
         if (id) {
           seterror(null);
-          const data2 = await addProfile(STRAPI_ADD_USER_DATA(id, firstName, lastName, email, dob, gender, terms));
+          const data2 = await addProfile(STRAPI_ADD_USER_DATA(id, firstName, lastName, email, dob, gender, terms, location));
           console.log(JSON.stringify(data2));
         } else {
           throw new Error(data?.error?.data?.error?.message);
         }
-        // navigation.navigate('SignIn');
+        navigation.navigate('SignIn');
       } catch (err) {
         console.log(err.message);
         seterror(err.message);
@@ -111,15 +109,15 @@ const SignUp = ({ navigation }) => {
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>NAME</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <TextInput style={styles.fieldInput} onChangeText={onChangeFirstName} placeholder="FIRST NAME" value={firstName} placeholderTextColor="#aaa" />
-                      <TextInput style={styles.fieldInput} onChangeText={onChangeLastName} placeholder="LAST NAME" value={lastName} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangeFirstName} placeholder="First name" value={firstName} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangeLastName} placeholder="Last name" value={lastName} placeholderTextColor="#aaa" />
                     </View>
                     {errors.current?.firstNameLabel ? <Text style={styles.error_text}>{errors.current?.firstNameLabel}</Text> : null}
                   </View>
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>EMAIL</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="ENTER YOUR EMAIL" value={email} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="Enter your email" value={email} placeholderTextColor="#aaa" />
                     </View>
                     {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
                   </View>
@@ -146,11 +144,11 @@ const SignUp = ({ navigation }) => {
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>PASSWORD</Text>
                     <View style={{ flexDirection: 'row' }}>
-                      <TextInput style={styles.fieldInput} onChangeText={onChangePassword} value={password} placeholder="ENTER YOUR PASSWORD" secureTextEntry={true} placeholderTextColor="#aaa" />
+                      <TextInput style={styles.fieldInput} onChangeText={onChangePassword} value={password} placeholder="Enter your password" secureTextEntry={true} placeholderTextColor="#aaa" />
                       <TextInput
                         style={styles.fieldInput}
                         onChangeText={onChangeConfirmPassword}
-                        placeholder="CONFIRM PASSWORD"
+                        placeholder="Confirm password"
                         value={confirmPassword}
                         secureTextEntry={true}
                         placeholderTextColor="#aaa"
@@ -176,7 +174,7 @@ const SignUp = ({ navigation }) => {
                             ]}
                             onPress={showDatePicker}
                           >
-                            {dob ? moment(dob).format('DD MMMM YYYY') : 'ENTER YOUR DATE OF BIRTH'}
+                            {dob ? moment(dob).format('DD MMMM YYYY') : 'Enter your date of birth'}
                           </Text>
                         </View>
                       </Pressable>
@@ -192,9 +190,13 @@ const SignUp = ({ navigation }) => {
                               color: location ? '#000' : '#aaa',
                             },
                           ]}
-                          onPress={() => navigation.navigate('Country')}
+                          onPress={() =>
+                            navigation.navigate('Country', {
+                              from: 'SignUp',
+                            })
+                          }
                         >
-                          {location ? location : 'ENTER YOUR LOCATION'}
+                          {location ? location : 'Enter your location'}
                         </Text>
                       </View>
                     </View>
@@ -222,7 +224,7 @@ const SignUp = ({ navigation }) => {
                     {' '}
                     ALREADY A MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-IN HERE</Text>
                   </Text>
-                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('Reset', 'Reset Password')}>
+                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
                     RESET PASSWORD?
                   </Text>
                 </View>
@@ -231,7 +233,6 @@ const SignUp = ({ navigation }) => {
           </TouchableWithoutFeedback>
         </View>
       </ScrollView>
-      <SnackBar state={state} />
     </SafeAreaView>
   );
 };
