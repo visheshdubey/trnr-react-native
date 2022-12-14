@@ -50,7 +50,7 @@ const WS_WorkoutScreen = ({ navigation }) => {
             <Button onPress={() => navigation.navigate('HomeScreen')} title="BROWSE WORKOUTS" fill="#000" color="white" style={{ position: 'absolute', bottom: moderateScale(30) }} />
           </View>
         )}
-        <SnackBar state={snackState} text="WORKOUT DELETED SUCCESSFULY" />
+        <SnackBar state={snackState} text="REMOVED FROM MY WORKOUTS" />
       </NetworkRequest>
     </SafeAreaView>
   );

@@ -53,7 +53,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
       return console.log('🔴 ~ file: HS_ExerciseDetailScreen.jsx ~ line 33 ~ handleSave ~ err', err);
     });
     if (LOG === true) console.log('🚀 ~ file: HS_ExerciseDetailScreen.jsx ~ line 37 ~ handleSave ~ JSON.stringify(work)', JSON.stringify(work));
-    setSnackText('SAVED TO WORKOUT');
+    setSnackText('SAVED TO MY WORKOUT');
     dispatch(exerciseSnack('ENTER'));
     setTimeout(() => {
       dispatch(exerciseSnack('EXIT'));
@@ -61,7 +61,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   };
   const handleDelete = async () => {
     deleteWorkout(STRAPI_DELETE_WORKOUT(exerciseId));
-    setSnackText('REMOVED FROM WORKOUT');
+    setSnackText('REMOVED FROM MY WORKOUT');
     dispatch(exerciseSnack('ENTER'));
     setTimeout(() => {
       dispatch(exerciseSnack('EXIT'));
