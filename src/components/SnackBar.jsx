@@ -12,12 +12,12 @@ const SnackBar = ({ state, text }) => {
   const headerHeight = useHeaderHeight();
   const bottomTabHeight = useBottomTabBarHeight() || 0;
   const entrance = useRef(new Animated.Value(height)).current;
-  const x = height - bottomTabHeight * 2 - headerHeight - 10;
+  const x = height - bottomTabHeight * 2 - headerHeight - 5;
   console.log('TEst' + state);
   const entranceIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(entrance, {
-      toValue: moderateScale(x),
+      toValue: x,
       duration: 500,
       useNativeDriver: false,
     }).start();

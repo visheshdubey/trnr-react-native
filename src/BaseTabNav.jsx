@@ -19,8 +19,8 @@ export const BaseTabNav = () => {
         tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: 'gray',
         tabBarLabelStyle: {
-          fontFamily: Typography.ROBOTO_HEADING,
-          fontSize: Typography.FONT_SIZE_12,
+          fontFamily: Typography.FONT_FAMILY_HEADING,
+          fontSize: Typography.FONT_SIZE_15,
         },
         tabBarStyle: { position: 'absolute', backgroundColor: '#000' },
         headerTitleAlign: 'center',

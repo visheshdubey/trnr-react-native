@@ -17,6 +17,8 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
   const { height, width } = useWindowDimensions();
   const [rerender, setRerender] = useState(false);
   const navigation = useNavigation();
+
+  const [status, setStatus] = React.useState({});
   // const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
   const orientation = useSelector((state) => state.videoPlayer.orientation);
   const dispatch = useDispatch();

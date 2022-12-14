@@ -29,31 +29,31 @@ const ProfileMenu = ({ navigation }) => {
       <View style={{ flex: 1, width: Mixins.scaleSize(340) }}>
         <View style={{ marginTop: moderateScale(34) }}>
           <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_18 }}>PROFILE</Text>
-          <Text style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_32, marginTop: -5 }}>{isError ? 'HI!' : data?.firstName}</Text>
+          <Text style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_32 }}>{isError ? 'HI!' : data?.firstName.toUpperCase()}</Text>
         </View>
         <View style={{ marginTop: Mixins.moderateScale(20) }}>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('MyAcc')}>
             <View style={styles.listStyle}>
               <Icon name="account-circle" size={26} color="black" />
-              <Text style={styles.listText}>{'\t\t'}My Account</Text>
+              <Text style={styles.listText}>{'  '}MY ACCOUNT</Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
             <View style={styles.listStyle}>
               <Icon name="information" size={26} color="black" />
-              <Text style={styles.listText}>{'\t\t'}About TRNR</Text>
+              <Text style={styles.listText}>{'  '}ABOUT TRNR</Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('Privacy')}>
             <View style={styles.listStyle}>
               {/* <Icon name="account-circle" size={22} color="black" /> */}
-              <Text style={styles.listText}>Privacy Policy</Text>
+              <Text style={styles.listText}>PRIVACY POLICY</Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('APPLICATION_TNC')}>
             <View style={styles.listStyle}>
               {/* <Icon name="account-circle" size={22} color="black" /> */}
-              <Text style={styles.listText}>Terms & Condition</Text>
+              <Text style={styles.listText}>TERMS & CONDITION</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listText: {
-    fontFamily: Typography.ROBOTO_BODY,
-    fontSize: Typography.FONT_SIZE_14,
+    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontSize: Typography.FONT_SIZE_16,
     // marginLeft: Mixins.moderateScale(20),
   },
 });
