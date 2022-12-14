@@ -50,7 +50,6 @@ const SignUp = ({ navigation, route }) => {
   };
   const handleConfirm = (date) => {
     setDOB(moment(date).format());
-    if (LOG === true) console.log('A date has been picked: ', moment(date).format());
     hideDatePicker();
   };
   //TERMS TOGGLE BUTTON
