@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 function Country_Item({ item, style, from }) {
   const navigation = useNavigation();
-  // console.log(JSON.stringify(item));
+  // console.log(JSON.stringify(item?.code));
   return (
     <View style={[styles.separator, style]} key={item?.code}>
       <Pressable

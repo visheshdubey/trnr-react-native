@@ -72,14 +72,14 @@ const SignIn = ({ navigation }) => {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               <Image
                 source={require('../assets/images/trnr-logo-light.png')}
-                style={{ width: Mixins.scaleSize(150), height: Mixins.scaleSize(37.5), marginBottom: moderateScale(20) }}
+                style={{ width: Mixins.scaleSize(100), height: Mixins.scaleSize(25), marginBottom: moderateScale(20) }}
                 resizeMode="contain"
               />
-              <Text style={styles.heading}>GET STARTED NOW</Text>
-              <Text style={[styles.body]}>TO ACCESS 100S OF EXERCISE VIDEOS AND MAKE THE MOST OF YOUR TRNR PRODUCTS</Text>
-              <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#bfb', borderRadius: moderateScale(5) }}>
+              <Text style={styles.heading}>WELCOME BACK</Text>
+              {/* <Text style={[styles.body]}>TO ACCESS 100S OF EXERCISE VIDEOS AND MAKE THE MOST OF YOUR TRNR PRODUCTS</Text> */}
+              {/* <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#bfb', borderRadius: moderateScale(5) }}>
                 <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#003d0e' }}>Check your Inbox, Verify your E-mail.</Text>
-              </View>
+              </View> */}
               {error && (
                 <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#ffe88c', borderRadius: moderateScale(5) }}>
                   <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#8f7306' }}>{error}</Text>
@@ -108,14 +108,14 @@ const SignIn = ({ navigation }) => {
                     fill="#000"
                     color="#fff"
                     isLoading={userLoginResult.isLoading}
-                    style={{ marginVertical: Mixins.moderateScale(30) }}
+                    style={{ marginTop: Mixins.moderateScale(50), marginBottom: Mixins.moderateScale(10) }}
                   ></Button>
                   <Text style={[styles.body]} onPress={() => navigation.navigate('SignUp', 'Sign Up')}>
                     {' '}
-                    NEW MEMBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-UP HERE</Text>
+                    Not a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-up here</Text>
                   </Text>
-                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
-                    RESET PASSWORD?
+                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(10) }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
+                    Forgot password?
                   </Text>
                 </View>
               </View>
@@ -129,11 +129,12 @@ const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   heading: {
-    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_28,
   },
   body: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontFamily: Typography.ROBOTO_HEADING,
+    fontSize: Typography.FONT_SIZE_12,
     marginTop: Mixins.moderateScale(5),
     width: Mixins.scaleSize(250),
     textAlign: 'center',
@@ -144,6 +145,7 @@ const styles = StyleSheet.create({
   },
   fieldInput: {
     borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
     flex: 1,
     paddingVertical: 8,
     fontFamily: Typography.FONT_FAMILY_BODY,

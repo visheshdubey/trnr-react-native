@@ -10,41 +10,26 @@ import { storeDataObject } from '../../services/local';
 import Button from '../../components/Button';
 import { moderateScale } from '../../styles/mixins';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useGetProfileQuery } from '../../services/strapi';
 // useDispatch
 const ProfileMenu = ({ navigation }) => {
-  // const [getShopifyUser, result] = useGetShopifyUserMutation();
-  const token = useSelector((state) => state.user.accessToken);
   const bottomTabHeight = useBottomTabBarHeight();
-  function handleNavigation() {
-    navigation.navigate('MyAccount', 'Profile');
-    console.log('yoo');
-  }
+  const { data, isError, isFetching, isLoading } = useGetProfileQuery();
+
   const dispatch = useDispatch();
-  const setLocal = async (data) => {
-    await storeDataObject(data);
+  const setLocal = async (data_1) => {
+    await storeDataObject(data_1);
   };
   const handleLogout = () => {
     dispatch(logout());
     setLocal({});
   };
-
-  // React.useEffect(() => {
-  //   const callApi = async () => {
-  //     try {
-  //       await getShopifyUser(GET_USER_VAR(token));
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   callApi();
-  // }, []);
-
   return (
     <SafeAreaView style={[styles.container, { marginBottom: bottomTabHeight }]}>
       <View style={{ flex: 1, width: Mixins.scaleSize(340) }}>
-        <View>
-          {/* <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_18 }}>PROFILE</Text> */}
-          <Text style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_32, marginTop: -5 }}>{'VISHESH'}</Text>
+        <View style={{ marginTop: moderateScale(34) }}>
+          <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_18 }}>PROFILE</Text>
+          <Text style={{ fontFamily: Typography.FONT_FAMILY_HEADING, fontSize: Typography.FONT_SIZE_32, marginTop: -5 }}>{isError ? 'HI!' : data?.firstName}</Text>
         </View>
         <View style={{ marginTop: Mixins.moderateScale(20) }}>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('MyAcc')}>
@@ -53,7 +38,6 @@ const ProfileMenu = ({ navigation }) => {
               <Text style={styles.listText}>{'\t\t'}My Account</Text>
             </View>
           </TouchableWithoutFeedback>
-
           <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
             <View style={styles.listStyle}>
               <Icon name="information" size={26} color="black" />
@@ -90,8 +74,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listText: {
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_20,
+    fontFamily: Typography.ROBOTO_BODY,
+    fontSize: Typography.FONT_SIZE_14,
     // marginLeft: Mixins.moderateScale(20),
   },
 });

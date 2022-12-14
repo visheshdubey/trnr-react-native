@@ -48,12 +48,13 @@ export const STRAPI_ADD_USER_DATA_AT_PROFILE = (user_id, fn, ln = '', gender, do
 
   })
 
-export const STRAPI_UPDATE_PROFILE_USER_DATA = (fn, ln = '', dob = new Date(null), location) => (
+export const STRAPI_UPDATE_PROFILE_USER_DATA = (fn, ln = '', gender, dob = new Date(null), location) => (
   {
     data: {
       firstName: fn,
       lastName: ln,
       DOB: dob ? moment(dob).format('YYYY-MM-DD') : moment(new Date()).format('YYYY-MM-DD'), //|| new Date("1-1-1000"),
+      gender: gender,
       country: location
     }
   })

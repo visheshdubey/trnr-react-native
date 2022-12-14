@@ -51,6 +51,9 @@ const SplashScreenComponent = () => {
     'BlankRiver-Bold': require('./assets/fonts/BlankRiver-Bold.ttf'),
     'BebasNeuePro-Regular': require('./assets/fonts/BebasNeuePro-Regular.otf'),
     'BebasNeuePro-Bold': require('./assets/fonts/BebasNeuePro-Bold.otf'),
+    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
   });
   useEffect(() => {
     if (fontsLoaded) setShow(true);

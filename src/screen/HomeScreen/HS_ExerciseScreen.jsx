@@ -16,7 +16,7 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   const GRID_THRESHOLD = 6; //Layout will switch to grid, if there are more than GRID_THRESHOLD items to render
 
   useEffect(() => {
-    isSuccess ? (data?.length < GRID_THRESHOLD ? setDataLength(340) : setDataLength(172.5)) : null;
+    isSuccess ? (data?.length <= GRID_THRESHOLD ? setDataLength(340) : setDataLength(172.5)) : null;
   }, [data]);
 
   return (

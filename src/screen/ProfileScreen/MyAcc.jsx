@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableW
 import SnackBar from '../../components/SnackBar';
 import { Mixins, Typography } from '../../styles';
 import Icon from 'react-native-vector-icons/Fontisto';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import Button from '../../components/Button';
 import { moderateScale } from '../../styles/mixins';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -88,7 +89,7 @@ const MyAcc = ({ navigation, route }) => {
     if (!errors.current?.hasErrorLabel) {
       try {
         seterror(null);
-        const data = await updateProfile(STRAPI_UPDATE_PROFILE_USER_DATA(firstName, lastName, dob, location));
+        const data = await updateProfile(STRAPI_UPDATE_PROFILE_USER_DATA(firstName, lastName, gender, dob, location));
         console.log(data?.data?.message);
         if (data?.data?.message?.firstName) {
           console.log(JSON.stringify(data));
@@ -118,6 +119,7 @@ const MyAcc = ({ navigation, route }) => {
       onChangeFirstName(profileData?.data?.firstName);
       onChangeLastName(profileData?.data?.lastName);
       onChangeEmail(profileData?.data?.email);
+      setGender(profileData?.data?.gender);
       setDOB(profileData?.data?.DOB);
       if (!location_input) setLocation(profileData?.data?.country);
     }
@@ -144,34 +146,8 @@ const MyAcc = ({ navigation, route }) => {
                       </View>
                       {errors.current?.firstNameLabel ? <Text style={styles.error_text}>{errors.current?.firstNameLabel}</Text> : null}
                     </View>
-                    <View style={styles.input_row}>
-                      <Text style={styles.fieldLabel}>EMAIL</Text>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="Enter your email" value={email} placeholderTextColor="#aaa" />
-                      </View>
-                      {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
-                    </View>
-                    <View style={styles.input_row}>
-                      <Text style={styles.fieldLabel}>GENDER</Text>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8 }}>
-                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }}>
-                          {gender == 'MALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
-                          {'  '}
-                          MALE
-                        </Text>
-                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }}>
-                          {gender == 'FEMALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
-                          {'  '}
-                          FEMALE
-                        </Text>
-                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }}>
-                          {gender == 'OTHER' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
-                          {'  '}
-                          OTHER
-                        </Text>
-                      </View>
-                    </View>
                     <View style={[styles.input_row, { flexDirection: 'row' }]}>
+                      <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
                       <View style={{ flex: 1 }}>
                         <Text style={styles.fieldLabel}>DATE OF BIRTH</Text>
                         <Pressable>
@@ -192,7 +168,34 @@ const MyAcc = ({ navigation, route }) => {
                       </View>
                     </View>
                     <View style={styles.input_row}>
-                      <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
+                      <Text style={styles.fieldLabel}>EMAIL</Text>
+                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <TextInput style={styles.fieldInput} onChangeText={onChangeEmail} placeholder="Enter your email" editable={false} value={email} placeholderTextColor="#aaa" />
+                      </View>
+                      {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
+                    </View>
+                    <View style={styles.input_row}>
+                      <Text style={styles.fieldLabel}>GENDER</Text>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8 }}>
+                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('MALE')}>
+                          {gender == 'MALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {'  '}
+                          MALE
+                        </Text>
+                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('FEMALE')}>
+                          {gender == 'FEMALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {'  '}
+                          FEMALE
+                        </Text>
+                        <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('OTHER')}>
+                          {gender == 'OTHER' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {'  '}
+                          OTHER
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View style={styles.input_row}>
                       <View style={{ flex: 1 }}>
                         <Text style={styles.fieldLabel}>LOCATION</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -216,11 +219,11 @@ const MyAcc = ({ navigation, route }) => {
                     </View>
                     <Button //
                       onPress={handleUpdate}
-                      title="UPDATE PROFILE"
+                      title="SAVE"
                       fill="#000"
                       color="#fff"
                       isLoading={userResult.isLoading}
-                      style={{ marginVertical: Mixins.moderateScale(30) }}
+                      style={{ marginTop: Mixins.moderateScale(50), marginBottom: moderateScale(30) }}
                     ></Button>
                     <Text style={[styles.body, { textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
                       RESET PASSWORD?
@@ -254,7 +257,7 @@ const styles = StyleSheet.create({
     fontSize: Typography.FONT_SIZE_18,
   },
   fieldInput: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     flex: 1,
     paddingVertical: 8,
     fontFamily: Typography.FONT_FAMILY_BODY,
@@ -262,7 +265,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   custom_input: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     flex: 1,
     paddingVertical: moderateScale(13),
     fontFamily: Typography.FONT_FAMILY_BODY,
@@ -270,8 +273,10 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   input_row: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
     width: Mixins.scaleSize(340),
-    marginTop: 20,
+    marginTop: moderateScale(30),
     // flexDirection: 'row',
   },
   error_text: {

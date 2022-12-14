@@ -4,8 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import Button from '../components/Button';
 import SwipeIndicator from '../components/SwipeIndicator';
 import { Mixins, Typography } from '../styles';
-import { moderateScale, scaleFont } from '../styles/mixins';
-
+import { moderateScale, scaleFont, scaleSize } from '../styles/mixins';
 const image = require('../assets/images/bg.jpg');
 const data = [
   {
@@ -53,9 +52,9 @@ const Welcome = ({ navigation }) => {
   const scrollEvent = (e) => {
     Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false });
     const scrollOffset = e.nativeEvent.contentOffset.x;
-    if (scrollOffset == 0) setcurrentPos(0);
-    if (scrollOffset == 360) setcurrentPos(1);
-    if (scrollOffset == 720) setcurrentPos(2);
+    if (scrollOffset === ITEM_LENGTH * 0) setcurrentPos(0);
+    if (scrollOffset > 0 && scrollOffset <= ITEM_LENGTH * 1) setcurrentPos(1);
+    if (scrollOffset > ITEM_LENGTH * 1 && scrollOffset <= ITEM_LENGTH * 2) setcurrentPos(2);
   };
   return (
     <View style={styles.container}>
@@ -128,10 +127,11 @@ const styles = StyleSheet.create({
     color: 'white',
     maxWidth: '80%',
     alignSelf: 'center',
-    marginTop: 5,
-    fontSize: Typography.FONT_SIZE_16,
-    fontFamily: Typography.FONT_FAMILY_BODY,
+    marginTop: moderateScale(15),
+    fontSize: Typography.FONT_SIZE_13,
+    fontFamily: Typography.ROBOTO_BODY,
     textAlign: 'center',
+    lineHeight: 20,
   },
   button: {
     backgroundColor: 'white',

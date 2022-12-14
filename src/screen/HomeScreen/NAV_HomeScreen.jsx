@@ -7,60 +7,16 @@ import HS_ProductScreen from './HS_ProductScreen';
 import NAV_ExerciseScreen from './NAV_ExerciseScreen';
 import 'react-native-gesture-handler';
 import { Animated } from 'react-native';
-import { CardStyleInterpolators } from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import PolicyScreen from '../PolicyScreen';
 import StatusBar from 'react';
 import HS_ShopScreen from './HS_ShopScreen';
+import { HeaderBackButton } from '@react-navigation/elements';
+// HeaderBackButton
 // Animated
-const Stack = createNativeStackNavigator();
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
-  const progress = Animated.add(
-    current.progress.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    }),
-    next
-      ? next.progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-          extrapolate: 'clamp',
-        })
-      : 0
-  );
+// const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
-  return {
-    cardStyle: {
-      transform: [
-        {
-          translateX: Animated.multiply(
-            progress.interpolate({
-              inputRange: [0, 1, 2],
-              outputRange: [
-                screen.width, // Focused, but offscreen in the beginning
-                0, // Fully focused
-                screen.width * -0.3, // Fully unfocused
-              ],
-              extrapolate: 'clamp',
-            }),
-            inverted
-          ),
-        },
-      ],
-    },
-  };
-};
 const NAV_HomeScreen = () => {
   return (
     <Stack.Navigator
@@ -72,7 +28,7 @@ const NAV_HomeScreen = () => {
           fontFamily: Typography.FONT_FAMILY_HEADING,
           fontSize: Typography.FONT_SIZE_24,
         },
-
+        // animationEnabled: false,
         headerShadowVisible: false,
       }}
     >
@@ -122,10 +78,10 @@ const NAV_HomeScreen = () => {
       <Stack.Screen
         name="SHOP_SCREEN"
         component={HS_ShopScreen}
-        options={{
-          title: 'SHOP PRODUCT',
-          headerShadowVisible: true,
-        }}
+        // options={{
+        //   title: 'SHOP PRODUCT',
+        //   headerShadowVisible: true,
+        // }}
       />
     </Stack.Navigator>
   );

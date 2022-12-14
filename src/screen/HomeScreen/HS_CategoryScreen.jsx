@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, StatusBar, TextInput, Pressable, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
-// SnackBar
 import { useGetCategoryQuery } from '../../services/strapi';
 import Icon from 'react-native-vector-icons/AntDesign';
 import NetworkRequest from '../../components/NetworkRequest';
-import SnackBar from '../../components/SnackBar';
+import { moderateScale } from '../../styles/mixins';
+
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
 
@@ -17,7 +17,8 @@ const HS_CategoryScreen = ({ navigation }) => {
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <View style={styles.searchBarContainer}>
           <Text style={[styles.searchBar_2]} onPress={() => navigation.navigate('SearchScreen', '')}>
-            <Icon name="search1" color="#aaa" size={16} /> SEARCH FOR A PRODUCT OR WORKOUT
+            <Icon name="search1" color="#aaa" size={moderateScale(20)} />
+            {'  '} Search for a workout or product
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(340) }}>
@@ -52,8 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
-
-    paddingTop: 15,
+    paddingTop: moderateScale(24),
   },
 
   scrollview: {
@@ -76,31 +76,18 @@ const styles = StyleSheet.create({
     width: Mixins.scaleSize(340),
   },
   searchBarContainer: {
-    paddingBottom: Mixins.moderateScale(10),
-  },
-  searchBar: {
-    width: Mixins.scaleSize(340),
-    backgroundColor: '#fff',
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: Mixins.moderateScale(15),
-    paddingVertical: Mixins.moderateScale(15),
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_16,
-    letterSpacing: 0.7,
-    color: '#777',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
   searchBar_2: {
     width: Mixins.scaleSize(340),
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+
     paddingRight: Mixins.moderateScale(15),
-    paddingVertical: Mixins.moderateScale(15),
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_16,
-    letterSpacing: 0.7,
-    color: '#777',
+    paddingVertical: Mixins.moderateScale(10),
+    fontFamily: Typography.ROBOTO_BODY,
+    fontSize: Typography.FONT_SIZE_15,
+    color: '#aaa',
   },
   heading: {
     fontFamily: Typography.FONT_FAMILY_BODY,

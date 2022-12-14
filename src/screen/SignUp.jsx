@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, Alert, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/Fontisto';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import Button from '../components/Button';
 import { moderateScale } from '../styles/mixins';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -45,11 +46,11 @@ const SignUp = ({ navigation, route }) => {
     setDatePickerVisibility(true);
   };
   const hideDatePicker = () => {
-    console.log('TESTTTTTT->');
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
     setDOB(moment(date).format());
+    if (LOG === true) console.log('A date has been picked: ', moment(date).format());
     hideDatePicker();
   };
   //TERMS TOGGLE BUTTON
@@ -59,7 +60,7 @@ const SignUp = ({ navigation, route }) => {
   let errors = useRef(null);
   //Form Operations
   const handleSubmit = async () => {
-    errors.current = formValidation(email, firstName, password, confirmPassword, gender, terms);
+    errors.current = formValidation(email, firstName, password, password, gender, terms);
     if (!errors.current.hasErrorLabel) {
       try {
         const data = await addUser({
@@ -76,7 +77,7 @@ const SignUp = ({ navigation, route }) => {
         } else {
           throw new Error(data?.error?.data?.error?.message);
         }
-        navigation.navigate('SignIn');
+        navigation.navigate('Confirmation');
       } catch (err) {
         console.log(err.message);
         seterror(err.message);
@@ -89,12 +90,12 @@ const SignUp = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-        <View style={{ marginVertical: Mixins.moderateScale(50) }}>
+        <View style={{ marginTop: Mixins.moderateScale(30), marginBottom: Mixins.moderateScale(50) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
               <Image
                 source={require('../assets/images/trnr-logo-light.png')}
-                style={{ width: Mixins.scaleSize(150), height: Mixins.scaleSize(37.5), marginBottom: moderateScale(20) }}
+                style={{ width: Mixins.scaleSize(100), height: Mixins.scaleSize(25), marginBottom: moderateScale(20) }}
                 resizeMode="contain"
               />
               <Text style={styles.heading}>GET STARTED NOW</Text>
@@ -108,7 +109,7 @@ const SignUp = ({ navigation, route }) => {
                 <View style={{ flex: 1, marginTop: 10, alignItems: 'center' }}>
                   <View style={styles.input_row}>
                     <Text style={styles.fieldLabel}>NAME</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
                       <TextInput style={styles.fieldInput} onChangeText={onChangeFirstName} placeholder="First name" value={firstName} placeholderTextColor="#aaa" />
                       <TextInput style={styles.fieldInput} onChangeText={onChangeLastName} placeholder="Last name" value={lastName} placeholderTextColor="#aaa" />
                     </View>
@@ -121,21 +122,21 @@ const SignUp = ({ navigation, route }) => {
                     </View>
                     {errors.current?.emailLabel ? <Text style={styles.error_text}>{errors.current?.emailLabel}</Text> : null}
                   </View>
-                  <View style={styles.input_row}>
+                  <View style={[styles.input_row, styles.borderBottom]}>
                     <Text style={styles.fieldLabel}>GENDER</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8 }}>
+                    <View style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8 }]}>
                       <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('MALE')}>
-                        {gender == 'MALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
+                        {gender == 'MALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
                         {'  '}
                         MALE
                       </Text>
                       <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('FEMALE')}>
-                        {gender == 'FEMALE' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
+                        {gender == 'FEMALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
                         {'  '}
                         FEMALE
                       </Text>
                       <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('OTHER')}>
-                        {gender == 'OTHER' ? <Icon name="checkbox-active" color="#000" size={18} /> : <Icon name="checkbox-passive" color="#000" size={Mixins.moderateScale(18)} />}
+                        {gender == 'OTHER' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
                         {'  '}
                         OTHER
                       </Text>
@@ -145,23 +146,23 @@ const SignUp = ({ navigation, route }) => {
                     <Text style={styles.fieldLabel}>PASSWORD</Text>
                     <View style={{ flexDirection: 'row' }}>
                       <TextInput style={styles.fieldInput} onChangeText={onChangePassword} value={password} placeholder="Enter your password" secureTextEntry={true} placeholderTextColor="#aaa" />
-                      <TextInput
+                      {/* <TextInput
                         style={styles.fieldInput}
                         onChangeText={onChangeConfirmPassword}
                         placeholder="Confirm password"
                         value={confirmPassword}
                         secureTextEntry={true}
                         placeholderTextColor="#aaa"
-                      />
+                      /> */}
                     </View>
                     <Text style={{ fontSize: Typography.FONT_SIZE_16, fontFamily: Typography.FONT_FAMILY_BODY, color: '#777', marginTop: 4 }}>
-                      Your password must be 8-20 characters long, contain letters and numbers.
+                      Should be 8-20 characters long, contain letters and numbers.
                     </Text>
                     {errors.current?.passwordLabel ? <Text style={styles.error_text}>{errors.current?.passwordLabel}</Text> : null}
-                    {errors.current?.cpasswordLabel ? <Text style={styles.error_text}>{errors.current?.cpasswordLabel}</Text> : null}
+                    {/* {errors.current?.cpasswordLabel ? <Text style={styles.error_text}>{errors.current?.cpasswordLabel}</Text> : null} */}
                   </View>
                   <View style={[styles.input_row, { flexDirection: 'row' }]}>
-                    <View style={{ flex: 1 }}>
+                    <View style={[{ flex: 1 }, styles.borderBottom]}>
                       <Text style={styles.fieldLabel}>DATE OF BIRTH</Text>
                       <Pressable>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -180,7 +181,7 @@ const SignUp = ({ navigation, route }) => {
                       </Pressable>
                     </View>
                     <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
-                    <View style={{ flex: 1 }}>
+                    <View style={[{ flex: 1, marginLeft: 5 }, styles.borderBottom]}>
                       <Text style={styles.fieldLabel}>LOCATION</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text
@@ -207,9 +208,9 @@ const SignUp = ({ navigation, route }) => {
                     ) : (
                       <Icon name="checkbox-passive" color={errors.current?.termsLabel ? '#f22' : '#000'} size={Mixins.moderateScale(18)} />
                     )}
-                    {'  '}AGREE TO OUR{' '}
+                    {'  '}Agree to our{' '}
                     <Text style={[{ textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}>
-                      TERMS AND CONDITIONS?
+                      Terms & Conditions?
                     </Text>
                   </Text>
                   <Button //
@@ -218,15 +219,15 @@ const SignUp = ({ navigation, route }) => {
                     fill="#000"
                     color="#fff"
                     isLoading={userProfileResult.isLoading || userResult.isLoading}
-                    style={{ marginVertical: Mixins.moderateScale(30) }}
+                    style={{ marginTop: Mixins.moderateScale(30), marginBottom: Mixins.moderateScale(10) }}
                   ></Button>
-                  <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'Sign In')}>
+                  <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'SignIn')}>
                     {' '}
-                    ALREADY A MEMEBER? <Text style={{ textDecorationLine: 'underline' }}>SIGN-IN HERE</Text>
+                    Already a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-in here</Text>
                   </Text>
-                  <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
+                  {/* <Text style={[styles.body, { marginTop: Mixins.moderateScale(24), textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
                     RESET PASSWORD?
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
             </View>
@@ -239,13 +240,14 @@ const SignUp = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   heading: {
-    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_28,
   },
   body: {
-    fontFamily: Typography.FONT_FAMILY_HEADING,
+    fontFamily: Typography.ROBOTO_HEADING,
+    fontSize: Typography.FONT_SIZE_12,
     marginTop: Mixins.moderateScale(5),
-    width: Mixins.scaleSize(250),
+    width: Mixins.scaleSize(300),
     textAlign: 'center',
   },
   fieldLabel: {
@@ -254,14 +256,18 @@ const styles = StyleSheet.create({
   },
   fieldInput: {
     borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
     flex: 1,
     paddingVertical: 8,
     fontFamily: Typography.FONT_FAMILY_BODY,
     fontSize: Typography.FONT_SIZE_16,
     marginRight: 5,
   },
-  custom_input: {
+  borderBottom: {
     borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  custom_input: {
     flex: 1,
     paddingVertical: moderateScale(13),
     fontFamily: Typography.FONT_FAMILY_BODY,
@@ -270,7 +276,7 @@ const styles = StyleSheet.create({
   },
   input_row: {
     width: Mixins.scaleSize(340),
-    marginTop: 20,
+    marginTop: moderateScale(25),
     // flexDirection: 'row',
   },
   error_text: {

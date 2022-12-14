@@ -7,6 +7,7 @@ import { useGetSearchQuery } from '../services/strapi';
 import NetworkRequest from '../components/NetworkRequest';
 import Search_Item from '../components/Search_Item';
 import { LOG } from '../utils/ApiConstants';
+import { moderateScale } from '../styles/mixins';
 
 const SearchScreen = ({ navigation: { goBack } }) => {
   const [text, setText] = useState('');
@@ -33,7 +34,7 @@ const SearchScreen = ({ navigation: { goBack } }) => {
           autoFocus={true}
           value={text}
           onChangeText={setText}
-          placeholder={'SEARCH FOR A PRODUCT OR WORKOUT'}
+          placeholder={'Search for a product and workout'}
           placeholderTextColor="#aaa"
         />
       </View>
@@ -56,42 +57,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: Mixins.WINDOW_WIDTH,
     alignSelf: 'center',
-    paddingTop: 15,
-    paddingHorizontal: Mixins.moderateScale(10),
+    paddingTop: moderateScale(24),
+    // paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
-  },
-  item: {
-    // alignItems: 'center',
   },
   searchBarContainer: {
     flexDirection: 'row',
     width: Mixins.scaleSize(340),
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  searchBar: {
-    width: Mixins.scaleSize(300),
-    backgroundColor: '#fff',
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: Mixins.moderateScale(15),
-    paddingVertical: Mixins.moderateScale(10),
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_16,
-    letterSpacing: 0.7,
-    color: '#777',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
   searchBar_2: {
-    width: Mixins.scaleSize(300),
+    width: Mixins.scaleSize(340),
+    marginLeft: Mixins.scaleSize(5),
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-
-    borderBottomColor: '#ccc',
     paddingRight: Mixins.moderateScale(15),
     paddingVertical: Mixins.moderateScale(10),
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_16,
-    letterSpacing: 0.7,
+    fontFamily: Typography.ROBOTO_BODY,
+    fontSize: Typography.FONT_SIZE_15,
+    color: '#777',
   },
 });
 

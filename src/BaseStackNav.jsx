@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import PolicyScreen from './screen/PolicyScreen';
 import CountrySelectorScreen from './screen/CountrySelectorScreen';
 import ResetScreen from './screen/ResetScreen';
+import Confirmation from './screen/Confirmation';
 const HomeStack = createNativeStackNavigator();
 
 const BaseStackNav = () => {
@@ -43,6 +44,7 @@ const BaseStackNav = () => {
             <HomeStack.Screen name="Welcome" component={Welcome} />
             <HomeStack.Screen name="SignIn" component={SignIn} />
             <HomeStack.Screen name="SignUp" component={SignUp} />
+            <HomeStack.Screen name="Confirmation" component={Confirmation} options={{ headerShown: true, title: ' ', headerShadowVisible: false }} />
             <HomeStack.Screen name="APPLICATION PRIVACY POLICY" component={PolicyScreen} options={{ headerShown: true }} />
           </>
         )}

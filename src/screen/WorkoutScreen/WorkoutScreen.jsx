@@ -45,7 +45,7 @@ const WS_WorkoutScreen = ({ navigation }) => {
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginBottom: bottomTabHeight, marginTop: -headerHeight }}>
             <View style={{ alignItems: 'center' }}>
               <Image source={require('../../assets/images/Vector.png')} style={{ width: Mixins.scaleSize(90), height: Mixins.scaleSize(90) }} resizeMode="contain" />
-              <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_18, marginTop: 15 }}> Your saved workouts will appear here</Text>
+              <Text style={{ fontFamily: Typography.ROBOTO_BODY, fontSize: Typography.FONT_SIZE_14, marginTop: 15 }}> Your saved workouts will appear here</Text>
             </View>
             <Button onPress={() => navigation.navigate('HomeScreen')} title="BROWSE WORKOUTS" fill="#000" color="white" style={{ position: 'absolute', bottom: moderateScale(30) }} />
           </View>

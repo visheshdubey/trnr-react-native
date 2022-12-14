@@ -25,7 +25,7 @@ export default function ProgressiveImage({ image, blur_image, text = '', styles 
       useNativeDriver: false,
     }).start();
   };
-  blur_image = blur_image !== '' ? blur_image : 'https://trnr-app-media.s3.ap-southeast-2.amazonaws.com/imageedit_1_9645229571_1_1_1_e9ac8ab835.webp';
+  blur_image = blur_image !== '' ? blur_image : 'https://trnr-app-media.s3.ap-southeast-2.amazonaws.com/placeholder_33c244a093.png?updated_at=2022-12-13T11:33:44.409Z'; // blur_image !== '' ? blur_image :
   return (
     <View style={{ overflow: 'hidden' }}>
       <FastImage
@@ -37,7 +37,7 @@ export default function ProgressiveImage({ image, blur_image, text = '', styles 
         fadeDuration={0}
       />
       {<Animated.Image style={[styles.default, { opacity: fadeAnim }]} source={{ uri: blur_image }} resizeMode={'cover'} fadeDuration={0} fallback={true} onLoad={smallLoaded} />}
-      {isSmallLoaded && text && (
+      {(isSmallLoaded || isLoaded) && text && (
         <Image
           style={[
             styles.backdrop,
@@ -49,7 +49,7 @@ export default function ProgressiveImage({ image, blur_image, text = '', styles 
           resizeMode="cover"
         ></Image>
       )}
-      <View style={styles.backdrop}>{isSmallLoaded && text && <Text style={styles.text}>{Typography.truncateString(text, 50)}</Text>}</View>
+      <View style={styles.backdrop}>{(isSmallLoaded || isLoaded) && text && <Text style={styles.text}>{Typography.truncateString(text, 50)}</Text>}</View>
     </View>
   );
 }

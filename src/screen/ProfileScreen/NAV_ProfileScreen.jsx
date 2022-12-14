@@ -32,11 +32,7 @@ const NAV_ProfileScreen = () => {
         options={{
           title: 'PROFILE',
           headerTitleAlign: 'left',
-          headerShown: true,
-          headerTitleStyle: {
-            fontFamily: Typography.FONT_FAMILY_BODY,
-            fontSize: Typography.FONT_SIZE_20,
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen

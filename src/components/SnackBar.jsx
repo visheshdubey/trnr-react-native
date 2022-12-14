@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useHeaderHeight } from '@react-navigation/elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { moderateScale } from '../styles/mixins';
 
 const { width, height } = Dimensions.get('window');
 const SnackBar = ({ state, text }) => {
@@ -16,7 +17,7 @@ const SnackBar = ({ state, text }) => {
   const entranceIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(entrance, {
-      toValue: x,
+      toValue: moderateScale(x),
       duration: 500,
       useNativeDriver: false,
     }).start();

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { RefreshControl, View, StyleSheet, Image, ScrollView, Text, useWindowDimensions } from 'react-native';
+import { RefreshControl, View, StyleSheet, Image, ScrollView, Text, useWindowDimensions, Linking } from 'react-native';
 import { Mixins, Typography } from '../../styles';
 import Button from '../../components/Button';
 import { useAddWorkoutMutation, useDeleteWorkoutMutation, useGetExerciseQuery, useGetWorkoutsListQuery } from '../../services/strapi';
@@ -68,7 +68,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
     }, 2000);
   };
   const handleShop = () => {
-    navigation.navigate('SHOP_SCREEN', { link: data?.produc?.product_link });
+    navigation.navigate('SHOP_SCREEN', { link: data?.product?.product_link });
   };
   return (
     <View style={[styles.container, { marginBottom: bottomTabHeight }]}>
@@ -90,7 +90,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
           {/* Video Player */}
           {data?.video != null ? <VideoPlayerComponent style={styles.video} videoUrl={data?.video.url} navigation={navigation} /> : null}
           {/* Large Images */}
-          <View style={{ alignItems: 'center', marginBottom: 100, marginTop: 20 }}>
+          <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 30 }}>
             {data?.image_large?.map((item, index) => (
               <View key={item.id}>
                 <FastImage style={[styles.image, data?.image_large.length]} source={{ uri: item.url }} resizeMode="cover" fallback={true} />
@@ -127,22 +127,22 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
               ))}
             </View>
             {/* Text Body  */}
-            <View style={styles.textContainer}>
-              {/* <Text style={styles.category}>{data?.exercise_category?.name}</Text>
+            {/* <View style={styles.textContainer}> */}
+            {/* <Text style={styles.category}>{data?.exercise_category?.name}</Text>
               <Text style={styles.heading}>{data?.name}</Text> */}
-              <Text style={styles.body}>{data?.description}</Text>
+            <Text style={styles.body}>{data?.description}</Text>
+            {/* </View> */}
+            <View style={{}}>
+              {workoutlist?.data?.exercises?.find((o) => o.id === exerciseId) ? (
+                <Button onPress={handleDelete} title="REMOVE FROM MY WORKOUT" fill="#E2E5E9" color="#333" isLoading={delresult.isLoading} />
+              ) : (
+                <Button onPress={handleSave} title="SAVE WORKOUT" fill="#000" color="#fff" isLoading={result.isLoading} />
+              )}
+
+              {data?.product?.product_link && <Button style={{ marginTop: 10 }} onPress={() => Linking.openURL(data?.product?.product_link)} title="SHOP PRODUCT" fill="#E2E5E9" color="#333" />}
             </View>
           </View>
         </NetworkRequest>
-        <View style={{ position: 'absolute', bottom: moderateScale(30) }}>
-          {workoutlist?.data?.exercises?.find((o) => o.id === exerciseId) ? (
-            <Button onPress={handleDelete} title="REMOVE FROM MY WORKOUT" fill="#E2E5E9" color="#333" isLoading={delresult.isLoading} />
-          ) : (
-            <Button onPress={handleSave} title="SAVE WORKOUT" fill="#000" color="#fff" isLoading={result.isLoading} />
-          )}
-
-          {data?.product?.product_link && <Button style={{ marginTop: 10 }} onPress={handleShop} title="SHOP PRODUCT" fill="#E2E5E9" color="#333" />}
-        </View>
       </ScrollView>
     </View>
   );
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     lineHeight: Typography.LINE_HEIGHT_18,
     width: Mixins.scaleSize(340),
-    marginBottom: Mixins.moderateScale(17.5),
+    // marginBottom: Mixins.moderateScale(17.5),
   },
 });
 export default HS_ExerciseDetailScreen;

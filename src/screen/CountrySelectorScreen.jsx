@@ -17,8 +17,8 @@ const CountrySelectorScreen = ({ navigation: { goBack }, route }) => {
   // const { data, error, isLoading } = useGetSearchQuery(firstChar);
   const data = country;
   useEffect(() => {
-    if (text.length > 0 && text.length < 3) {
-      if (LOG === true) console.log('🚀 ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
+    if (text.length > 0 && text.length < 5) {
+      if (LOG === true) console.log(' ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
       setFirstChar(text);
     }
     if (text.length == 0) setFirstChar('a');
@@ -30,11 +30,11 @@ const CountrySelectorScreen = ({ navigation: { goBack }, route }) => {
           <Icon name="arrowleft" color="#000" size={22} />
         </Pressable>
         <TextInput
-          style={[styles.searchBar, Mixins.generateBoxShadowStyle(-2, 4, '#aaa', 0.3, 3, 5, '#aaa')]}
+          style={[styles.searchBar_2]}
           autoFocus={true}
           value={text}
           onChangeText={setText}
-          placeholder={'SEARCH FOR YOUR COUNTRY'}
+          placeholder={'Search your country'}
           // onPress={() => navigation.navigate('SearchScreen', '')}
           placeholderTextColor="#aaa"
         />
@@ -44,7 +44,7 @@ const CountrySelectorScreen = ({ navigation: { goBack }, route }) => {
         data={data?.filter((item) => item.name.toLowerCase().includes(text.toLowerCase()))}
         style={styles.item}
         renderItem={(props) => <Country_Item {...props} from={from} />}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.code}
         keyboardShouldPersistTaps={'always'}
       />
     </SafeAreaView>
@@ -61,25 +61,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.moderateScale(10),
     backgroundColor: '#fff',
   },
-  item: {
-    // alignItems: 'center',
-  },
   searchBarContainer: {
     flexDirection: 'row',
     width: Mixins.scaleSize(340),
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
-  searchBar: {
-    width: Mixins.scaleSize(300),
+  searchBar_2: {
+    width: Mixins.scaleSize(340),
+    marginLeft: Mixins.scaleSize(5),
     backgroundColor: '#fff',
-    borderColor: '#ddd',
-    borderRadius: 8,
-    paddingHorizontal: Mixins.moderateScale(15),
+    paddingRight: Mixins.moderateScale(15),
     paddingVertical: Mixins.moderateScale(10),
-    fontFamily: Typography.FONT_FAMILY_BODY,
-    fontSize: Typography.FONT_SIZE_16,
-    letterSpacing: 0.7,
+    fontFamily: Typography.ROBOTO_BODY,
+    fontSize: Typography.FONT_SIZE_15,
     color: '#777',
   },
 });
