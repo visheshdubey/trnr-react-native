@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, StatusBar } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Button from '../components/Button';
 import { moderateScale } from '../styles/mixins';
@@ -66,6 +66,7 @@ const SignIn = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <StatusBar animated={true} barStyle={'default'} />
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
         <View style={{ marginVertical: Mixins.moderateScale(50) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

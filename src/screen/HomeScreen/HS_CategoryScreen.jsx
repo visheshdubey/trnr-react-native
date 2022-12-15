@@ -13,7 +13,7 @@ const HS_CategoryScreen = ({ navigation }) => {
   console.log(data);
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar animated={true} backgroundColor="#fff" barStyle={'dark-content'} />
+      <StatusBar animated={true} barStyle={'default'} />
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <View style={styles.searchBarContainer}>
           <Text style={[styles.searchBar_2]} onPress={() => navigation.navigate('SearchScreen', '')}>
