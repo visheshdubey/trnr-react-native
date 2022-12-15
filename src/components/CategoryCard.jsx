@@ -10,11 +10,6 @@ const CategoryCard = ({ item, style, onPress }) => {
   return (
     <View style={[styles.container, style]}>
       <Pressable onPress={onPress}>
-        {/* <Image style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover"></Image>
-        <Image style={[styles.backdrop, { width: Mixins.WINDOW_WIDTH, height: Mixins.scaleSize(150) }]} source={backdrop} resizeMode="cover"></Image>
-        <View style={[styles.backdrop]}>
-          <Text style={[styles.text, { fontSize: Typography.FONT_SIZE_24 }]}>{Typography.truncateString(item.name, 50)}</Text>
-        </View> */}
         <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} text={item.name} />
       </Pressable>
     </View>

@@ -126,12 +126,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
                 />
               ))}
             </View>
-            {/* Text Body  */}
-            {/* <View style={styles.textContainer}> */}
-            {/* <Text style={styles.category}>{data?.exercise_category?.name}</Text>
-              <Text style={styles.heading}>{data?.name}</Text> */}
             <Text style={styles.body}>{data?.description}</Text>
-            {/* </View> */}
             <View style={{}}>
               {workoutlist?.data?.exercises?.find((o) => o.id === exerciseId) ? (
                 <Button onPress={handleDelete} title="REMOVE FROM MY WORKOUT" fill="#E2E5E9" color="#333" isLoading={delresult.isLoading} />

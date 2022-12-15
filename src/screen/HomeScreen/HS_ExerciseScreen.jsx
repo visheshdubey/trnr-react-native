@@ -22,31 +22,6 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style={[styles.container, { marginBottom: bottomTabHeight }]}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
-        {/* <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{ width: Mixins.scaleSize(375) }}>
-          <View style={styles.grid}>
-            {data?.map((item) => {
-              return (
-                <ExerciseCard
-                  style={{
-                    margin: Mixins.moderateScale(5),
-                    width: Mixins.moderateScale(dataLength),
-                    height: Mixins.moderateScale(dataLength),
-                  }}
-                  item={item}
-                  size={340}
-                  key={item.id}
-                  onPress={() =>
-                    navigation.navigate('HS_ExerciseDetailScreen', {
-                      exerciseId: item.id,
-                      name: item.name,
-                    })
-                  }
-                />
-              );
-            })}
-          </View>
-        </ScrollView> */}
-        <View></View>
         <FlatList
           data={data}
           numColumns={data?.length > GRID_THRESHOLD ? 2 : 1}

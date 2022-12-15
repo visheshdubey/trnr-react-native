@@ -19,7 +19,6 @@ function Product_Item({ item }) {
           })
         }
       >
-        {/* <FastImage style={styles.imageStyles} source={{ uri: item.image }} resizeMode="cover" fallback={true} /> */}
         <ProgressiveImage styles={styles} image={item.image} blur_image={item.blur_image} />
         <Text style={styles.text}>{item.name}</Text>
       </Pressable>

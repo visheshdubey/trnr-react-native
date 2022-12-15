@@ -1,6 +1,6 @@
 import { Video } from 'expo-av';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 
 import { setStatusBarHidden } from 'expo-status-bar';

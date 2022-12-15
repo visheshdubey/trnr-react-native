@@ -77,10 +77,6 @@ const SignIn = ({ navigation }) => {
                 resizeMode="contain"
               />
               <Text style={styles.heading}>WELCOME BACK</Text>
-              {/* <Text style={[styles.body]}>TO ACCESS 100S OF EXERCISE VIDEOS AND MAKE THE MOST OF YOUR TRNR PRODUCTS</Text> */}
-              {/* <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#bfb', borderRadius: moderateScale(5) }}>
-                <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#003d0e' }}>Check your Inbox, Verify your E-mail.</Text>
-              </View> */}
               {error && (
                 <View style={{ padding: moderateScale(10), marginVertical: moderateScale(10), backgroundColor: '#ffe88c', borderRadius: moderateScale(5) }}>
                   <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16, color: '#8f7306' }}>{error}</Text>
