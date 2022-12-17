@@ -223,7 +223,7 @@ const MyAcc = ({ navigation, route }) => {
                       fill="#000"
                       color="#fff"
                       isLoading={userResult.isLoading}
-                      style={{ marginTop: Mixins.moderateScale(50), marginBottom: moderateScale(30) }}
+                      style={{ marginTop: Mixins.moderateScale(50), marginBottom: moderateScale(10) }}
                     ></Button>
                     <Text style={[styles.body, { textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('ResetScreen', 'Reset Password')}>
                       RESET PASSWORD?

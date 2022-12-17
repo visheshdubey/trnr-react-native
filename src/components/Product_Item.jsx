@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   text: {
-    fontFamily: Typography.FONT_FAMILY_BODY,
+    fontFamily: Typography.FONT_FAMILY_HEADING,
     fontSize: Typography.FONT_SIZE_18,
   },
   separator: { flex: 1, borderBottomWidth: 1, borderColor: '#eee' },
