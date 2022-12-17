@@ -75,7 +75,7 @@ const NAV_ProfileScreen = () => {
         name="APPLICATION_TNC"
         component={PolicyScreen}
         options={{
-          title: 'TERMS AND CONDITION',
+          title: 'TERMS AND CONDITIONS',
           headerShadowVisible: true,
         }}
       />

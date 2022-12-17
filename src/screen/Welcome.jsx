@@ -99,8 +99,12 @@ const Welcome = ({ navigation }) => {
       <View style={{ position: 'absolute', bottom: moderateScale(50), width: Mixins.WINDOW_WIDTH }}>
         <SwipeIndicator currentPos={currentPos} style={{ marginVertical: moderateScale(30) }} />
         <Button onPress={() => handleClick('SignUp', 'Sign Up')} title="CREATE AN ACCOUNT" fill="#fff" color="#000" isLoading={false} style={{ marginVertical: Mixins.moderateScale(20) }}></Button>
-        <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
+        {/* <Text style={styles.body} onPress={() => handleClick('SignIn', 'Sign In')}>
           Already have an account? Sign in
+        </Text> */}
+        <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'SignIn')}>
+          {' '}
+          Already a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-in here</Text>
         </Text>
       </View>
     </View>

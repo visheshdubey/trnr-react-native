@@ -45,7 +45,7 @@ const BaseStackNav = () => {
             <HomeStack.Screen name="SignIn" component={SignIn} />
             <HomeStack.Screen name="SignUp" component={SignUp} />
             <HomeStack.Screen name="Confirmation" component={Confirmation} options={{ headerShown: true, title: ' ', headerShadowVisible: false }} />
-            <HomeStack.Screen name="APPLICATION PRIVACY POLICY" component={PolicyScreen} options={{ headerShown: true }} />
+            <HomeStack.Screen name="TERMS AND CONDITIONS" component={PolicyScreen} options={{ headerShown: true }} />
           </>
         )}
         <HomeStack.Screen

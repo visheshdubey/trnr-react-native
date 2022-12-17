@@ -211,7 +211,7 @@ const SignUp = ({ navigation, route }) => {
                       <Icon name="checkbox-passive" color={errors.current?.termsLabel ? '#f22' : '#000'} size={Mixins.moderateScale(18)} />
                     )}
                     {'  '}Agree to our{' '}
-                    <Text style={[{ textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('APPLICATION PRIVACY POLICY', 'APPLICATION PRIVACY POLICY')}>
+                    <Text style={[{ textDecorationLine: 'underline' }]} onPress={() => navigation.navigate('TERMS AND CONDITIONS', 'TERMS AND CONDITIONS')}>
                       Terms & Conditions?
                     </Text>
                   </Text>
