@@ -8,6 +8,7 @@ import Privacy from './Privacy';
 import MyAcc from './MyAcc';
 import ResetScreen from '../ResetScreen';
 import CountrySelectorScreen from '../CountrySelectorScreen';
+import TermsScreen from '../Terms';
 // Animated
 const Stack = createNativeStackNavigator();
 
@@ -72,10 +73,18 @@ const NAV_ProfileScreen = () => {
         }}
       />
       <Stack.Screen
-        name="APPLICATION_TNC"
+        name="APPLICATION_POLICY"
         component={PolicyScreen}
         options={{
-          title: 'TERMS AND CONDITIONS',
+          title: 'PRIVACY POLICY',
+          headerShadowVisible: true,
+        }}
+      />
+      <Stack.Screen
+        name="APPLICATION_TNC"
+        component={TermsScreen}
+        options={{
+          title: 'PRIVACY POLICY',
           headerShadowVisible: true,
         }}
       />

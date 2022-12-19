@@ -44,7 +44,7 @@ const ProfileMenu = ({ navigation }) => {
               <Text style={styles.listText}>{'  '}ABOUT TRNR</Text>
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => navigation.navigate('Privacy')}>
+          <TouchableWithoutFeedback onPress={() => navigation.navigate('APPLICATION_POLICY')}>
             <View style={styles.listStyle}>
               {/* <Icon name="account-circle" size={22} color="black" /> */}
               <Text style={styles.listText}>PRIVACY POLICY</Text>

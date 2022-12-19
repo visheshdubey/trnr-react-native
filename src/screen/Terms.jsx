@@ -39,60 +39,58 @@ const TermsScreen = () => {
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
             (b) As part of the registration process, or as part of your continued use of the Services, you may be required to provide personal information about yourself (such as identification or
-            contact details), including: {'\n'}
-            {'\n'}1. Email{'\n'}2. address{'\n'}3. Password{'\n'}4. DOB{'\n'}5. Gender (male, female or other) {'\n'}
+            contact details), including:
           </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>1. Email</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>2. address</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>3. Password</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>4. DOB</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>5. Gender (male, female or other)</Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
             (c)You warrant that any information you give to us in the course of completing the registration process will always be accurate, correct and up to date. {'\n'}
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
             (d)Once you have completed the registration process, you will be a registered member of the Application ('Member') and agree to be bound by the Terms. {'\n'}
           </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (e)You may not use the Services and may not accept the Terms if: {'\n'}
-            {'\n'}1. you are not of legal age to form a binding contract with us; or {'\n'}2. you are a person barred from receiving the Services under the laws of Australia or other countries
-            including the country in which you are resident or from which you use the Services. {'\n'}
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>(e)You may not use the Services and may not accept the Terms if:</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>1. you are not of legal age to form a binding contract with us; or</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            2. you are a person barred from receiving the Services under the laws of Australia or other countries including the country in which you are resident or from which you use the Services.
           </Text>
           {/* ----------------------4 HEADING--------------------- */}
           <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>4. Your obligations as a Member </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a)As a Member, you agree to comply with the following:
-            {'\n'}
-            {'\n'}
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
-              {'   '} (a)you will use the Services only for purposes that are permitted by:
-              {'\n'}
-              {'\n'}
-              {'   '}1. the Terms; and
-              {'\n'}
-              {'   '}2. any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (b)you have the sole responsibility for protecting the confidentiality of your password and/or email address. Use of your password by any other person may result in the immediate
-              cancellation of the Services; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (c) any use of your registration information by any other person, or third parties, is strictly prohibited. You agree to immediately notify us of any unauthorised use of your password or
-              email address or any breach of security of which you have become aware; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (d) access and use of the Application is limited, non-transferable and allows for the sole use of the Application by you for the purposes of us providing the Services; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (e) you will not use the Services or the Application in connection with any commercial endeavours except those that are specifically endorsed or approved by our management; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (f) you will not use the Services or Application for any illegal and/or unauthorised use which includes collecting email addresses of Members by electronic or other means for the purpose
-              of sending unsolicited email or unauthorised framing of or linking to the Application; {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (g) you agree that commercial advertisements, affiliate links, and other forms of solicitation may be removed from the Application without notice and may result in termination of the
-              Services. Appropriate legal action will be taken by us for any illegal or unauthorised use of the Application; and {'\n'}
-            </Text>
-            <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-              (h) you acknowledge and agree that any automated use of the Application or its Services is prohibited. {'\n'}
-            </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>(a) As a Member, you agree to comply with the following:</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>(a) you will use the Services only for purposes that are permitted by:</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 45 }}>1. the Terms; and </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 45 }}>
+            2. any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions; {'\n'}
           </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (b)you have the sole responsibility for protecting the confidentiality of your password and/or email address. Use of your password by any other person may result in the immediate
+            cancellation of the Services; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (c) any use of your registration information by any other person, or third parties, is strictly prohibited. You agree to immediately notify us of any unauthorised use of your password or
+            email address or any breach of security of which you have become aware; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (d) access and use of the Application is limited, non-transferable and allows for the sole use of the Application by you for the purposes of us providing the Services; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (e) you will not use the Services or the Application in connection with any commercial endeavours except those that are specifically endorsed or approved by our management; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (f) you will not use the Services or Application for any illegal and/or unauthorised use which includes collecting email addresses of Members by electronic or other means for the purpose
+            of sending unsolicited email or unauthorised framing of or linking to the Application; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (g) you agree that commercial advertisements, affiliate links, and other forms of solicitation may be removed from the Application without notice and may result in termination of the
+            Services. Appropriate legal action will be taken by us for any illegal or unauthorised use of the Application; and {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (h) you acknowledge and agree that any automated use of the Application or its Services is prohibited. {'\n'}
+          </Text>
+
           {/* ----------------------HEADING--------------------- */}
           <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>5. Copyright and Intellectual Property </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
@@ -118,7 +116,11 @@ const TermsScreen = () => {
             {'\n'}
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (b) We retain all rights, title and interest in and to the Application and all related Services. Nothing you do on or in relation to the Application will transfer any:
+            (4) We do not grant you any other rights whatsoever in relation to the Application or the Services. All other rights are expressly reserved by us.
+            {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            (c) We retain all rights, title and interest in and to the Application and all related Services. Nothing you do on or in relation to the Application will transfer any:
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
             (1)business name, trading name, domain name, trade mark, industrial design, patent, registered design or copyright, or
@@ -137,100 +139,160 @@ const TermsScreen = () => {
             or play in public, adapt or change in any way the Services or third-party Services for any purpose, unless otherwise provided by these Terms. {'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>5. Disclosure of your personal information </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>6. Privacy </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a)We may disclose your personal information to any of our employees, officers, insurers, professional advisers, agents, suppliers or subcontractors insofar as reasonably necessary for the
-            purposes set out in this Policy. Personal information is only supplied to a third party when it is required for the delivery of our services. {'\n'}
+            We take your privacy seriously and any information provided through your use of the Application and/or Services are subject to our Privacy Policy, which is available on the Application.{' '}
+            {'\n'}
+          </Text>
+
+          {/* ----------------------HEADING--------------------- */}
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>7. General Disclaimer </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            (a) Nothing in the Terms limits or excludes any guarantees, warranties, representations or conditions implied or imposed by law, including the Australian Consumer Law (or any liability
+            under them) which by law may not be limited or excluded. {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>(b) Subject to this clause, and to the extent permitted by law: {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (1) all terms, guarantees, warranties, representations or conditions which are not expressly stated in the Terms are excluded; and {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (2) We will not be liable for any special, indirect, or consequential loss or damage (unless such loss or damage is reasonably foreseeable resulting from our failure to meet an applicable
+            Consumer Guarantee), loss of profit or opportunity, or damage to goodwill arising out of or in connection with the Services or these Terms (including as a result of not being able to use
+            the Services or the late supply of the Services), whether at common law, under contract, tort (including negligence), in equity, pursuant to statute or otherwise. {'\n'}
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (b)We may from time to time need to disclose personal information to comply with a legal requirement, such as a law, regulation, court order, subpoena, warrant, in the course of a legal
-            proceeding or in response to a law enforcement agency request. {'\n'}
+            (c)Use of the Application and the Services is at your own risk. Everything on the Application and the Services is provided to you "as is" and "as available" without warranty or condition
+            of any kind. None of our affiliates, directors, officers, employees, agents, contributors and licensors make any express or implied representation or warranty about the Services or any
+            products or Services (including our products or Services) referred to on the Application. This includes (but is not restricted to) loss or damage you might suffer as a result of any of the
+            following: {'\n'}
           </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (c) We may also use your personal information to protect our copyright, trademarks, legal rights, property, or safety, our Application, website and customers or third parties. {'\n'}
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (1) failure of performance, error, omission, interruption, deletion, defect, failure to correct defects, delay in operation or transmission, computer virus or other harmful component, loss
+            of data, communication line failure, unlawful third party conduct, or theft, destruction, alteration or unauthorised access to records; {'\n'}
           </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (d) Information that we collect may from time to time be stored, processed in or transferred between parties located in countries outside of Australia. {'\n'}
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (2) the accuracy, suitability or currency of any information on the Application, the Services, or any of its Services related products (including third party material and advertisements on
+            the Application); {'\n'}
           </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (e) If there is a change of control in our business or a sale or transfer of business assets, we reserve the right to transfer to the extent permissible at law our user databases, together
-            with any personal information and non-personal information contained in those databases. This information may be disclosed to a potential purchaser under an agreement to maintain
-            confidentiality. We would seek to only disclose information in good faith and where required by any of the above circumstances. {'\n'}
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (3) costs incurred as a result of you using the Application, the Services or any of our products; and {'\n'}
           </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (f) By providing us with personal information, you consent to the terms of this Privacy Policy and the types of disclosure covered by this Policy. Where we disclose your personal
-            information to third parties, we will request that the third party follow this Policy regarding handling your personal information.{'\n'}
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (4) the Services or operation in respect to links which are provided for your convenience.{'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>6. Security of your personal information </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>8. Competitors </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a) We are committed to ensuring that the information you provide to us is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic
-            and managerial procedures to safeguard and secure information and protect it from misuse, interference, loss and unauthorised access, modification and disclosure. {'\n'}
+            If you are in the business of providing similar Services for the purpose of providing them to users for a commercial gain, whether business users or domestic users, then you are a
+            competitor. Competitors are not permitted to use or access any information or content on our Application. If you breach this provision, we will hold you fully responsible for any loss that
+            we may sustain and hold you accountable for all profits that you might make from such a breach. {'\n'}
+          </Text>
+
+          {/* ----------------------HEADING--------------------- */}
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>9. Limitation of liability </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            (a)Our total liability arising out of or in connection with the Services or these Terms, however arising, including under contract, tort (including negligence), in equity, under statute or
+            otherwise, will not exceed the resupply of the Services to you. {'\n'}
           </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (b) The transmission and exchange of information is carried out at your own risk. We cannot guarantee the security of any information that you transmit to us, or receive from us. Although
-            we take measures to safeguard against unauthorised disclosures of information, we cannot assure you that personal information that we collect will not be disclosed in a manner that is
-            inconsistent with this Privacy Policy. {'\n'}
+            (b)You expressly understand and agree that New Era Fitness Pty Ltd, our affiliates, employees, agents, contributors and licensors shall not be liable to you for any direct, indirect,
+            incidental, special consequential or exemplary damages which may be incurred by you, however caused and under any theory of liability. This shall include, but is not limited to, any loss
+            of profit (whether incurred directly or indirectly), any loss of goodwill or business reputation and any other intangible loss. {'\n'}
+          </Text>
+
+          {/* ----------------------HEADING--------------------- */}
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>10. Termination of Contract </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            (a) The Terms will continue to apply until terminated by either you or by us as set out below. {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>(b) We may at any time, terminate the Terms with you if: {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (1) you have breached any provision of the Terms or intend to breach any provision; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>(2) We are required to do so by law; {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (3) the provision of the Services to you by us is, in our opinion, no longer commercially viable. {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            (c)Subject to local applicable laws, we reserve the right to discontinue or cancel your membership at any time and may suspend or deny, in our sole discretion, your access to all or any
+            portion of the Application or the Services without notice if you breach any provision of the Terms or any applicable law or if your conduct impacts our name or reputation or violates the
+            rights of those of another party. {'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>7. Access to your personal information </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>11. Indemnity </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a) You may request details of personal information that we hold about you in accordance with the provisions of the Privacy Act 1988(Cth). If you would like a copy of the information which
-            we hold about you or believe that any information we hold on you is inaccurate, out of date, incomplete, irrelevant or misleading, please email us at hello@trnr.com with the subject line
-            “Attn. Privacy Officer”. {'\n'}
+            (a) You agree to indemnify us, our affiliates, employees, agents, contributors, third party content providers and licensors from and against: {'\n'}
           </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (1) all actions, suits, claims, demands, liabilities, costs, expenses, loss and damage (including legal fees on a full indemnity basis) incurred, suffered or arising out of or in
+            connection with Your Content; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (2) any direct or indirect consequences of you accessing, using or transacting on the Application or attempts to do so; and/or {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>(3) any breach of the Terms. {'\n'}</Text>
+          {/* ----------------------HEADING--------------------- */}
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>12. Dispute Resolution </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_HEADING, paddingLeft: 15 }}>(a) Compulsory: {'\n'}</Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (b) We reserve the right to refuse to provide you with information that we hold about you, in certain circumstances set out in the{' '}
-            <Text style={{ fontStyle: 'italic' }}>Privacy Act. </Text> {'\n'}
+            If a dispute arises out of or relates to the Terms, either party may not commence any Tribunal or Court proceedings in relation to the dispute, unless the following clauses have been
+            complied with (except where urgent interlocutory relief is sought). {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_HEADING, paddingLeft: 15 }}>(b) Notice: {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            A party to the Terms claiming a dispute ('Dispute') has arisen under the Terms, must give written notice to the other party detailing the nature of the dispute, the desired outcome and the
+            action required to settle the Dispute. {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_HEADING, paddingLeft: 15 }}>(c) Resolution:{'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            On receipt of that notice ('Notice') by that other party, the parties to the Terms ('Parties') must: {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (1) Within 7 days days of the Notice endeavour in good faith to resolve the Dispute expeditiously by negotiation or such other means upon which they may mutually agree; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (2) If for any reason whatsoever, 14 days days after the date of the Notice, the Dispute has not been resolved, the Parties must either agree upon selection of a mediator or request that
+            an appropriate mediator be appointed by the President of the Law Society or his or her nominee; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>
+            (3) The Parties are equally liable for the fees and reasonable expenses of a mediator and the cost of the venue of the mediation and without limiting the foregoing undertake to pay any
+            amounts requested by the mediator as a pre-condition to the mediation commencing. The Parties must each pay their own costs associated with the mediation; {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 30 }}>(4) The mediation will be held in Sydney, New South Wales, Australia. {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_HEADING, paddingLeft: 15 }}>(c) Confidential: {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            All communications concerning negotiations made by the Parties arising out of and in connection with this dispute resolution clause are confidential and to the extent possible, must be
+            treated as "without prejudice" negotiations for the purpose of applicable laws of evidence. {'\n'}
+          </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_HEADING, paddingLeft: 15 }}>(c) Termination of Mediation: {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
+            If 2 weeks have elapsed after the start of a mediation of the Dispute and the Dispute has not been resolved, either Party may ask the mediator to terminate the mediation and the mediator
+            must do so. {'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>8. Complaints about privacy </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>13. Venue and Jurisdiction </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a)If you have any complaints about our privacy practices, please feel free to send in details of your complaints to PO BOX 1644, Sydney, New South Wales, 1355. We take complaints very
-            seriously and will endeavour to respond as soon as possible after receiving written notice of your complaint. {'\n'}
+            The Services offered by us are intended to be viewed by residents of Australia. In the event of any dispute arising out of or in relation to the Application, you agree that the exclusive
+            venue for resolving any dispute shall be in the courts of New South Wales, Australia.{'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>9. Op out right </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>14. Governing Law </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a)You can stop all collection of information by the Application easily by uninstalling the Application. You may use the standard uninstall processes as may be available as part of your
-            mobile device or via the mobile application marketplace or network. You can also request to opt-out via email, at hello@trnr.com with the subject line “Attn. Privacy Officer”. {'\n'}
+            The Terms are governed by the laws of New South Wales, Australia. Any dispute, controversy, proceeding or claim of whatever nature arising out of or in any way relating to the Terms and
+            the rights created hereby shall be governed, interpreted and construed by, under and pursuant to the laws of New South Wales, Australia, without reference to conflict of law principles,
+            notwithstanding mandatory rules. The validity of this governing law clause is not contested. The Terms shall be binding to the benefit of the parties hereto and their successors and
+            assigns. {'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>10. Changes to Privacy Policy </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>15. Independent Legal Advice </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            (a) Please be aware that we may change this Privacy Policy in the future. We may modify this Policy at any time, in our sole discretion and all modifications will be effective immediately
-            upon our posting of the modifications on our Application. Please check back from time to time to review our Privacy Policy. {'\n'}
+            Both parties confirm and declare that the provisions of the Terms are fair and reasonable and both parties having taken the opportunity to obtain independent legal advice and declare the
+            Terms are not against public policy on the grounds of inequality or bargaining power or general grounds of restraint of trade. {'\n'}
           </Text>
           {/* ----------------------HEADING--------------------- */}
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>11. Software Application {'\n'}</Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>16. Severance </Text>
           <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>(a) When you use our Application {'\n'}</Text>
-            When you come to our application we may collect certain information such as mobile unique device ID, the IP address of your mobile device, mobile operating system, the type of mobile
-            internet browsers you use, and information about the way you use the Application. This information is used in an aggregated manner to analyse how people use our site, such that we can
-            improve our service. {'\n'}
-          </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>(b) Cookies {'\n'}</Text>
-            We may from time-to-time use cookies on our software Application. Cookies are very small files which a website uses to identify you when you come back to the application and to store
-            details about your use of the application. Cookies are not malicious programs that access or damage your computer, tablet or smartphone. Most devices automatically accept cookies but you
-            can choose to reject cookies by changing your devise settings. However, this may prevent you from taking full advantage of our application. {'\n'}
-          </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>(c) Automatic collection {'\n'}</Text>
-            The software Application may collect certain information automatically, including, but not limited to, the type of mobile device you use, your mobile devices unique device ID, the IP
-            address of your mobile device, your mobile operating system, the type of mobile Internet browsers you use, and information about the way you use the Application. {'\n'}
-          </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>(d) Third parties {'\n'}</Text>
-            Our software application may from time to time have links to other applications or websites not owned or controlled by us. These links are meant for your convenience only. Links to third
-            party applications and websites do not constitute sponsorship or endorsement or approval of these third parties. Please be aware that we are not responsible for the privacy practises of
-            other such applications or websites. We encourage our users to be aware, when they leave our Application or website, to read the privacy statements of each and every application or website
-            that collects personal identifiable information. {'\n'}
-          </Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_14, fontFamily: Typography.ROBOTO_BODY, paddingLeft: 15 }}>
-            <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>(e) Geo-location {'\n'}</Text>
-            When you visit the mobile Application, we may use GPS technology (or other similar technology) to determine your current location in order to determine the city you are located within and
-            display a location map with relevant advertisements. We will not share your current location with other users or partners. {'\n'}
+            If any part of these Terms is found to be void or unenforceable by a Court of competent jurisdiction, that part shall be severed and the rest of the Terms shall remain in force. {'\n'}
           </Text>
         </View>
       </ScrollView>
