@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: Typography.FONT_SIZE_13,
     fontFamily: Typography.ROBOTO_BODY,
     textAlign: 'center',
-    lineHeight: 20,
+    // lineHeight: 20,
   },
   button: {
     backgroundColor: 'white',
