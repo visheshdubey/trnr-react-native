@@ -103,7 +103,6 @@ const Welcome = ({ navigation }) => {
           Already have an account? Sign in
         </Text> */}
         <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'SignIn')}>
-          {' '}
           Already a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-in here</Text>
         </Text>
       </View>
@@ -135,7 +134,6 @@ const styles = StyleSheet.create({
     fontSize: Typography.FONT_SIZE_13,
     fontFamily: Typography.ROBOTO_BODY,
     textAlign: 'center',
-    // lineHeight: 20,
   },
   button: {
     backgroundColor: 'white',

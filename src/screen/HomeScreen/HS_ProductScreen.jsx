@@ -1,3 +1,4 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react';
 import { RefreshControl, StyleSheet, SafeAreaView, FlatList, View, Text } from 'react-native';
 import NetworkRequest from '../../components/NetworkRequest';
@@ -10,7 +11,7 @@ const HS_ProductScreen = ({ route, navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const { categoryId, categoryName } = route.params;
   const { data, error, isLoading, refetch } = useGetProductQuery(categoryId);
-
+  const bottomTabHeight = useBottomTabBarHeight();
   useEffect(() => {
     navigation.setOptions({
       title: categoryName,
@@ -18,7 +19,7 @@ const HS_ProductScreen = ({ route, navigation }) => {
   }, [categoryName]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { marginBottom: bottomTabHeight }]}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         {data?.length === 0 ? (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -49,7 +50,6 @@ const styles = StyleSheet.create({
 
   list: {
     width: Mixins.scaleSize(340),
-    marginBottom: Mixins.moderateScale(50),
   },
   errorText: {
     fontFamily: Typography.FONT_FAMILY_HEADING,

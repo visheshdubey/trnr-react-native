@@ -178,17 +178,29 @@ const MyAcc = ({ navigation, route }) => {
                       <Text style={styles.fieldLabel}>GENDER</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8 }}>
                         <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('MALE')}>
-                          {gender == 'MALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {gender == 'MALE' ? (
+                            <IonIcon name="radio-button-on" color="#000" size={Mixins.moderateScale(18)} />
+                          ) : (
+                            <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />
+                          )}
                           {'  '}
                           MALE
                         </Text>
                         <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('FEMALE')}>
-                          {gender == 'FEMALE' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {gender == 'FEMALE' ? (
+                            <IonIcon name="radio-button-on" color="#000" size={Mixins.moderateScale(18)} />
+                          ) : (
+                            <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />
+                          )}
                           {'  '}
                           FEMALE
                         </Text>
                         <Text style={{ fontFamily: Typography.FONT_FAMILY_BODY, fontSize: Typography.FONT_SIZE_16 }} onPress={() => toggleGender('OTHER')}>
-                          {gender == 'OTHER' ? <IonIcon name="radio-button-on" color="#000" size={18} /> : <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />}
+                          {gender == 'OTHER' ? (
+                            <IonIcon name="radio-button-on" color="#000" size={Mixins.moderateScale(18)} />
+                          ) : (
+                            <IonIcon name="radio-button-off" color="#000" size={Mixins.moderateScale(18)} />
+                          )}
                           {'  '}
                           OTHER
                         </Text>

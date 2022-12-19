@@ -51,7 +51,7 @@ const WorkoutCard = ({ item }, props) => {
               }, 2000);
             }}
           >
-            {result.isLoading ? <ActivityIndicator color="red" /> : <Icon name="delete" color="red" size={18} />}
+            {result.isLoading ? <ActivityIndicator color="red" /> : <Icon name="delete" color="red" size={Mixins.moderateScale(18)} />}
           </Pressable>
         </View>
       </Pressable>
@@ -67,11 +67,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: Mixins.moderateScale(8),
     height: Mixins.moderateScale(104),
+    // backgroundColor: 'green',
   },
   text_icon: {
-    width: Mixins.scaleSize(200),
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // backgroundColor: 'red',
   },
   imageStyles: {
     width: Mixins.moderateScale(104, 0.1),
