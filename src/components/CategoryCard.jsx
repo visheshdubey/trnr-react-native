@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
-import { LOG } from '../utils/ApiConstants';
 import ProgressiveImage from './ProgressiveImage';
 
 const backdrop = require('../assets/images/cardGradient.png');
 const CategoryCard = ({ item, style, onPress }) => {
-  if (LOG === true) console.log('🚀 ~ file: CategoryCard.jsx ~ line 8 ~ CategoryCard ~ CategoryCard', 'Category Card Rendered');
   return (
     <View style={[styles.container, style]}>
       <Pressable onPress={onPress}>

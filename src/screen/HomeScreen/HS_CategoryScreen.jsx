@@ -9,8 +9,6 @@ import { moderateScale } from '../../styles/mixins';
 
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
-
-  console.log(data);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar animated={true} barStyle={'light-content'} />

@@ -12,11 +12,9 @@ export const videoPlayerSlice = createSlice({
      reducers: {
           updateFullscreen: (state, action) => {
                state.inFullscreen = action.payload;
-               console.log(' 📺 Video player is now in fullscreen : ', action.payload);
           },
           updateOrientation: (state, action) => {
                state.orientation = action.payload;
-               console.log(' 📺 Screen Orientation --> : ', action.payload);
           }
      },
 })

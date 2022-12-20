@@ -53,7 +53,7 @@ const ProfileMenu = ({ navigation }) => {
           <TouchableWithoutFeedback onPress={() => navigation.navigate('APPLICATION_TNC')}>
             <View style={styles.listStyle}>
               {/* <Icon name="account-circle" size={22} color="black" /> */}
-              <Text style={styles.listText}>TERMS & CONDITION</Text>
+              <Text style={styles.listText}>TERMS & CONDITIONS</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

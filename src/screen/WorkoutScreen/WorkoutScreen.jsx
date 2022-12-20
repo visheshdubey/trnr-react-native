@@ -12,7 +12,6 @@ import { useGetWorkoutsListQuery } from '../../services/strapi';
 import { Mixins, Typography } from '../../styles';
 import { WHITE } from '../../styles/colors';
 import { moderateScale } from '../../styles/mixins';
-import { LOG } from '../../utils/ApiConstants';
 // NetworkRequest
 const WS_WorkoutScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -21,12 +20,8 @@ const WS_WorkoutScreen = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
   const dispatch = useDispatch();
   const snackState = useSelector((state) => state.snackBar.workoutSnack);
-  if (LOG === true) console.log('🚀 ~ file: WorkoutScreen.jsx ~ line 14 ~ MyWorkout ~ userId', userId);
 
   const { data, error, isLoading, refetch } = useGetWorkoutsListQuery();
-
-  if (LOG === true) console.log('🚀 ~ file: WorkoutScreen.jsx ~ line 18 ~ MyWorkout ~ JSON.stringify(data?.exercises.length)', JSON.stringify(data?.exercises?.length));
-  if (LOG === true) console.log('🚀 ~ file: WorkoutScreen.jsx ~ line 18 ~ MyWorkout ~ JSON.stringify(error)', JSON.stringify(error));
   return (
     <SafeAreaView style={styles.container}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>

@@ -30,7 +30,6 @@ const ResetScreen = ({ navigation }) => {
   // Get Local data
   const getLocal = async () => {
     const x = await getDataObject();
-    console.log('Local Data:- ' + JSON.stringify(x));
   };
   //Form Operations
   const handleSubmit = async () => {
@@ -46,7 +45,6 @@ const ResetScreen = ({ navigation }) => {
           seterror('Something went wrong!');
         }
       } catch (err) {
-        console.log(err);
         seterror(err.message);
       }
     } else {

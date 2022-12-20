@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useGetSearchQuery } from '../services/strapi';
 import NetworkRequest from '../components/NetworkRequest';
 import Search_Item from '../components/Search_Item';
-import { LOG } from '../utils/ApiConstants';
 import { country } from '../utils/CountryList';
 import Country_Item from '../components/Country_Item';
 // Country_Item;
@@ -18,7 +17,6 @@ const CountrySelectorScreen = ({ navigation: { goBack }, route }) => {
   const data = country;
   useEffect(() => {
     if (text.length > 0 && text.length < 5) {
-      if (LOG === true) console.log(' ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
       setFirstChar(text);
     }
     if (text.length == 0) setFirstChar('a');

@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 function Search_Item({ item, style }) {
   const navigation = useNavigation();
-  // if(LOG===true) console.log(props);
 
   return (
     <View style={[styles.separator, style]}>

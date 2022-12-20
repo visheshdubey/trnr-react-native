@@ -1,7 +1,7 @@
 import moment from "moment"
 
 
-export const STRAPI_URL = 'https://apiapp.trnr.com/api/'//'https://apiapp.trnr.com/api/'
+export const STRAPI_URL = 'https://app.trnr.com/api/'//'https://apiapp.trnr.com/api/'
 
 export const LOG = true;
 

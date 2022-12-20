@@ -29,7 +29,6 @@ const SignIn = ({ navigation }) => {
   // Get Local data
   const getLocal = async () => {
     const x = await getDataObject();
-    console.log('Local Data:- ' + JSON.stringify(x));
   };
   //Form Operations
   const handleSubmit = async () => {
@@ -40,7 +39,6 @@ const SignIn = ({ navigation }) => {
           identifier: email,
           password: password,
         });
-        console.log(JSON.stringify(data));
         const token = data?.data?.jwt;
         if (!token) {
           if (data?.error?.data?.error?.message) throw new Error(data?.error?.data?.error?.message);
@@ -51,13 +49,11 @@ const SignIn = ({ navigation }) => {
             customerID: 123,
             expiresAt: 123,
           };
-          console.log('Storing token locally');
           setLocal(localData);
           getLocal();
           dispatch(signin(localData));
         }
       } catch (err) {
-        console.log(err);
         seterror(err.message);
       }
     } else {

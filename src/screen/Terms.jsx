@@ -8,7 +8,7 @@ const TermsScreen = () => {
       <ScrollView style={{ padding: 10, alignSelf: 'center', width: Mixins.scaleSize(370) }}>
         <View style={{ marginBottom: 150 }}>
           <Text style={{ fontSize: Typography.FONT_SIZE_24, fontFamily: Typography.FONT_FAMILY_HEADING, textAlign: 'center', textAlignVertical: 'center' }}>APPLICATION PRIVACY POLICY</Text>
-          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING, textAlign: 'center' }}>New Era Fitness Pty Ltd Vishesh{'\n'} </Text>
+          <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING, textAlign: 'center' }}>New Era Fitness Pty Ltd {'\n'} </Text>
 
           {/* ----------------------HEADING--------------------- */}
           <Text style={{ fontSize: Typography.FONT_SIZE_18, fontFamily: Typography.FONT_FAMILY_HEADING }}>1. About the Application </Text>

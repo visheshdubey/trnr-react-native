@@ -84,16 +84,11 @@ const MyAcc = ({ navigation, route }) => {
         firstNameLabel: "First name can't be empty",
       };
     }
-    // console.log(createTwoButtonAlert());
-    // createTwoButtonAlert();
     if (!errors.current?.hasErrorLabel) {
       try {
         seterror(null);
         const data = await updateProfile(STRAPI_UPDATE_PROFILE_USER_DATA(firstName, lastName, gender, dob, location));
-        console.log(data?.data?.message);
         if (data?.data?.message?.firstName) {
-          console.log(JSON.stringify(data));
-          // profileData.refetch();
           setsnack_text('Profile updated successfully!');
           profileData.refetch();
           openSnackBar();
@@ -101,13 +96,9 @@ const MyAcc = ({ navigation, route }) => {
           setsnack_text('Something went wrong!');
           openSnackBar();
         }
-
-        // navigation.navigate('SignIn');
       } catch (err) {
-        console.log(err.message);
         seterror(err.message);
       }
-      // openSnackBar();
     } else {
       forceUpdate();
     }
@@ -115,7 +106,6 @@ const MyAcc = ({ navigation, route }) => {
 
   React.useEffect(() => {
     if (profileData?.data) {
-      console.log(profileData?.data);
       onChangeFirstName(profileData?.data?.firstName);
       onChangeLastName(profileData?.data?.lastName);
       onChangeEmail(profileData?.data?.email);

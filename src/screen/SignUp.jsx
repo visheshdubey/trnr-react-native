@@ -69,17 +69,14 @@ const SignUp = ({ navigation, route }) => {
           username: email,
         });
         const id = data?.data?.user?.id;
-        console.log(id);
         if (id) {
           seterror(null);
           const data2 = await addProfile(STRAPI_ADD_USER_DATA(id, firstName, lastName, email, dob, gender, terms, location));
-          console.log(JSON.stringify(data2));
         } else {
           throw new Error(data?.error?.data?.error?.message);
         }
         navigation.navigate('Confirmation');
       } catch (err) {
-        console.log(err.message);
         seterror(err.message);
       }
       // openSnackBar();

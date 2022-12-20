@@ -28,9 +28,9 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
           renderItem={(props) => (
             <ExerciseCard
               style={{
-                margin: Mixins.moderateScale(5),
-                width: Mixins.moderateScale(dataLength),
-                height: Mixins.moderateScale(dataLength),
+                margin: Mixins.scaleSize(5),
+                width: Mixins.scaleSize(dataLength),
+                height: Mixins.scaleSize(dataLength),
               }}
               {...props}
             />
@@ -41,6 +41,8 @@ const HS_ExerciseScreen = ({ navigation, route }) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         />
       </NetworkRequest>
     </SafeAreaView>

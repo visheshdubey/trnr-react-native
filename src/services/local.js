@@ -20,7 +20,6 @@ export const storeDataObject = async (value) => {
 export const getData = async () => {
     try {
         const value = await AsyncStorage.getItem('storage_Key')
-        if (LOG === true) console.log(value);
         if (value !== null) {
             return value
         }

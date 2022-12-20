@@ -43,11 +43,8 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
         if ((await ScreenOrientation.getOrientationAsync()) !== ScreenOrientation.Orientation.LANDSCAPE_LEFT) {
           //This if condition was added because, On auto rotate off and puting video to landscape mode, it was getting into portrait after 2000ms automatically
           await ScreenOrientation.unlockAsync();
-          console.log('Orientation Unlocked');
         }
       }, 2000);
-      // console.log(evt.orientationInfo.orientation);
-      console.log('🚀 ~ file: VideoPlayerComponent.jsx ~ line 41 ~ subscription ~ evt.orientationInfo.orientation', evt.orientationLock);
       if (evt.orientationInfo.orientation !== 1) {
         setStatusBarHidden(true, 'fade');
         updateFullscreenHandler(true);
@@ -97,7 +94,6 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
       navigation.addListener('beforeRemove', async (e) => {
         if (inFullscreenRef.current) {
           e.preventDefault();
-          console.log('Yo 1', inFullscreenRef);
           setStatusBarHidden(false, 'fade');
           updateFullscreenHandler(!inFullscreenRef.current);
           refVideo2.current.setStatusAsync({
@@ -109,7 +105,6 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
           e.preventDefault();
           navigation.dispatch(e.data.action);
           await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-          console.log('Yo 2', inFullscreenRef);
         }
       }),
     [navigation]

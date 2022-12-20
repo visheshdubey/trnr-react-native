@@ -4,7 +4,7 @@ import { Mixins, Typography } from '../../styles';
 import Button from '../../components/Button';
 import { useAddWorkoutMutation, useDeleteWorkoutMutation, useGetExerciseQuery, useGetWorkoutsListQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
-import { LOG, STRAPI_ADD_WORKOUT, STRAPI_DELETE_WORKOUT } from '../../utils/ApiConstants';
+import {  STRAPI_ADD_WORKOUT, STRAPI_DELETE_WORKOUT } from '../../utils/ApiConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoPlayerComponent from '../../components/VideoPlayerComponent';
 import FastImage from 'react-native-fast-image';
@@ -30,15 +30,11 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const [snackText, setSnackText] = useState('');
   const dispatch = useDispatch();
   const snackState = useSelector((state) => state.snackBar.exerciseSnack);
-  console.log(userId);
   useEffect(() => {
-    console.log(JSON.stringify(workoutlist?.data?.exercises));
     if (workoutlist?.data?.exercises?.find((o) => o.id === exerciseId)) {
     }
   }, [workoutlist?.data?.exercises?.length]);
-  useEffect(() => {
-    console.log(JSON.stringify(data));
-  }, [data]);
+
   useEffect(() => {
     navigation.setOptions({
       title: name,
@@ -52,7 +48,6 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
     const work = await addWorkout(STRAPI_ADD_WORKOUT(exerciseId)).catch((err) => {
       return console.log('🔴 ~ file: HS_ExerciseDetailScreen.jsx ~ line 33 ~ handleSave ~ err', err);
     });
-    if (LOG === true) console.log('🚀 ~ file: HS_ExerciseDetailScreen.jsx ~ line 37 ~ handleSave ~ JSON.stringify(work)', JSON.stringify(work));
     setSnackText('SAVED TO MY WORKOUT');
     dispatch(exerciseSnack('ENTER'));
     setTimeout(() => {

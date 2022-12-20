@@ -4,7 +4,6 @@ import { getDataObject } from './local';
 
 const getLocal = async () => {
     const x = await getDataObject();
-    console.log('Local Data Strapi:- ' + JSON.stringify(x));
     return x;
 };
 export const strapiApi = createApi({
@@ -14,7 +13,6 @@ export const strapiApi = createApi({
         prepareHeaders: (headers, { getState }) => {
             const token = (getState()).user.accessToken;
 
-            // console.log("---->" + JSON.stringify(getState()));
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
             }

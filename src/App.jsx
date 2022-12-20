@@ -39,13 +39,12 @@ const SplashScreenComponent = () => {
     const loadData = async () => {
       const data = await getLocal();
       if (data) {
-        console.log(JSON.stringify(data));
         dispatch(signin(data));
       }
     };
     loadData();
   }, []);
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const [show, setShow] = useState(false);
   const [fontsLoaded, error] = useFonts({
     'BlankRiver-Bold': require('./assets/fonts/BlankRiver-Bold.ttf'),
@@ -57,7 +56,6 @@ const SplashScreenComponent = () => {
   });
   useEffect(() => {
     if (fontsLoaded) setShow(true);
-    if (LOG === true) console.log('🚀 ~ file: App.jsx ~ line 42 ~ useEffect ~ fontsLoaded', fontsLoaded);
   }, [fontsLoaded]);
 
   return <View style={{ flex: 1 }}>{!show ? <SplashScreen /> : <BaseStackNav />}</View>;

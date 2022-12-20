@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useGetSearchQuery } from '../services/strapi';
 import NetworkRequest from '../components/NetworkRequest';
 import Search_Item from '../components/Search_Item';
-import { LOG } from '../utils/ApiConstants';
 import { moderateScale } from '../styles/mixins';
 
 const SearchScreen = ({ navigation: { goBack } }) => {
@@ -17,12 +16,10 @@ const SearchScreen = ({ navigation: { goBack } }) => {
 
   useEffect(() => {
     if (text.length > 0 && text.length < 5) {
-      if (LOG === true) console.log('🚀 ~ file: SearchScreen.jsx ~ line 19 ~ useEffect ~ text', text);
       setFirstChar(text);
     }
     if (text.length == 0) setFirstChar('a');
   }, [text, data]);
-  console.log(JSON.stringify(data?.length));
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchBarContainer}>

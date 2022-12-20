@@ -6,7 +6,6 @@ import FastImage from 'react-native-fast-image';
 import ProgressiveImage from './ProgressiveImage';
 function Product_Item({ item }) {
   const navigation = useNavigation();
-  // if(LOG===true) console.log(props);
 
   return (
     <View style={styles.separator} key={item.id}>

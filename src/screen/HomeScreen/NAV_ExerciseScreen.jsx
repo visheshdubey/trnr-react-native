@@ -19,10 +19,6 @@ const NAV_ExerciseScreen = ({ route, navigation }) => {
     });
   }, [categoryName]);
 
-  useEffect(() => {
-    console.log(JSON.stringify(data));
-  }, [data]);
-
   return (
     <>
       {error ? (
