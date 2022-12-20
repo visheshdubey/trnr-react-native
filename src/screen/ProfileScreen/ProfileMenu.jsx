@@ -34,13 +34,13 @@ const ProfileMenu = ({ navigation }) => {
         <View style={{ marginTop: Mixins.moderateScale(20) }}>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('MyAcc')}>
             <View style={styles.listStyle}>
-              <Icon name="account-circle" size={26} color="black" />
+              <Icon name="account-circle" size={moderateScale(26)} color="black" />
               <Text style={styles.listText}>{'  '}MY ACCOUNT</Text>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={() => navigation.navigate('About')}>
             <View style={styles.listStyle}>
-              <Icon name="information" size={26} color="black" />
+              <Icon name="information" size={moderateScale(26)} color="black" />
               <Text style={styles.listText}>{'  '}ABOUT TRNR</Text>
             </View>
           </TouchableWithoutFeedback>
