@@ -1,5 +1,6 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, ImageBackground, StatusBar, Animated, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Animated, Dimensions, Image } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Button from '../components/Button';
 import SwipeIndicator from '../components/SwipeIndicator';
@@ -58,7 +59,8 @@ const Welcome = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <StatusBar animated={true} barStyle={'light-content'} />
+      {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
+      <StatusBar translucent={false} style={'light'} />
       <FlatList
         data={data}
         renderItem={({ item, index }) => {

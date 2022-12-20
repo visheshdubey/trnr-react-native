@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, Alert, Pressable, StatusBar } from 'react-native';
+import { View, StyleSheet, Text, TextInput, SafeAreaView, ScrollView, TouchableWithoutFeedback, Keyboard, Image, Alert, Pressable } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import Icon from 'react-native-vector-icons/Fontisto';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,7 @@ import moment from 'moment';
 import { formValidation } from '../utils/formValidations';
 import { useAddProfileMutation, useAddUserMutation } from '../services/strapi';
 import { STRAPI_ADD_USER_DATA } from '../utils/ApiConstants';
+import { StatusBar } from 'expo-status-bar';
 // import { StatusBar } from 'expo-status-bar';
 
 const SignUp = ({ navigation, route }) => {
@@ -88,7 +89,8 @@ const SignUp = ({ navigation, route }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       {/*  */}
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-        <StatusBar animated={true} barStyle={'light-content'} />
+        {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
+        <StatusBar translucent={false} style={'light'} />
         <View style={{ marginTop: Mixins.moderateScale(30), marginBottom: Mixins.moderateScale(50) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

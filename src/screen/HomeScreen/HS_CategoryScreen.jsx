@@ -1,17 +1,19 @@
 import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import CategoryCard from '../../components/CategoryCard';
 import { Mixins, Typography } from '../../styles';
 import { useGetCategoryQuery } from '../../services/strapi';
 import Icon from 'react-native-vector-icons/AntDesign';
 import NetworkRequest from '../../components/NetworkRequest';
 import { moderateScale } from '../../styles/mixins';
+import { StatusBar } from 'expo-status-bar';
 
 const HS_CategoryScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetCategoryQuery();
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar animated={true} barStyle={'light-content'} />
+      {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
+      <StatusBar translucent={false} style={'light'} />
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         <View style={styles.searchBarContainer}>
           <Text style={[styles.searchBar_2]} onPress={() => navigation.navigate('SearchScreen', '')}>
