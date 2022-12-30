@@ -2,16 +2,15 @@
   "expo": {
     "name": "TRNR",
     "slug": "trnr",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "icon": "./assets/app_logo.png",
-    "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],
     "android": {
       "package": "com.trnr.application",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/app_logo.png",
         "backgroundColor": "#000"
@@ -20,8 +19,16 @@
     "ios": {
       "bundleIdentifier": "com.trnr.application",
       "supportsTablet": true,
-      "requireFullScreen": false
+      "requireFullScreen": true
     },
+    "plugins": [
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "ALL"
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "25fbc033-4d54-4d9b-86b6-23d433495b4b"

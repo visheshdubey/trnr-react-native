@@ -30,12 +30,11 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
 
   useEffect(() => {
     // set initial orientation
-    ScreenOrientation.getOrientationAsync().then((info) => {
+    ScreenOrientation.getOrientationAsync().then(async (info) => {
       dispatch(updateOrientation(1));
-      ScreenOrientation.unlockAsync();
+      await ScreenOrientation.unlockAsync();
     });
     let timeout;
-
     // subscribe to future changes
     const subscription = ScreenOrientation.addOrientationChangeListener(async (evt) => {
       dispatch(updateOrientation(evt.orientationInfo.orientation));

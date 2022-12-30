@@ -60,7 +60,7 @@ const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
-      <StatusBar translucent={false} style={'light'} />
+      <StatusBar translucent={false} style={'light'} backgroundColor="#000" />
       <FlatList
         data={data}
         renderItem={({ item, index }) => {
@@ -105,7 +105,7 @@ const Welcome = ({ navigation }) => {
           Already have an account? Sign in
         </Text> */}
         <Text style={[styles.body]} onPress={() => navigation.navigate('SignIn', 'SignIn')}>
-          Already a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-in here</Text>
+          Already a member? <Text style={{ textDecorationLine: 'underline' }}>Sign-in here </Text>
         </Text>
       </View>
     </View>

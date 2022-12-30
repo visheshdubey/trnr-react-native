@@ -12,7 +12,7 @@ import { getDataObject, storeDataObject } from './services/local';
 import { logout, signin } from './services/features/userSlice';
 import { LOG } from './utils/ApiConstants';
 import moment from 'moment/moment';
-
+import * as ScreenOrientation from 'expo-screen-orientation';
 // moment
 const App = () => {
   return (
@@ -36,6 +36,10 @@ const SplashScreenComponent = () => {
   };
 
   useEffect(() => {
+    const setOrient = async () => {
+      // await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    };
+    setOrient();
     const loadData = async () => {
       const data = await getLocal();
       if (data) {
