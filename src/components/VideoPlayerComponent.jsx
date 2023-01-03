@@ -10,7 +10,7 @@ import VideoPlayer from 'expo-video-player';
 import { Mixins } from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateFullscreen, updateOrientation } from '../services/features/videoPlayerSlice';
+import { updateFullscreen, updateLog, updateOrientation } from '../services/features/videoPlayerSlice';
 
 const VideoPlayerComponent = ({ videoUrl, style }) => {
   const refVideo2 = useRef(null);
@@ -21,6 +21,7 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
   const [status, setStatus] = React.useState({});
   // const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
   const orientation = useSelector((state) => state.videoPlayer.orientation);
+  const customLog = useSelector((state) => state.videoPlayer.customLog);
   const dispatch = useDispatch();
   const inFullscreenRef = useRef(false);
   const updateFullscreenHandler = (fs) => {
@@ -32,7 +33,8 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
     // set initial orientation
     ScreenOrientation.getOrientationAsync().then(async (info) => {
       dispatch(updateOrientation(1));
-      await ScreenOrientation.unlockAsync();
+      const x = await ScreenOrientation.unlockAsync();
+      dispatch(updateLog(`Unlocked ${info}\n`));
     });
     let timeout;
     // subscribe to future changes
@@ -42,6 +44,7 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
         if ((await ScreenOrientation.getOrientationAsync()) !== ScreenOrientation.Orientation.LANDSCAPE_LEFT) {
           //This if condition was added because, On auto rotate off and puting video to landscape mode, it was getting into portrait after 2000ms automatically
           await ScreenOrientation.unlockAsync();
+          dispatch(updateLog('Unlocked Again\n'));
         }
       }, 2000);
       if (evt.orientationInfo.orientation !== 1) {

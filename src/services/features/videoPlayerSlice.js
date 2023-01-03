@@ -3,7 +3,8 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 
 const initialState = {
      inFullscreen: false,
-     orientation: ScreenOrientation.Orientation.PORTRAIT_UP
+     orientation: ScreenOrientation.Orientation.PORTRAIT_UP,
+     customLog: ''
 }
 
 export const videoPlayerSlice = createSlice({
@@ -15,11 +16,14 @@ export const videoPlayerSlice = createSlice({
           },
           updateOrientation: (state, action) => {
                state.orientation = action.payload;
+          },
+          updateLog: (state, action) => {
+               state.customLog = state.customLog + action.payload;
           }
      },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateFullscreen, updateOrientation } = videoPlayerSlice.actions
+export const { updateFullscreen, updateOrientation, updateLog } = videoPlayerSlice.actions
 
 export default videoPlayerSlice.reducer

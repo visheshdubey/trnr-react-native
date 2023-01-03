@@ -4,7 +4,7 @@ import { Mixins, Typography } from '../../styles';
 import Button from '../../components/Button';
 import { useAddWorkoutMutation, useDeleteWorkoutMutation, useGetExerciseQuery, useGetWorkoutsListQuery } from '../../services/strapi';
 import NetworkRequest from '../../components/NetworkRequest';
-import {  STRAPI_ADD_WORKOUT, STRAPI_DELETE_WORKOUT } from '../../utils/ApiConstants';
+import { STRAPI_ADD_WORKOUT, STRAPI_DELETE_WORKOUT } from '../../utils/ApiConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoPlayerComponent from '../../components/VideoPlayerComponent';
 import FastImage from 'react-native-fast-image';
@@ -27,6 +27,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   const scrollViewRef = useRef(null);
   const isFocused = useIsFocused();
   const inFullscreen = useSelector((state) => state.videoPlayer.inFullscreen);
+  const customLog = useSelector((state) => state.videoPlayer.customLog);
   const [snackText, setSnackText] = useState('');
   const dispatch = useDispatch();
   const snackState = useSelector((state) => state.snackBar.exerciseSnack);
@@ -86,6 +87,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
           {data?.video != null ? <VideoPlayerComponent style={styles.video} videoUrl={data?.video.url} navigation={navigation} /> : null}
           {/* Large Images */}
           <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 30 }}>
+            {/* <Text>{customLog}</Text> */}
             {data?.image_large?.map((item, index) => (
               <View key={item.id}>
                 <FastImage style={[styles.image, data?.image_large.length]} source={{ uri: item.url }} resizeMode="cover" fallback={true} />
