@@ -88,9 +88,11 @@ const SignUp = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       {/*  */}
+      
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
         {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
-        <StatusBar translucent={false} style={'light'} backgroundColor="#000" />
+        {/* <StatusBar translucent={false} style={'light'} backgroundColor="#000" /> */} 
+        <StatusBar translucent={false} style={'dark'}  />
         <View style={{ marginTop: Mixins.moderateScale(30), marginBottom: Mixins.moderateScale(50) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

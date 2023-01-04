@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Animated, Text } from 'react-native';
 import { Mixins, Typography } from '../styles';
 import { Dimensions } from 'react-native';
@@ -9,9 +9,11 @@ import { moderateScale } from '../styles/mixins';
 const { width, height } = Dimensions.get('window');
 const SnackBar = ({ state, text }) => {
   const bottomTabHeight = useBottomTabBarHeight() || 0;
+  console.log(bottomTabHeight);
   const down = -bottomTabHeight * 2;
-  const entrance = useRef(new Animated.Value(down)).current;
+  const entrance = useRef(new Animated.Value(-150)).current;
   const entranceIn = () => {
+
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(entrance, {
       toValue: moderateScale(10),
@@ -28,13 +30,15 @@ const SnackBar = ({ state, text }) => {
     }).start();
   };
   if (state === 'ENTER') {
-    entranceIn();
-  }
-  if (state === 'EXIT') {
-    entranceOut();
-  } //top: entrance,
+      entranceIn();
+    }
+    if (state === 'EXIT') {
+      entranceOut();
+    }
+  //top: entrance,
   return (
-    <Animated.View style={{ width: Mixins.WINDOW_WIDTH, height: moderateScale(50), zIndex: 99999, bottom: entrance, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
+    <>
+    {<Animated.View style={{ width: Mixins.WINDOW_WIDTH, height: moderateScale(50), zIndex: 99999, bottom: entrance, position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
       <View
         style={[
           { backgroundColor: 'black', width: Mixins.scaleSize(300), height: 40, alignItems: 'center', borderRadius: 2, justifyContent: 'center' },
@@ -48,7 +52,7 @@ const SnackBar = ({ state, text }) => {
           {text}
         </Text>
       </View>
-    </Animated.View>
+    </Animated.View>}</>
   );
 };
 

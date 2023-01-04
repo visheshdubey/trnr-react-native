@@ -68,7 +68,7 @@ const HS_ExerciseDetailScreen = ({ route, navigation }) => {
   };
   return (
     <View style={[styles.container, { marginBottom: bottomTabHeight }]}>
-      <SnackBar state={snackState} text={snackText} />
+      {!inFullscreen&&<SnackBar state={snackState} text={snackText} />}
       <ScrollView
         alwaysBounceVertical={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}

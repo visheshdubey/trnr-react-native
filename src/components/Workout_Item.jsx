@@ -24,6 +24,9 @@ const WorkoutCard = ({ item }, props) => {
       setSnackState('EXIT');
     }, 3500);
   };
+  useEffect(()=>{
+return dispatch(workoutSnack('EXIT'));
+  },[])
   useEffect(() => {
     result.isSuccess && openSnackBar();
   }, [result.isSuccess]);

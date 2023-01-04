@@ -60,7 +60,7 @@ const Welcome = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
-      <StatusBar translucent={false} style={'light'} backgroundColor="#000" />
+      <StatusBar translucent={false} style={'auto'} backgroundColor="#000" />
       <FlatList
         data={data}
         renderItem={({ item, index }) => {

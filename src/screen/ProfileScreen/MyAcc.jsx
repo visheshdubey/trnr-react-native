@@ -12,10 +12,12 @@ import { formValidation } from '../../utils/formValidations';
 import { useAddProfileMutation, useAddUserMutation, useGetProfileQuery, useUpdateProfileMutation } from '../../services/strapi';
 import { STRAPI_ADD_USER_DATA, STRAPI_UPDATE_PROFILE_USER_DATA } from '../../utils/ApiConstants';
 import NetworkRequest from '../../components/NetworkRequest';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 const MyAcc = ({ navigation, route }) => {
   const [state, setstate] = useState('NO');
 
+  const bottomTabHeight = useBottomTabBarHeight();
   const location_input = route?.params?.location_input || null;
   const [snack_text, setsnack_text] = useState('Profile updated successfully!');
   const [, updateState] = React.useState();
@@ -115,10 +117,10 @@ const MyAcc = ({ navigation, route }) => {
     }
   }, [profileData?.data]);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff',marginBottom:bottomTabHeight }}>
       <NetworkRequest error={profileData.error} data={profileData.data} isLoading={profileData.isLoading}>
         <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-          <View style={{ marginTop: Mixins.moderateScale(10) }}>
+          <View style={{ marginTop: Mixins.moderateScale(10) ,marginBottom:50}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 {error && (

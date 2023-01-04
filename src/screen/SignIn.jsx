@@ -64,7 +64,8 @@ const SignIn = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       {/* <StatusBar animated={true} barStyle={'light-content'} /> */}
-      <StatusBar translucent={false} style={'light'} backgroundColor="#000" />
+      {/* <StatusBar translucent={false} style={'light'} backgroundColor="#000" /> */}
+      <StatusBar translucent={false} style={'dark'}  />
       <ScrollView alwaysBounceVertical={false} bounces={false} bouncesZoom={false} maximumZoomScale={0} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
         <View style={{ marginVertical: Mixins.moderateScale(50) }}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

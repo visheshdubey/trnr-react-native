@@ -32,8 +32,9 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
   useEffect(() => {
     // set initial orientation
     ScreenOrientation.getOrientationAsync().then(async (info) => {
-      dispatch(updateOrientation(1));
-      const x = await ScreenOrientation.unlockAsync();
+      dispatch(updateOrientation(ScreenOrientation.OrientationLock.PORTRAIT_UP));
+      // await ScreenOrientation.unlockAsync().then((res)=>console.log('Success')).catch((err)=>console.log(err));
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
       dispatch(updateLog(`Unlocked ${info}\n`));
     });
     let timeout;
@@ -43,7 +44,9 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
       timeout = setTimeout(async () => {
         if ((await ScreenOrientation.getOrientationAsync()) !== ScreenOrientation.Orientation.LANDSCAPE_LEFT) {
           //This if condition was added because, On auto rotate off and puting video to landscape mode, it was getting into portrait after 2000ms automatically
-          await ScreenOrientation.unlockAsync();
+          dispatch(updateOrientation(ScreenOrientation.OrientationLock.PORTRAIT_UP));
+      // await ScreenOrientation.unlockAsync().then((res)=>console.log('Success')).catch((err)=>console.log(err));
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
           dispatch(updateLog('Unlocked Again\n'));
         }
       }, 2000);
@@ -105,8 +108,8 @@ const VideoPlayerComponent = ({ videoUrl, style }) => {
           await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
         } else {
           e.preventDefault();
-          navigation.dispatch(e.data.action);
           await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+          navigation.dispatch(e.data.action);
         }
       }),
     [navigation]

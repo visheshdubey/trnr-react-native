@@ -2,7 +2,7 @@
   "expo": {
     "name": "TRNR",
     "slug": "trnr",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icon": "./assets/app_logo.png",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [

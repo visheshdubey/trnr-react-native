@@ -23,7 +23,7 @@ const WS_WorkoutScreen = ({ navigation }) => {
 
   const { data, error, isLoading, refetch } = useGetWorkoutsListQuery();
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container,{marginBottom: bottomTabHeight}]}>
       <NetworkRequest error={error} data={data} isLoading={isLoading}>
         {data?.exercises?.length > 0 ? (
           <FlatList
@@ -37,7 +37,7 @@ const WS_WorkoutScreen = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
           />
         ) : (
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginBottom: bottomTabHeight, marginTop: -headerHeight }}>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',  marginTop: -headerHeight,marginBottom: bottomTabHeight }}>
             <View style={{ alignItems: 'center' }}>
               <Image source={require('../../assets/images/Vector.png')} style={{ width: Mixins.scaleSize(90), height: Mixins.scaleSize(90) }} resizeMode="contain" />
               <Text style={{ fontFamily: Typography.ROBOTO_BODY, fontSize: Typography.FONT_SIZE_14, marginTop: 15 }}> Your saved workouts will appear here</Text>

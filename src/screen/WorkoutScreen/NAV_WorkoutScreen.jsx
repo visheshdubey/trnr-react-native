@@ -4,8 +4,9 @@ import 'react-native-gesture-handler';
 import { Animated } from 'react-native';
 import WS_WorkoutScreen from './WorkoutScreen';
 import HS_ExerciseDetailScreen from '../HomeScreen/HS_ExerciseDetailScreen';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 // Animated
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const NAV_WorkoutScreen = () => {
   return (
